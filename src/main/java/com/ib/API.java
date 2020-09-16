@@ -3,7 +3,6 @@ import com.ib.client.Contract;
 import com.ib.client.Types;
 import com.ib.controller.ApiConnection;
 import com.ib.controller.ApiController;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
