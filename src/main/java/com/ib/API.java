@@ -1,30 +1,36 @@
 package com.ib;
+import com.ib.client.Contract;
+import com.ib.client.Types;
+import com.ib.controller.ApiConnection;
 import com.ib.controller.ApiController;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 public class API implements ApiController.IConnectionHandler {
 
     static API INSTANCE = new API();
-    Logger m_inLogger = new Logger();
-    Logger m_outLogger = new Logger();
-    ApiController m_controller = new ApiController( this, m_inLogger, m_outLogger);
+    ApiController m_controller = new ApiController( this);
 
     public static void main(String[] args) {
         INSTANCE.run();
     }
 
     void run() {
-        // make initial connection to local host, port 7496, client id 0
         m_controller.connect( "127.0.0.1", 7400, 0, "");
 
-        // Your implementation
     }
 
 
     @Override
     public void connected() {
+        Contract contract = new Contract();
+        contract.symbol("BMW");
+        contract.secType("STK");
+        contract.exchange("IBIS");
+        contract.currency("EUR");
 
+        m_controller.reqRealTimeBars(contract, Types.WhatToShow.TRADES, false, new RaivoRealTimeHandler());
     }
 
     @Override
