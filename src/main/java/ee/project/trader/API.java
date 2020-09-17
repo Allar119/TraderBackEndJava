@@ -1,7 +1,6 @@
-package com.ib;
+package ee.project.trader;
 import com.ib.client.Contract;
 import com.ib.client.Types;
-import com.ib.controller.ApiConnection;
 import com.ib.controller.ApiController;
 
 import java.util.List;
@@ -23,13 +22,15 @@ public class API implements ApiController.IConnectionHandler {
 
     @Override
     public void connected() {
+        System.out.println("Connected käivitus");
         Contract contract = new Contract();
-        contract.symbol("BMW");
+        contract.symbol("AAPL");
         contract.secType("STK");
-        contract.exchange("IBIS");
-        contract.currency("EUR");
+        contract.exchange("SMART");
+        contract.currency("USD");
 
         m_controller.reqRealTimeBars(contract, Types.WhatToShow.TRADES, false, new RaivoRealTimeHandler());
+        System.out.println("Connected peale realTimeBar väljakutsumist");
     }
 
     @Override
