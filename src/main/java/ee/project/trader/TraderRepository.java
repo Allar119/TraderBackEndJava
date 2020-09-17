@@ -17,7 +17,7 @@ public class TraderRepository {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public void addTicker(Ticker ticker) {
-        System.out.println("TraderRepository addTicker: " + Ticker);
+        System.out.println("TraderRepository addTicker: " + "Ticker");
         Map<String, Object> paramMap = new HashMap<>();
       //  paramMap.put("account_number", accountNumber);
         //paramMap.put("bank_customer_id", id);
@@ -27,6 +27,12 @@ public class TraderRepository {
                 ":bank_customer_id, " +
                 ":balance)";
         jdbcTemplate.update(sql, paramMap);
+
+    }
+
+    public void addPrice(Price price) {
+
+        System.out.println("TraderRepository addPrice");
 
     }
 
@@ -106,6 +112,8 @@ public class TraderRepository {
                 ":action)";
         jdbcTemplate.update(sql, paramMap);
     }
+
+
 
 
 

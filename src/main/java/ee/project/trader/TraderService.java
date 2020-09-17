@@ -13,34 +13,39 @@ public class TraderService {
 
     public void addTicker(Ticker ticker) {
 
-        traderRepository.addTicker();
+        traderRepository.addTicker(ticker);
+    }
+
+    public void addPrice(Price price) {
+
+        traderRepository.addPrice(price);
     }
 
 
     public void transferMoney(String fromAccount,
                               String toAccount,
                               BigDecimal amount) {
-        BigDecimal fromAccountBalance = accountRepository.getBalance(fromAccount);
+        BigDecimal fromAccountBalance = traderRepository.getBalance(fromAccount);
         if (fromAccountBalance.compareTo(amount) >= 0) {
-            BigDecimal toAccountBalance = accountRepository.getBalance(toAccount);
+            BigDecimal toAccountBalance = traderRepository.getBalance(toAccount);
             fromAccountBalance = fromAccountBalance.subtract(amount);
             toAccountBalance = toAccountBalance.add(amount);
-            accountRepository.updateBalance(fromAccount, fromAccountBalance);
-            accountRepository.updateBalance(toAccount, toAccountBalance);
+            traderRepository.updateBalance(fromAccount, fromAccountBalance);
+            traderRepository.updateBalance(toAccount, toAccountBalance);
         }
     }
 
     public BigDecimal getAccountBalance(String accountNumber) {
         System.out.println("AccountService getAccountBalance " + accountNumber);
-        BigDecimal accountBalance = accountRepository.getBalance(accountNumber);
-        history("", accountNumber, "balance request");
+        BigDecimal accountBalance = traderRepository.getBalance(accountNumber);
+       // history("", accountNumber, "balance request");
         return accountBalance;
     }
 
     public void makeDeposit(String accountNumber, BigDecimal deposit) {
         System.out.println("AccountService makeDeposit accountNumber: "+ accountNumber + " deposit: " + deposit);
-        accountRepository.updateBalance(accountNumber, accountRepository.getBalance(accountNumber).add(deposit));
-        history("", accountNumber, "deposit made: "+ deposit);
+        traderRepository.updateBalance(accountNumber, traderRepository.getBalance(accountNumber).add(deposit));
+        //history("", accountNumber, "deposit made: "+ deposit);
     }
 
 

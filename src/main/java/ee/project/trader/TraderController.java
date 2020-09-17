@@ -2,10 +2,8 @@ package ee.project.trader;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TraderController {
@@ -14,9 +12,9 @@ public class TraderController {
     @Autowired
     private TraderService traderService;
 
-    @PostMapping("createTicker/")
-
-    /* teeme andmebaasi uue tickeri, a-la AAPL, NVDA jne andes kaasa json-is
+    @PostMapping("addticker/")
+    public void addTicker() {
+    /* teeme andmebaasis TICKER tabelis uue rea tickeri dataga, a-la AAPL, NVDA jne andes kaasa json-is
 
         contract.symbol("AAPL");
         contract.secType("STK");
@@ -24,12 +22,32 @@ public class TraderController {
         contract.currency("USD");
 
      */
-
-    public void addTicker() {
-
         Ticker ticker = new Ticker("AAPL", "STK", "SMART", "USD");
         traderService.addTicker(ticker);
     }
+
+
+    @PostMapping("addorder/")
+    public void addOrder() {
+    /* teeme andmebaasis TICKER tabelis uue rea tickeri dataga, a-la AAPL, NVDA jne andes kaasa json-is
+
+        contract.symbol("AAPL");
+        contract.secType("STK");
+        contract.exchange("SMART");
+        contract.currency("USD");
+
+     */
+        Ticker ticker = new Ticker("AAPL", "STK", "SMART", "USD");
+        traderService.addTicker(ticker);
+    }
+
+    public void updatePrice() {
+        Price price = new Price("2020-09-17", "14:23:30", 110.30);
+
+        traderService.addPrice(price);
+    }
+
+/*
 
 
     @PostMapping("createaccount/{accountNumber}")
@@ -38,7 +56,7 @@ public class TraderController {
         accountService.createAccount(accountNumber, id);
     }
 
-    /*
+
         @PostMapping("createnewaccount/{name}")
         public void createAccount(@PathVariable String name) {
             // kontrolline, kas bank_customer tabelis on selline nimi olemas
@@ -50,7 +68,7 @@ public class TraderController {
 
             accountService.createAccount(name);
         }
-    */
+
     @PostMapping("createcustomer/{name}")
     public void createCustomer(@PathVariable String name) {
         int randomPersonalCode = (int) ((Math.random() * 500000) + 100);
@@ -100,6 +118,5 @@ public class TraderController {
                 request.getAmount());
     }
 
-
-
+    */
 }
