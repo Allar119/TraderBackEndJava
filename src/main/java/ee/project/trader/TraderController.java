@@ -1,9 +1,10 @@
 package ee.project.trader;
 
 
+import ee.project.trader.handlers.ConnectionHandler;
+import ee.project.trader.objects.Connect;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TraderController {
@@ -11,6 +12,18 @@ public class TraderController {
 
     @Autowired
     private TraderService traderService;
+
+    @Autowired
+    private ConnectionHandler connectionHandler;
+
+    //Start connection
+    @PutMapping("/connect")
+    public void startConnection(@RequestBody Connect connect){
+        connectionHandler.run(connect.getIp(), connect.getPort(), connect.getClientId(), "");
+    }
+
+
+
 
     @PostMapping("addticker/")
     public void addTicker() {
