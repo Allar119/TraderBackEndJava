@@ -34,16 +34,27 @@ public class TraderService {
     }
 
     public void newBar(Contract contract, Bar bar) {
+        /*
         System.out.println("realTimeBar käivitus");
-
         System.out.println("TIME: " + bar.time());
         System.out.println("HIGH: " + bar.high());
         System.out.println("TIME FORMATTED" + bar.formattedTime());
         System.out.println(contract.symbol());
         System.out.println(bar);
-        Price barPrice = new Price(contract.symbol(), bar.formattedTime(), bar.open(), bar.close(), bar.high(), bar.low());
+
+        SIIT HAKKAB DB, SMA jpm.
+         */
+        Price barPrice = new Price(contract.symbol(), bar.time(), bar.open(), bar.close(), bar.high(), bar.low());
         traderRepository.addPrice(barPrice);
-        //SIIT HAKKAB DB, SMA jpm.
+
+        SMA sma5 = new SMA(contract.symbol(),60);
+        SMA sma9 = new SMA(contract.symbol(),108);
+        SMA sma13 = new SMA(contract.symbol(),156);
+        SMA sma20 = new SMA(contract.symbol(),240);
+        SMA sma26 = new SMA(contract.symbol(),312);
+
+
+
 
         // baasi tabelid valmis
 

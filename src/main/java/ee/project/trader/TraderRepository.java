@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class TraderRepository {
@@ -59,9 +61,25 @@ public class TraderRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-    public List<Ticker> getTickerList(){
+    public List<Ticker> getTickerList() {
         String sql = "SELECT * FROM ticker ORDER BY symbol";
         return jdbcTemplate.query(sql, new HashMap<>(), new TickerRowMapper());
+    }
+
+    public double getSMA(SMA sma) {
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("timeFrame", sma.timeFrame);
+        paramMap.put("symbol", sma.symbol);
+
+        String sql = "SELECT avg(price_open) OVER (rows between (period) preceding and 0 following) from price_history " +
+                "where symbol = (symbol) ORDER BY ID DESC LIMIT 1 values (" +
+                ":timeFrame, " +
+                ":symbol)";
+
+        // select avg(price_open) over (rows between 60 preceding and 0 following) from price_history where symbol = 'SOXL' ORDER BY ID DESC LIMIT 1
+       // return jdbcTemplate.query(sql, paramMap);
+        return 0;
     }
 }
 
