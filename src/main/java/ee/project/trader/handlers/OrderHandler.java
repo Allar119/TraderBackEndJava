@@ -2,6 +2,7 @@ package ee.project.trader.handlers;
 
 import com.ib.client.*;
 import com.ib.controller.ApiController;
+import ee.project.trader.Ticker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,31 +46,15 @@ public class OrderHandler implements ApiController.ILiveOrderHandler, ApiControl
         bracketOrder.add(stopLoss);
         return bracketOrder;
     }
-    //Contract initializer for simplicity
-    static List<NewContract> NewContract initializeContract(){
-        NewContract nq = new NewContract();
-        nq.localSymbol("AAPL");
-        nq.secType(Types.SecType.STK);
-        nq.exchange("SMART");
-        nq.symbol("AAPL");
-        nq.currency("USD");
-        nq.multiplier("20");
-        return nq;
-    }
+
+
     //Implementation of the method to create bracket orders
-    public void placeBracketOrder(int parentOrderId, Types.Action action, int quantity, double limitPrice, double takeProfitLimitPrice, double stopLossPrice){
+    public void placeBracketOrder(Ticker ticker, int parentOrderId, Types.Action action, int quantity, double limitPrice, double takeProfitLimitPrice, double stopLossPrice){
         List<NewOrder> bracketOrder = BracketOrder(parentOrderId,action,quantity,limitPrice,takeProfitLimitPrice,stopLossPrice);
         for(NewOrder o : bracketOrder) {
-            ConnectionHandler.placeOrModifyOrder(initializeContract(), o,this);
+            ConnectionHandler.placeOrModifyOrder(ticker, o,this);
         }
     }
-    @Override
-    public void orderState(NewOrderState orderState) {
-    }
-
-
-
-
 
     @Override
     public void orderState(OrderState orderState) {

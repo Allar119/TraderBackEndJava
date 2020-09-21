@@ -2,6 +2,7 @@ package ee.project.trader.handlers;
 import com.ib.client.Contract;
 import com.ib.client.Types;
 import com.ib.controller.ApiController;
+import ee.project.trader.Ticker;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
     //static API INSTANCE = new API();
     ApiController m_controller = new ApiController( this);
 
-    public static void placeOrModifyOrder(Object initializeContract, NewOrder o, OrderHandler orderHandler) {
+    public static void placeOrModifyOrder(Ticker initializeContract, NewOrder o, OrderHandler orderHandler) {
     }
 
     //public static void main(String[] args) {
