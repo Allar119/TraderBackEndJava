@@ -2,12 +2,9 @@ package ee.project.trader;
 
 import com.ib.client.Contract;
 import com.ib.controller.Bar;
-import ee.project.trader.handlers.NewOrder;
-import ee.project.trader.handlers.OrderHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -31,7 +28,8 @@ public class TraderService {
         traderRepository.addPrice(price);
     }
 
-    public List<Ticker> getTickerList(){
+
+    public List<Ticker> getTickerList() {
         return traderRepository.getTickerList();
     }
 
@@ -43,7 +41,8 @@ public class TraderService {
         System.out.println("TIME FORMATTED" + bar.formattedTime());
         System.out.println(contract.symbol());
         System.out.println(bar);
-
+        Price barPrice = new Price(contract.symbol(), bar.formattedTime(), bar.open(), bar.close(), bar.high(), bar.low());
+        traderRepository.addPrice(barPrice);
         //SIIT HAKKAB DB, SMA jpm.
 
         // baasi tabelid valmis
