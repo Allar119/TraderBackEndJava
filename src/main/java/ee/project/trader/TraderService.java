@@ -1,5 +1,9 @@
 package ee.project.trader;
 
+import com.ib.client.Contract;
+import com.ib.controller.Bar;
+import ee.project.trader.handlers.NewOrder;
+import ee.project.trader.handlers.OrderHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,4 +34,21 @@ public class TraderService {
     public List<Ticker> getTickerList(){
         return traderRepository.getTickerList();
     }
+
+    public void newBar(Contract contract, Bar bar) {
+        System.out.println("realTimeBar käivitus");
+
+        System.out.println("TIME: " + bar.time());
+        System.out.println("HIGH: " + bar.high());
+        System.out.println("TIME FORMATTED" + bar.formattedTime());
+        System.out.println(contract.symbol());
+        System.out.println(bar);
+
+        //SIIT HAKKAB DB, SMA jpm.
+
+        // baasi tabelid valmis
+
+
+    }
+
 }

@@ -22,8 +22,6 @@ public class TraderRepository {
         System.out.println("*****************************************************");
         System.out.println();
         Map<String, Object> paramMap = new HashMap<>();
-      //  paramMap.put("account_number", accountNumber);
-        //paramMap.put("bank_customer_id", id);
         paramMap.put("symbol", ticker.symbol);
         paramMap.put("secType", ticker.secType);
         paramMap.put("exchange", ticker.exchange);
