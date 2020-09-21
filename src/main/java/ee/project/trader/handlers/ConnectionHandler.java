@@ -25,6 +25,12 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
     public void connected() {
         System.out.println("Connected käivitus");
 
+        // getAllActiveTickersList -> saad ticker tabelist kõik aktiivsed tickerid ja kõivitad nende hinnainfo küsimise
+        // FrontEnd annab ka kasutajale teada, millised on aktiivsed tickerid.
+        // algavad igasugu SMA -de arvutamised. Kuniks SMA info puudulik (pole piisavalt datat veel kogutud), on need
+        // hallid ja algo order veel ei käivitu.
+
+
         Contract contract = new Contract();
         contract.symbol("AAPL");
         contract.secType("STK");

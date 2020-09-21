@@ -20,12 +20,15 @@ public class TraderController {
     @PutMapping("/connect")
     public void startConnection(@RequestBody Connect connect){
         connectionHandler.run(connect.getIp(), connect.getPort(), connect.getClientId(), "");
+        System.out.println("TraderController startConnection");
+        System.out.println("-----------------------------------------------------");
+        System.out.println();
     }
 
 
 
 
-    @PostMapping("addticker/")
+    @PostMapping("/addticker")
     public void addTicker() {
     /* teeme andmebaasis TICKER tabelis uue rea tickeri dataga, a-la AAPL, NVDA jne andes kaasa json-is
 
@@ -36,14 +39,29 @@ public class TraderController {
 
      */
         Ticker ticker = new Ticker("AAPL", "STK", "SMART", "USD");
+        System.out.println("PostMapping addTicker:");
+        System.out.println(ticker.symbol);
+        System.out.println(ticker.secType);
+        System.out.println(ticker.exchange);
+        System.out.println(ticker.currency);
+        System.out.println("-----------------------------------------------------");
+        System.out.println();
         traderService.addTicker(ticker);
     }
+
+    @GetMapping("getactivetickers/")
+    public void getactivetickersList() {
+    /* teeme andmebaasi päringu, et saada TICKER-ist kätte kõik aktiivsed tickerid,
+    et need siis connectioni loomise järel automaataelt käivitada
+     */
+        traderService.getActiveTickersList();
+    }
+
 
 
     @PostMapping("addorder/")
     public void addOrder() {
     /* teeme andmebaasis TICKER tabelis uue rea tickeri dataga, a-la AAPL, NVDA jne andes kaasa json-is
-
         contract.symbol("AAPL");
         contract.secType("STK");
         contract.exchange("SMART");
@@ -54,8 +72,8 @@ public class TraderController {
         traderService.addTicker(ticker);
     }
 
-    public void updatePrice() {
-        Price price = new Price("2020-09-17", "14:23:30", 110.30);
+    public void addPrice() {
+       Price price = new Price("AAPL", "2020-09-17 14:23:30", 110.30, 110.30, 110.30, 110.30);
 
         traderService.addPrice(price);
     }
