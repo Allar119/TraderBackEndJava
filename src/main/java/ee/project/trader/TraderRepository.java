@@ -1,5 +1,6 @@
 package ee.project.trader;
 
+import ee.project.trader.rowmappers.TickerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -58,6 +59,11 @@ public class TraderRepository {
                 ":priceMax, " +
                 ":priceMin)";
         jdbcTemplate.update(sql, paramMap);
+    }
+
+    public List<Ticker> getTickerList(){
+        String sql = "SELECT * FROM ticker ORDER BY symbol";
+        return jdbcTemplate.query(sql, new HashMap<>(), new TickerRowMapper());
     }
 }
 

@@ -3,9 +3,11 @@ package ee.project.trader;
 
 import com.ib.client.Contract;
 import ee.project.trader.handlers.ConnectionHandler;
-import ee.project.trader.objects.ConnectionDetails;
+import ee.project.trader.dto.ConnectionDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class TraderController {
@@ -40,12 +42,11 @@ public class TraderController {
 
     }
 
-    @GetMapping("getactivetickers/")
-    public void getactivetickersList() {
-    /* teeme andmebaasi päringu, et saada TICKER-ist kätte kõik aktiivsed tickerid,
-    et need siis connectioni loomise järel automaataelt käivitada
-     */
-        traderService.getActiveTickersList();
+    @GetMapping("/getactivetickers")
+    public List<Ticker> getactivetickersList() {
+        return traderService.getTickerList();
+        // teeme andmebaasi päringu, et saada TICKER-ist kätte kõik aktiivsed tickerid,
+        // et need siis connectioni loomise järel automaataelt käivitada
     }
 
 
@@ -57,9 +58,12 @@ public class TraderController {
         contract.secType("STK");
         contract.exchange("SMART");
         contract.currency("USD");
-
      */
-        Ticker ticker = new Ticker("AAPL", "STK", "SMART", "USD");
+        Ticker ticker = new Ticker();
+        ticker.setSymbol("AAPL");
+        ticker.setSecType("STK");
+        ticker.setExchange("SMART");
+        ticker.setCurrency("USD");
         traderService.addTicker(ticker);
     }
 

@@ -1,4 +1,4 @@
-package ee.project.trader.objects;
+package ee.project.trader.dto;
 
 public class ConnectionDetails {
     private String ip;

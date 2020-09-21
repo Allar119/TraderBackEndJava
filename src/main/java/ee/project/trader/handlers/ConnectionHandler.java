@@ -43,7 +43,7 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
 
     @Override
     public void accountList(List<String> list) {
-        System.out.print("Accounts: " + list);
+        System.out.printf("Accounts: %s ", list);
 
     }
 
@@ -55,7 +55,7 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
 
     @Override
     public void message(int id, int errorCode, String errorMsg) {
-        System.out.printf("Message: id:%s; Code:%s; %s", id, errorCode, errorMsg);
+        System.out.printf("Message: id:%s, Code:%s, %s.\n", id, errorCode, errorMsg);
     }
 
     @Override
