@@ -11,16 +11,16 @@
     </div>
         <div class="container">
             <div class="div1">
-                <label class="lable" for="host" >HOST IP</label><br>
+                <label class="label" for="host" >HOST IP</label><br>
                 <input class="input" type="text" id="host" placeholder="Host IP" value="127.0.0.1">
 
             </div>
             <div class="div1">
-                <label class="lable" for="port">PORT</label><br>
+                <label class="label" for="port">PORT</label><br>
                 <input class="input" type="text" id="port" placeholder="Port" value="7400" size="8">
             </div>
             <div class="div1">
-                <label class="lable" for="port">ID</label><br>
+                <label class="label" for="port">ID</label><br>
                 <input class="input" type="text" id="clientId" placeholder="Client ID" value="0" size="5">
             </div>
         </div>
@@ -32,19 +32,19 @@
 
         <div class="container">
             <div class="div1">
-                <label class="lable" for="symbol">SYMBOL</label><br>
+                <label class="label" for="symbol">SYMBOL</label><br>
                 <input class="input" type="text" id="symbol" placeholder="" value="AAPL" size="10">
             </div>
             <div class="div1">
-                <label class="lable" for="secType">SEC TYPE</label><br>
+                <label class="label" for="secType">SEC TYPE</label><br>
                 <input class="input" type="text" id="secType" placeholder="" value="STK" size="10">
             </div>
             <div class="div1">
-                <label class="lable" for="exchange">EXCHANGE</label><br>
+                <label class="label" for="exchange">EXCHANGE</label><br>
                 <input class="input" type="text" id="exchange" placeholder="" value="SMART" size="10">
             </div>
             <div class="div1">
-                <label for="currency">CURRENCY</label><br>
+                <label class="label" for="currency">CURRENCY</label><br>
                 <input type="text" id="currency" placeholder="" value="USD" size="10">
             </div>
         </div>
@@ -54,6 +54,34 @@
         </div>
 
         <br>
+
+        <div class="container">
+            <input class="button" type="button" id="addRow" name="addRow" value="Add Row" size="5">
+        </div>
+
+
+        <div class="container">
+            <table id="liveOrders">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Action</th>
+                        <th>Quantity</th>
+                        <th>Contract</th>
+                        <th>Status</th>
+                      </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>BUY</td>
+                        <td>100</td>
+                        <td>AAPL STL SMART</td>
+                        <td>Submitted</td>
+                      </tr> 
+                </tbody>    
+              </table>
+        </div>
 
     <script>
         let host = document.getElementById("host");
@@ -66,6 +94,10 @@
         let exchange = document.getElementById("exchange");
         let currency = document.getElementById("currency");
         let addTickerButton = document.getElementById("addTicker");
+
+        let tableLiveOrders = document.getElementById("liveOrders").getElementsByTagName('tbody')[0];
+        let addRowButton = document.getElementById("addRow");
+        let id = 1;
         
         connectButton.onclick = function ConnectToTWS() {
             fetch('/connect', {
@@ -81,17 +113,17 @@
                     connectionOpt: ""
                 })
             })
-                //.then(function(response) {
-                //return response.json();
-                //})
-                //.then(function(jsonData) {
-                //    console.log('Connection started');
-                //})
-                //.catch(function(err) {
-                //    console.log('This does not seem right');
-                //});
+                .then(function(response) {
+                return response.json();
+                })
+                .then(function(jsonData) {
+                    console.log(jsonData);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
         }
-      
+
         addTickerButton.onclick = function addTicker(){
             fetch('/addticker', {
                 method: 'POST',
@@ -116,7 +148,25 @@
                 //    console.log('This does not seem right');
                 //});
         }
-    
+        
+        addRowButton.onclick = function addRow(){
+            console.log("button pressed");
+            
+            let row = tableLiveOrders.insertRow();
+            let cell0 = row.insertCell(0);
+            let cell1 = row.insertCell(1);
+            let cell2 = row.insertCell(2);
+            let cell3 = row.insertCell(3);
+            let cell4 = row.insertCell(4);           
+
+
+            cell0.innerHTML = ++id;
+            cell1.innerHTML = "BUY";
+            cell2.innerHTML = "100";
+            cell3.innerHTML = "AAPL STL SMART";
+            cell4.innerHTML = "Submitted";
+        }
+
     </script>
 </body>
 </html>

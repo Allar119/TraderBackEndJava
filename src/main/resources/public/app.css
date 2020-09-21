@@ -48,7 +48,7 @@ h1 {
 }
 
 
-label{
+.label{
     color: black;
     font-size: 0.6rem;
     margin-left: 0.5rem;
@@ -94,6 +94,29 @@ input[type=text]:focus{
 .button:active{
     background-color: rgb(35, 162, 212);
     transition-duration: 0.1s;
+}
+
+#liveOrders {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#liveOrders td, #liveOrders th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#liveOrders tr:nth-child(even){background-color: #f2f2f2;}
+
+#liveOrders tr:hover {background-color: #ddd;}
+
+#liveOrders th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
 }
 
 
