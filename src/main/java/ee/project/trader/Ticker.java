@@ -13,12 +13,14 @@ public class Ticker {
     String exchange;
     String currency;
 
+    /*
     public Ticker(String symbol, String secType, String exchange, String currency) {
         this.symbol = symbol;
         this.secType = secType;
         this.exchange = exchange;
         this.currency = currency;
     }
+     */
 
     public String getSymbol() {
         return symbol;

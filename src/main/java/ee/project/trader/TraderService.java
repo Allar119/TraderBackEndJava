@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class TraderService {
@@ -23,7 +24,10 @@ public class TraderService {
     }
 
     public void addPrice(Price price) {
-
         traderRepository.addPrice(price);
+    }
+
+    public List<Ticker> getTickerList(){
+        return traderRepository.getTickerList();
     }
 }
