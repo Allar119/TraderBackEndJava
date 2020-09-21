@@ -39,11 +39,14 @@ public class TraderRepository {
 
     public void addPrice(Price price) {
 
-        System.out.println("TraderRepository addPrice:");
+      /*  System.out.println("TraderRepository addPrice:");
         System.out.println(price.symbol);
         System.out.println(price.priceMax);
         System.out.println("*****************************************************");
         System.out.println();
+
+
+       */
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("timestamp", price.timestamp);
         paramMap.put("symbol", price.symbol);
@@ -72,14 +75,14 @@ public class TraderRepository {
         paramMap.put("timeFrame", sma.timeFrame);
         paramMap.put("symbol", sma.symbol);
 
-        String sql = "SELECT avg(price_open) OVER (rows between (period) preceding and 0 following) from price_history " +
-                "where symbol = (symbol) ORDER BY ID DESC LIMIT 1 values (" +
-                ":timeFrame, " +
-                ":symbol)";
+        String sql = "select avg(price_open) over (rows between :timeFrame preceding and 0 following) from price_history where symbol = :symbol ORDER BY ID DESC LIMIT 1;";
+
+        double simoav =  jdbcTemplate.queryForObject(sql, paramMap, Double.class);
+        return simoav;
 
         // select avg(price_open) over (rows between 60 preceding and 0 following) from price_history where symbol = 'SOXL' ORDER BY ID DESC LIMIT 1
        // return jdbcTemplate.query(sql, paramMap);
-        return 0;
+
     }
 }
 

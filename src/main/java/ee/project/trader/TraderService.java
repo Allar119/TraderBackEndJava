@@ -48,10 +48,21 @@ public class TraderService {
         traderRepository.addPrice(barPrice);
 
         SMA sma5 = new SMA(contract.symbol(),60);
-        SMA sma9 = new SMA(contract.symbol(),108);
-        SMA sma13 = new SMA(contract.symbol(),156);
-        SMA sma20 = new SMA(contract.symbol(),240);
-        SMA sma26 = new SMA(contract.symbol(),312);
+        System.out.println(contract.symbol()+ " price " + bar.high());
+        System.out.println(contract.symbol() +" average " + traderRepository.getSMA(sma5));
+        if (bar.high() > traderRepository.getSMA(sma5)) {
+            System.out.println(contract.symbol()+ " BUY");
+
+
+        } else {
+            System.out.println(contract.symbol()+ " SELL");
+        }
+
+    //    SMA sma9 = new SMA(contract.symbol(),108);
+      //  SMA sma13 = new SMA(contract.symbol(),156);
+        //SMA sma20 = new SMA(contract.symbol(),240);
+        //SMA sma26 = new SMA(contract.symbol(),312);
+
 
 
 
