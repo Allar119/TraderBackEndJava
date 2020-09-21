@@ -12,7 +12,13 @@ public class TraderService {
     private TraderRepository traderRepository;
 
     public void addTicker(Ticker ticker) {
-
+        System.out.println("traderService addTicker:");
+        System.out.println(ticker.symbol);
+        System.out.println(ticker.secType);
+        System.out.println(ticker.exchange);
+        System.out.println(ticker.currency);
+        System.out.println("=====================================================");
+        System.out.println();
         traderRepository.addTicker(ticker);
     }
 
@@ -21,6 +27,12 @@ public class TraderService {
         traderRepository.addPrice(price);
     }
 
+    public void getActiveTickersList() {
+        traderRepository.getActiveTickersList();
+    }
+
+
+    /*
 
     public void transferMoney(String fromAccount,
                               String toAccount,
@@ -48,6 +60,6 @@ public class TraderService {
         //history("", accountNumber, "deposit made: "+ deposit);
     }
 
-
+*/
 
 }

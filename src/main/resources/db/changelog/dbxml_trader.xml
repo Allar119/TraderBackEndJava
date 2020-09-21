@@ -5,43 +5,30 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet author="raivo" id="999">
-        <createTable tableName="bank_customer">
+        <createTable tableName="ticker">
             <column name="id" autoIncrement="true" type="INTEGER">
                 <constraints unique="true" primaryKey="true"/>
             </column>
-            <column name="name" type="TEXT"/>
-            <column name="personal_code" type="TEXT"/>
+            <column name="symbol" type="TEXT"/>
+            <column name="sec_type" type="TEXT"/>
+            <column name="exchange" type="TEXT"/>
+            <column name="currency" type="TEXT"/>
         </createTable>
 
-        <createTable tableName="bank_account">
+        <createTable tableName="price_history">
             <column name="id" autoIncrement="true" type="INTEGER">
                 <constraints unique="true" primaryKey="true"/>
             </column>
-            <column name="bank_customer_id" type="INTEGER">
-                <constraints foreignKeyName="fk_client_id" references="bank_customer(id)"/>
+            <column name="symbol" type="TEXT">
             </column>
-            <column name="account_number" type="TEXT">
-                <constraints unique="true"/>
-            </column>
-            <column name="balance" type="INTEGER"/>
+            <column name="timestamp" type="TIMESTAMP">
+                </column>
+            <column name="price_open" type="FLOAT"/>
+            <column name="price_close" type="FLOAT"/>
+            <column name="price_max" type="FLOAT"/>
+            <column name="price_min" type="FLOAT"/>
+
         </createTable>
-
-        <createTable tableName="history">
-            <column name="id" autoIncrement="true" type="INTEGER">
-                <constraints unique="true" primaryKey="true"/>
-            </column>
-            <column name="time" type="TEXT">
-
-            </column>
-            <column name="account_id" type="INTEGER">
-                <constraints foreignKeyName="fk_account_id" references="bank_account(id)"/>
-            </column>
-            <column name="account_number" type="TEXT">
-            </column>
-            <column name="name" type="TEXT"/>
-            <column name="action" type="TEXT"/>
-        </createTable>
-
 
     </changeSet>
 </databaseChangeLog>

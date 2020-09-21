@@ -18,9 +18,11 @@ public class TraderController {
     private ConnectionHandler connectionHandler;
 
     //Start connection
+
     @PostMapping("/connect")
     public void startConnection(@RequestBody ConnectionDetails connectionDetails) throws InterruptedException {
         connectionHandler.run(connectionDetails.getIp(), connectionDetails.getPort(), connectionDetails.getClientId(), "");
+
     }
 
     @PostMapping("/addticker")
@@ -36,15 +38,22 @@ public class TraderController {
         connectionHandler.addTicker(contract);
         //traderService.addTicker(ticker);
 
-        //teeme andmebaasis TICKER tabelis uue rea tickeri dataga, a-la AAPL, NVDA jne andes kaasa json-is
 
     }
+
+    @GetMapping("getactivetickers/")
+    public void getactivetickersList() {
+    /* teeme andmebaasi päringu, et saada TICKER-ist kätte kõik aktiivsed tickerid,
+    et need siis connectioni loomise järel automaataelt käivitada
+     */
+        traderService.getActiveTickersList();
+    }
+
 
 
     @PostMapping("addorder/")
     public void addOrder() {
     /* teeme andmebaasis TICKER tabelis uue rea tickeri dataga, a-la AAPL, NVDA jne andes kaasa json-is
-
         contract.symbol("AAPL");
         contract.secType("STK");
         contract.exchange("SMART");
@@ -55,8 +64,8 @@ public class TraderController {
         traderService.addTicker(ticker);
     }
 
-    public void updatePrice() {
-        Price price = new Price("2020-09-17", "14:23:30", 110.30);
+    public void addPrice() {
+       Price price = new Price("AAPL", "2020-09-17 14:23:30", 110.30, 110.30, 110.30, 110.30);
 
         traderService.addPrice(price);
     }

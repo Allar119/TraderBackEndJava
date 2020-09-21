@@ -33,8 +33,7 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
     public void connected() {
         System.out.println("Connected käivitus");
 
-        //m_controller.reqMktDataType(3); //Select market Data type 1=Live, 2=Frozen, 3=Delayed, 4=Delayed and frozen
-        //m_controller.reqTopMktData(contract, "221", false, false, new TopMktDataHandler());
+
         //m_controller.reqRealTimeBars(contract, Types.WhatToShow.TRADES, false, new RaivoRealTimeHandler());
         //System.out.println("Connected peale realTimeBar väljakutsumist");
     }
