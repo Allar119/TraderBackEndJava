@@ -1,8 +1,9 @@
 package ee.project.trader;
 
 
+import com.ib.client.Contract;
 import ee.project.trader.handlers.ConnectionHandler;
-import ee.project.trader.objects.Connect;
+import ee.project.trader.objects.ConnectionDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,26 +18,26 @@ public class TraderController {
     private ConnectionHandler connectionHandler;
 
     //Start connection
-    @PutMapping("/connect")
-    public void startConnection(@RequestBody Connect connect){
-        connectionHandler.run(connect.getIp(), connect.getPort(), connect.getClientId(), "");
+    @PostMapping("/connect")
+    public void startConnection(@RequestBody ConnectionDetails connectionDetails) throws InterruptedException {
+        connectionHandler.run(connectionDetails.getIp(), connectionDetails.getPort(), connectionDetails.getClientId(), "");
     }
 
+    @PostMapping("/addticker")
+    public void addTicker(@RequestBody Ticker ticker) throws InterruptedException {
+        Thread.sleep(1000); //wait 1s
 
+        Contract contract = new Contract();
+        contract.symbol(ticker.getSymbol());
+        contract.secType(ticker.getSecType());
+        contract.exchange(ticker.getExchange());
+        contract.currency(ticker.getCurrency());
 
+        connectionHandler.addTicker(contract);
+        //traderService.addTicker(ticker);
 
-    @PostMapping("addticker/")
-    public void addTicker() {
-    /* teeme andmebaasis TICKER tabelis uue rea tickeri dataga, a-la AAPL, NVDA jne andes kaasa json-is
+        //teeme andmebaasis TICKER tabelis uue rea tickeri dataga, a-la AAPL, NVDA jne andes kaasa json-is
 
-        contract.symbol("AAPL");
-        contract.secType("STK");
-        contract.exchange("SMART");
-        contract.currency("USD");
-
-     */
-        Ticker ticker = new Ticker("AAPL", "STK", "SMART", "USD");
-        traderService.addTicker(ticker);
     }
 
 
