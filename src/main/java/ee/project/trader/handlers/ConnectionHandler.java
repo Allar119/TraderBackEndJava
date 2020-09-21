@@ -12,6 +12,9 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
     //static API INSTANCE = new API();
     ApiController m_controller = new ApiController( this);
 
+    public static void placeOrModifyOrder(Object initializeContract, NewOrder o, OrderHandler orderHandler) {
+    }
+
     //public static void main(String[] args) {
     //    INSTANCE.run();
     //}
@@ -20,6 +23,7 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
         m_controller.connect( hostIp, port, clientId, connectionOpts);
         //m_controller.connect( "127.0.0.1", 7400, 0, "");
     }
+
 
     public void addTicker(Contract contract){
         System.out.println("addTicker käivitus....");
