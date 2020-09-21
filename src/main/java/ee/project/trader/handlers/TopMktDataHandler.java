@@ -7,17 +7,17 @@ import com.ib.controller.ApiController;
 public class TopMktDataHandler implements ApiController.ITopMktDataHandler {
     @Override
     public void tickPrice(TickType tickType, double price, TickAttrib attribs) {
-        System.out.printf("Tick Type: %s, Price: %s\n",tickType, price);
+        System.out.printf("Tick Price --> Tick Type: %s, Price: %s\n",tickType, price);
     }
 
     @Override
     public void tickSize(TickType tickType, int size) {
-        System.out.printf ("Tick Type: %s, Size: %s\n", tickType, size);
+        System.out.printf ("Tick Size --> Tick Type: %s, Size: %s\n", tickType, size);
     }
 
     @Override
     public void tickString(TickType tickType, String value) {
-        System.out.printf("Tick Type: %s, Value: %s\n", tickType, value);
+        System.out.printf("Tick String --> Tick Type: %s, Value: %s\n", tickType, value);
     }
 
     @Override
@@ -31,6 +31,6 @@ public class TopMktDataHandler implements ApiController.ITopMktDataHandler {
 
     @Override
     public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
-        System.out.printf("TickerID: %s\n", tickerId);
+        System.out.printf("Tick Params --> TickerID: %s\n", tickerId);
     }
 }

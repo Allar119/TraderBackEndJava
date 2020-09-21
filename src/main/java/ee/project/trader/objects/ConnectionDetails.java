@@ -1,6 +1,6 @@
 package ee.project.trader.objects;
 
-public class Connect {
+public class ConnectionDetails {
     private String ip;
     private int port;
     private int clientId;

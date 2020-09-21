@@ -1,7 +1,7 @@
 package ee.project.trader.handlers;
 import com.ib.client.Contract;
+import com.ib.client.Types;
 import com.ib.controller.ApiController;
-import ee.project.trader.objects.Connect;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,24 +21,19 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
         //m_controller.connect( "127.0.0.1", 7400, 0, "");
     }
 
+    public void addTicker(Contract contract){
+        System.out.println("addTicker käivitus....");
+
+        m_controller.reqMktDataType(3); //Select market Data type 1=Live, 2=Frozen, 3=Delayed, 4=Delayed and frozen
+        m_controller.reqTopMktData(contract, "221", false, false, new TopMktDataHandler());
+        //m_controller.reqRealTimeBars(contract, Types.WhatToShow.TRADES, false, new RaivoRealTimeHandler());
+    }
+
     @Override
     public void connected() {
         System.out.println("Connected käivitus");
 
-        // getAllActiveTickersList -> saad ticker tabelist kõik aktiivsed tickerid ja kõivitad nende hinnainfo küsimise
-        // FrontEnd annab ka kasutajale teada, millised on aktiivsed tickerid.
-        // algavad igasugu SMA -de arvutamised. Kuniks SMA info puudulik (pole piisavalt datat veel kogutud), on need
-        // hallid ja algo order veel ei käivitu.
 
-
-        Contract contract = new Contract();
-        contract.symbol("AAPL");
-        contract.secType("STK");
-        contract.exchange("SMART");
-        contract.currency("USD");
-
-        m_controller.reqMktDataType(3); //Select market Data type 1=Live, 2=Frozen, 3=Delayed, 4=Delayed and frozen
-        m_controller.reqTopMktData(contract, "221", false, false, new TopMktDataHandler());
         //m_controller.reqRealTimeBars(contract, Types.WhatToShow.TRADES, false, new RaivoRealTimeHandler());
         //System.out.println("Connected peale realTimeBar väljakutsumist");
     }
