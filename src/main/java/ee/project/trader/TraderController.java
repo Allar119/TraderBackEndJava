@@ -20,14 +20,14 @@ public class TraderController {
     //Start connection
 
     @PostMapping("/connect")
-    public void startConnection(@RequestBody ConnectionDetails connectionDetails) throws InterruptedException {
+    public boolean startConnection(@RequestBody ConnectionDetails connectionDetails) throws InterruptedException {
         connectionHandler.run(connectionDetails.getIp(), connectionDetails.getPort(), connectionDetails.getClientId(), "");
-
+        Thread.sleep(1000); //wait 1s
+        return connectionHandler.isConnected();
     }
 
     @PostMapping("/addticker")
-    public void addTicker(@RequestBody Ticker ticker) throws InterruptedException {
-        Thread.sleep(1000); //wait 1s
+    public void addTicker(@RequestBody Ticker ticker){
 
         Contract contract = new Contract();
         contract.symbol(ticker.getSymbol());
@@ -37,7 +37,6 @@ public class TraderController {
 
         connectionHandler.addTicker(contract);
         traderService.addTicker(ticker);
-
 
     }
 
