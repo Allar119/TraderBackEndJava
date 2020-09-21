@@ -36,7 +36,7 @@ public class TraderController {
         contract.currency(ticker.getCurrency());
 
         connectionHandler.addTicker(contract);
-        //traderService.addTicker(ticker);
+        traderService.addTicker(ticker);
 
 
     }
