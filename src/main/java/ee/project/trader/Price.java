@@ -2,6 +2,7 @@ package ee.project.trader;
 
 public class Price {
 
+
     String date;
     String time;
     double price;

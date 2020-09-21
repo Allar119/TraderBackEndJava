@@ -21,7 +21,7 @@ public class TraderService {
         traderRepository.addPrice(price);
     }
 
-
+/*
     public void transferMoney(String fromAccount,
                               String toAccount,
                               BigDecimal amount) {
@@ -47,7 +47,7 @@ public class TraderService {
         traderRepository.updateBalance(accountNumber, traderRepository.getBalance(accountNumber).add(deposit));
         //history("", accountNumber, "deposit made: "+ deposit);
     }
-
+*/
 
 
 }

@@ -34,7 +34,7 @@ public class TraderController {
         contract.currency(ticker.getCurrency());
 
         connectionHandler.addTicker(contract);
-        //traderService.addTicker(ticker);
+        traderService.addTicker(ticker);
 
         //teeme andmebaasis TICKER tabelis uue rea tickeri dataga, a-la AAPL, NVDA jne andes kaasa json-is
 

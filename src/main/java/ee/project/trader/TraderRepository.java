@@ -36,7 +36,7 @@ public class TraderRepository {
 
     }
 
-
+/*
     public BigDecimal getBalance(String account) {
         System.out.println("AccountRepository getBalance account: " + account);
         Map<String, String> paramMap = new HashMap<>();
