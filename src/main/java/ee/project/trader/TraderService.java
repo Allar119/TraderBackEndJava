@@ -63,7 +63,7 @@ public class TraderService {
         }
 
         if (traderRepository.getSMA(sma5) > traderRepository.getSMA(sma13)) {
-            System.out.println(contract.symbol()+ " Strategy SMA5/SMA13 BUY: " + contract.symbol());
+            System.out.println(contract.symbol()+ " Strategy SMA5/SMA13  BUY: " + contract.symbol());
 
 
         } else {

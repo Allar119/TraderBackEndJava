@@ -27,4 +27,19 @@
             <column name="price_min" type="FLOAT"/>
         </createTable>
     </changeSet>
+    <changeSet author="raivo" id="888">
+    <createTable tableName="order">
+        <column name="id" autoIncrement="true" type="INTEGER">
+        </column>
+        <column name="algo_id" type="INTEGER"/>
+        <column name="symbol" type="TEXT"/>
+        <column name="order_type" type="TEXT"/>
+        <column name="quantity" type="INTEGER"/>
+        <column name="limit_price" type="FLOAT"/>
+        <column name="stop_loss_price" type="FLOAT"/>
+        <column name="profit_taker_price" type="FLOAT"/>
+        <column name="status" type="TEXT"/>
+    </createTable>
+    </changeSet>
+
 </databaseChangeLog>
