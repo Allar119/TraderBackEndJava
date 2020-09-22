@@ -147,6 +147,26 @@ input[type=text]:focus{
     transition-duration: 0.1s;
 }
 
+.remove{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.0rem;
+    font-weight: bolder;
+    color: seashell;
+    height: 2.0rem;
+    width: 2.0rem;
+    text-align: center;
+    background-color:red;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.remove:hover{
+    cursor: pointer;
+    background-color: rgb(201, 0, 0);    
+    transition-duration: 0.4s;
+}
+
+
 #liveOrders {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;

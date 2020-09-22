@@ -52,6 +52,7 @@
                     <th>Sec Type</th>
                     <th>Exchange</th>
                     <th>Currency</th>
+                    <th><input class="remove" type="button" value="X" id="x"></th>
                   </tr>
             </thead>
             <tbody>
@@ -61,7 +62,6 @@
     </div>
     
     <script>
-
         let symbol = document.getElementById("symbol");
         let secType = document.getElementById("secType");
         let exchange = document.getElementById("exchange");
@@ -72,18 +72,29 @@
         function fillTickerTable(jsonData) {
             for (let i = 0; i < jsonData.length; i++) {
 
+;
+
                 let row = tableLiveOrders.insertRow();
                 let cell0 = row.insertCell(0);
                 let cell1 = row.insertCell(1);
                 let cell2 = row.insertCell(2);
                 let cell3 = row.insertCell(3);
                 let cell4 = row.insertCell(4);
+                let cell5 = row.insertCell(5);
 
                 cell0.innerHTML = i + 1;
                 cell1.innerHTML = jsonData[i].symbol;
                 cell2.innerHTML = jsonData[i].secType;
                 cell3.innerHTML = jsonData[i].exchange;
                 cell4.innerHTML = jsonData[i].currency;
+
+                let newButton = document.createElement("button");
+                newButton.onclick = function (){
+                    alert(jsonData[i].symbol);
+                }
+                newButton.innerText="nupp"
+
+                cell5.append(newButton);
             }
         }
 
@@ -134,17 +145,6 @@
             //    console.log('This does not seem right');
             //});
         }
-
-
-
-
-
-
-
-
-
-
-
     </script>
 </body>
 </html>
