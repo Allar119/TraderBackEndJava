@@ -2,7 +2,8 @@
     font-size: 62,5%;
     background-color: #f7f7f7;
     --text-primary: #333;
-    --text-secondary: #f7f7f7;  
+    --text-secondary: #f7f7f7;
+    --back-primery:  #9db6cc;
 }
 
 *{
@@ -157,7 +158,7 @@ input[type=text]:focus{
     padding: 8px;
 }
 
-#liveOrders tr:nth-child(even){background-color: #f2f2f2;}
+#liveOrders tr:nth-child(even){background-color: var(--back-primery);}
 
 #liveOrders tr:hover {background-color: #ddd;}
 
@@ -165,7 +166,7 @@ input[type=text]:focus{
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #4CAF50;
+    background-color: var(--back-primery);
     color: white;
 }
 

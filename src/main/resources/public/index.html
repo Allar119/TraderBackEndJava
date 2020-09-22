@@ -9,19 +9,16 @@
     <nav class="navbar">        
         <label class="logo">TRAD€R</label>      
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Service</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Feedback</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tickers.html">Tickers</a></li>
+<!--            <li><a href="#">Service</a></li>-->
+<!--            <li><a href="#">Contact</a></li>-->
+<!--            <li><a href="#">Feedback</a></li>-->
         </ul>
 
     </nav>
 
     <main>
-        <div> 
-            <h1>Trader</h1>
-        </div>
         <div class="container">
             <div class="div1">
                 <label class="label" for="host" >HOST</label><br>
@@ -43,58 +40,6 @@
 
         <br>
 
-        <div class="container">
-            <div class="div1">
-                <label class="label" for="symbol">SYMBOL</label><br>
-                <input class="input" type="text" id="symbol" placeholder="" value="AAPL" size="10">
-            </div>
-            <div class="div1">
-                <label class="label" for="secType">SEC TYPE</label><br>
-                <input class="input" type="text" id="secType" placeholder="" value="STK" size="10">
-            </div>
-            <div class="div1">
-                <label class="label" for="exchange">EXCHANGE</label><br>
-                <input class="input" type="text" id="exchange" placeholder="" value="SMART" size="10">
-            </div>
-            <div class="div1">
-                <label class="label" for="currency">CURRENCY</label><br>
-                <input type="text" id="currency" placeholder="" value="USD" size="10">
-            </div>
-        </div>
-
-        <div class="container">
-            <input class="button" type="button" id="addTicker" name="addTicker" value="Add Ticker" size="5">
-        </div>
-
-        <br>
-
-        <div class="container">
-            <input class="button" type="button" id="addRow" name="addRow" value="Add Row" size="5">
-        </div>
-
-
-        <div class="container">
-            <table id="liveOrders">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Action</th>
-                        <th>Quantity</th>
-                        <th>Contract</th>
-                        <th>Status</th>
-                      </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>BUY</td>
-                        <td>100</td>
-                        <td>AAPL STL SMART</td>
-                        <td>Submitted</td>
-                      </tr> 
-                </tbody>    
-              </table>
-        </div>
 
     </main>
 
@@ -103,16 +48,6 @@
         let port = document.getElementById("port");
         let clientID = document.getElementById("clientId");
         let connectButton = document.getElementById("connectionDetails");
-
-        let symbol = document.getElementById("symbol");
-        let secType = document.getElementById("secType");
-        let exchange = document.getElementById("exchange");
-        let currency = document.getElementById("currency");
-        let addTickerButton = document.getElementById("addTicker");
-
-        let tableLiveOrders = document.getElementById("liveOrders").getElementsByTagName('tbody')[0];
-        let addRowButton = document.getElementById("addRow");
-        let id = 1;
         
         connectButton.onclick = function ConnectToTWS() {
             fetch('/connect', {
@@ -137,49 +72,6 @@
                 .catch(function(err) {
                     console.log(err);
                 });
-        }
-
-        addTickerButton.onclick = function addTicker(){
-            fetch('/addticker', {
-                method: 'POST',
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    symbol: symbol.value,
-                    secType: secType.value,
-                    exchange: exchange.value,
-                    currency: currency.value
-                })
-            })
-                //.then(function(response) {
-                //return response.json();
-                //})
-                //.then(function(jsonData) {
-                //    console.log('Connection started');
-                //})
-                //.catch(function(err) {
-                //    console.log('This does not seem right');
-                //});
-        }
-        
-        addRowButton.onclick = function addRow(){
-            console.log("button pressed");
-            
-            let row = tableLiveOrders.insertRow();
-            let cell0 = row.insertCell(0);
-            let cell1 = row.insertCell(1);
-            let cell2 = row.insertCell(2);
-            let cell3 = row.insertCell(3);
-            let cell4 = row.insertCell(4);           
-
-
-            cell0.innerHTML = ++id;
-            cell1.innerHTML = "BUY";
-            cell2.innerHTML = "1000";
-            cell3.innerHTML = "AAPL STL SMART";
-            cell4.innerHTML = "Submitted";
         }
 
     </script>

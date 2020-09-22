@@ -65,7 +65,7 @@ public class TraderRepository {
     }
 
     public List<Ticker> getTickerList() {
-        String sql = "SELECT * FROM ticker ORDER BY symbol";
+        String sql = "SELECT * FROM ticker ORDER BY id";
         return jdbcTemplate.query(sql, new HashMap<>(), new TickerRowMapper());
     }
 
