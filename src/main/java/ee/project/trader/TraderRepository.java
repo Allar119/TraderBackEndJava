@@ -84,6 +84,37 @@ public class TraderRepository {
        // return jdbcTemplate.query(sql, paramMap);
 
     }
+
+    public void insertOrder (Order order) {
+        // Order(String symbol, String orderType, int quantity, double limitPrice, double stopLossPrice, double profitTakerPrice)
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("algoId", order.algoId);
+        paramMap.put("symbol", order.symbol);
+        paramMap.put("orderType", order.orderType);
+        paramMap.put("quantity", order.quantity);
+        paramMap.put("limitPrice", order.limitPrice);
+        paramMap.put("stopLossPrice", order.stopLossPrice);
+        paramMap.put("profitTakerPrice", order.profitTakerPrice);
+        paramMap.put("status", "pending");
+
+        String sql = "INSERT INTO order (algo_id, symbol, order_type, quantity, limit_price, stop_loss_price, profit_taker_price, status) values (" +
+                ":algoId, " +
+                ":symbol, " +
+                ":orderType, " +
+                ":quantity, " +
+                ":limitPrice, " +
+                ":stopLossPrice, " +
+                ":profitTakerPrice, " +
+                ":status)";
+        jdbcTemplate.update(sql, paramMap);
+
+
+
+    }
+
+
+
 }
 
 

@@ -1,18 +1,40 @@
 package ee.project.trader;
 
 public class Order {
+    int algoId;
     String symbol;
     String orderType;
     int quantity;
     double limitPrice;
     double stopLossPrice;
+    String status;
 
-    public Order(String symbol, String orderType, int quantity, double limitPrice, double stopLossPrice, double profitTakerPrice) {
+    public int getId() {
+        return algoId;
+    }
+
+    public void setId(int id) {
+        this.algoId = id;
+    }
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
+    public Order(int id, String symbol, String orderType, int quantity, double limitPrice, double stopLossPrice, String status, double profitTakerPrice) {
+        this.algoId = id;
         this.symbol = symbol;
         this.orderType = orderType;
         this.quantity = quantity;
         this.limitPrice = limitPrice;
         this.stopLossPrice = stopLossPrice;
+        this.status = status;
         this.profitTakerPrice = profitTakerPrice;
     }
 
@@ -65,8 +87,5 @@ public class Order {
     public void setProfitTakerPrice(double profitTakerPrice) {
         this.profitTakerPrice = profitTakerPrice;
     }
-
-
-
 
 }
