@@ -39,7 +39,11 @@ public class TraderController {
 
         connectionHandler.addTicker(contract);
         traderService.addTicker(ticker);
+    }
 
+    @DeleteMapping("/deleteticker/{id}")
+    public void deleteTicker(@PathVariable("id") int id){
+        traderService.deleteTicker(id);
     }
 
     @GetMapping("/getactivetickers")

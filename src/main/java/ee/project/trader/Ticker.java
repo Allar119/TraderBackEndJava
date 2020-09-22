@@ -4,10 +4,7 @@ import com.ib.client.Contract;
 
 public class Ticker {
 
-/*
-      symbol("AAPL"), secType("STK"), exchange("SMART"), currency("USD")
- */
-
+    int id;
     String symbol;
     String secType;
     String exchange;
@@ -54,7 +51,12 @@ public class Ticker {
         this.currency = currency;
     }
 
+    public int getId() {
+        return id;
+    }
 
-
+    public void setId(int id) {
+        this.id = id;
+    }
 }
 

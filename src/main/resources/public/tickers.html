@@ -15,7 +15,6 @@
 <!--            <li><a href="#">Contact</a></li>-->
 <!--            <li><a href="#">Feedback</a></li>-->
         </ul>
-
     </nav>
 
     <div class="container">
@@ -36,27 +35,24 @@
             <input type="text" id="currency" placeholder="" value="USD" size="10">
         </div>
     </div>
-
     <div class="container">
         <input class="button" type="button" id="addTicker" name="addTicker" value="Add Ticker" size="5">
     </div>
-
     <br>
 
     <div class="container">
         <table id="liveOrders">
             <thead>
-                <tr>
+                <tr align="center" valign ="middle">
                     <th>Nr</th>
                     <th>Symbol</th>
                     <th>Sec Type</th>
                     <th>Exchange</th>
                     <th>Currency</th>
-                    <th><input class="remove" type="button" value="X" id="x"></th>
+                    <th> </th>
                   </tr>
             </thead>
             <tbody>
-                <tr></tr>
             </tbody>    
           </table>
     </div>
@@ -71,8 +67,6 @@
 
         function fillTickerTable(jsonData) {
             for (let i = 0; i < jsonData.length; i++) {
-
-;
 
                 let row = tableLiveOrders.insertRow();
                 let cell0 = row.insertCell(0);
@@ -89,11 +83,11 @@
                 cell4.innerHTML = jsonData[i].currency;
 
                 let newButton = document.createElement("button");
+                newButton.innerText="X";
                 newButton.onclick = function (){
-                    alert(jsonData[i].symbol);
+                    deleteTicker(jsonData[i].id)
+                    location.reload();
                 }
-                newButton.innerText="nupp"
-
                 cell5.append(newButton);
             }
         }
@@ -116,7 +110,16 @@
                 .catch(function(err) {
                     console.log("Error:" + err);
                 });
+        }
 
+        function deleteTicker(id) {
+            fetch('/deleteticker/' + id, {
+                method: 'DELETE',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
         }
 
         addTickerButton.onclick = function addTicker(){
@@ -133,17 +136,7 @@
                     currency: currency.value
                 })
             })
-
             location.reload();
-            //.then(function(response) {
-            //return response.json();
-            //})
-            //.then(function(jsonData) {
-            //    console.log('Connection started');
-            //})
-            //.catch(function(err) {
-            //    console.log('This does not seem right');
-            //});
         }
     </script>
 </body>

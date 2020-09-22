@@ -22,7 +22,7 @@ body {
 
 
 main {
-    margin-top: rem;
+    margin-top: 0rem;
 }
 
 h1, h2, h3, h4 {
@@ -99,7 +99,7 @@ nav ul li a{
 
 
 .label{
-    color: black;
+    color: #000000;
     font-size: 0.6rem;
     margin-left: 0.5rem;
 }
@@ -112,7 +112,7 @@ input{
     text-align: center;    
     height: 1.8rem;
     border: none;
-    border:solid 1px;
+    border: solid 1px;
     border-radius: 0.3rem;
     outline: none;
 }
@@ -147,25 +147,27 @@ input[type=text]:focus{
     transition-duration: 0.1s;
 }
 
-.remove{
+button{
+    display: flex;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.0rem;
+    font-size: 0.75rem;
     font-weight: bolder;
     color: seashell;
-    height: 2.0rem;
+    height: 1.0rem;
     width: 2.0rem;
     text-align: center;
-    background-color:red;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 1.0rem;
 }
 
-.remove:hover{
+button:hover{
     cursor: pointer;
-    background-color: rgb(201, 0, 0);    
+    background-color: darkred;
     transition-duration: 0.4s;
 }
-
 
 #liveOrders {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
