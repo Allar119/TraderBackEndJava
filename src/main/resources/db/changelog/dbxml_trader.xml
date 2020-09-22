@@ -7,7 +7,7 @@
     <changeSet author="raivo" id="999">
         <createTable tableName="ticker">
             <column name="id" autoIncrement="true" type="INTEGER">
-          </column>
+            </column>
             <column name="symbol" type="TEXT"/>
             <column name="sec_type" type="TEXT"/>
             <column name="exchange" type="TEXT"/>
@@ -28,18 +28,38 @@
         </createTable>
     </changeSet>
     <changeSet author="raivo" id="888">
-    <createTable tableName="order">
-        <column name="id" autoIncrement="true" type="INTEGER">
-        </column>
-        <column name="algo_id" type="INTEGER"/>
-        <column name="symbol" type="TEXT"/>
-        <column name="order_type" type="TEXT"/>
-        <column name="quantity" type="INTEGER"/>
-        <column name="limit_price" type="FLOAT"/>
-        <column name="stop_loss_price" type="FLOAT"/>
-        <column name="profit_taker_price" type="FLOAT"/>
-        <column name="status" type="TEXT"/>
-    </createTable>
+        <createTable tableName="order">
+            <column name="id" autoIncrement="true" type="INTEGER">
+            </column>
+            <column name="algo_id" type="INTEGER"/>
+            <column name="symbol" type="TEXT"/>
+            <column name="order_type" type="TEXT"/>
+            <column name="quantity" type="INTEGER"/>
+            <column name="limit_price" type="FLOAT"/>
+            <column name="stop_loss_price" type="FLOAT"/>
+            <column name="profit_taker_price" type="FLOAT"/>
+            <column name="status" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="raivo" id="777">
+        <createTable tableName="strategy">
+            <column name="id" autoIncrement="true" type="INTEGER">
+            </column>
+            <column name="time" type="BIGINT"/>
+            <column name="symbol" type="TEXT"/>
+            <column name="market_price" type="FLOAT"/>
+            <column name="trend" type="FLOAT"/>
+            <column name="quick" type="FLOAT"/>
+            <column name="slow" type="FLOAT"/>
+            <column name="price_trend" type="TEXT"/>
+            <column name="price_quick" type="TEXT"/>
+            <column name="price_slow" type="TEXT"/>
+            <column name="trend_quick" type="TEXT"/>
+            <column name="trend_slow" type="TEXT"/>
+            <column name="quick_slow" type="TEXT"/>
+        </createTable>
     </changeSet>
 
 </databaseChangeLog>
