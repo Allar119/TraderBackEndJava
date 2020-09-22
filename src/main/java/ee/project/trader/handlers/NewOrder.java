@@ -6,6 +6,7 @@ import com.ib.client.Types;
 public class NewOrder {
 
     private int orderId;
+    private String symbol;
     private Types.Action action;
     private OrderType lmt;
     private int quantity;
@@ -76,5 +77,13 @@ public class NewOrder {
 
     public double getAuxPrice() {
         return auxPrice;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 }
