@@ -5,13 +5,13 @@ import java.sql.Timestamp;
 public class Price {
 
     String symbol;
-    String timestamp;
+    long timestamp;
     double priceOpen;
     double priceClose;
     double priceMax;
     double priceMin;
 
-    public Price(String symbol, String timestamp, double priceOpen, double priceClose, double priceMax, double priceMin) {
+    public Price(String symbol, long timestamp, double priceOpen, double priceClose, double priceMax, double priceMin) {
         this.symbol = symbol;
         this.timestamp = timestamp;
         this.priceOpen = priceOpen;

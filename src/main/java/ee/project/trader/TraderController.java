@@ -67,9 +67,5 @@ public class TraderController {
         traderService.addTicker(ticker);
     }
 
-    public void addPrice() {
-       Price price = new Price("AAPL", "2020-09-17 14:23:30", 110.30, 110.30, 110.30, 110.30);
 
-        traderService.addPrice(price);
-    }
 }

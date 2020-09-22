@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class TraderRepository {
@@ -22,8 +24,6 @@ public class TraderRepository {
         System.out.println("*****************************************************");
         System.out.println();
         Map<String, Object> paramMap = new HashMap<>();
-      //  paramMap.put("account_number", accountNumber);
-        //paramMap.put("bank_customer_id", id);
         paramMap.put("symbol", ticker.symbol);
         paramMap.put("secType", ticker.secType);
         paramMap.put("exchange", ticker.exchange);
@@ -39,11 +39,14 @@ public class TraderRepository {
 
     public void addPrice(Price price) {
 
-        System.out.println("TraderRepository addPrice:");
+      /*  System.out.println("TraderRepository addPrice:");
         System.out.println(price.symbol);
         System.out.println(price.priceMax);
         System.out.println("*****************************************************");
         System.out.println();
+
+
+       */
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("timestamp", price.timestamp);
         paramMap.put("symbol", price.symbol);
@@ -61,9 +64,25 @@ public class TraderRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-    public List<Ticker> getTickerList(){
+    public List<Ticker> getTickerList() {
         String sql = "SELECT * FROM ticker ORDER BY symbol";
         return jdbcTemplate.query(sql, new HashMap<>(), new TickerRowMapper());
+    }
+
+    public double getSMA(SMA sma) {
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("timeFrame", sma.timeFrame);
+        paramMap.put("symbol", sma.symbol);
+
+        String sql = "select avg(price_open) over (rows between :timeFrame preceding and 0 following) from price_history where symbol = :symbol ORDER BY ID DESC LIMIT 1;";
+
+        double simoav =  jdbcTemplate.queryForObject(sql, paramMap, Double.class);
+        return simoav;
+
+        // select avg(price_open) over (rows between 60 preceding and 0 following) from price_history where symbol = 'SOXL' ORDER BY ID DESC LIMIT 1
+       // return jdbcTemplate.query(sql, paramMap);
+
     }
 }
 

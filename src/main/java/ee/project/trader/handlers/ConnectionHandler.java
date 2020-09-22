@@ -1,8 +1,11 @@
 package ee.project.trader.handlers;
 import com.ib.client.Contract;
+import com.ib.client.Order;
 import com.ib.client.Types;
 import com.ib.controller.ApiController;
 import ee.project.trader.Ticker;
+import ee.project.trader.TraderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +13,14 @@ import java.util.List;
 @Service
 public class ConnectionHandler implements ApiController.IConnectionHandler {
 
+    @Autowired
+    private TraderService traderService;
+
     private boolean isConnected;
     ApiController m_controller = new ApiController( this);
 
-    public static void placeOrModifyOrder(Ticker initializeContract, NewOrder o, OrderHandler orderHandler) {
+    public void placeOrModifyOrder(Contract contract, Order o, OrderHandler orderHandler) {
+        m_controller.placeOrModifyOrder(contract, o, orderHandler);
     }
 
     public void run(String hostIp, int port, int clientId, String connectionOpts) {
@@ -25,13 +32,26 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
 
        // m_controller.reqMktDataType(1); //Select market Data type 1=Live, 2=Frozen, 3=Delayed, 4=Delayed and frozen
        // m_controller.reqTopMktData(contract, "221", false, false, new TopMktDataHandler());
-        m_controller.reqRealTimeBars(contract, Types.WhatToShow.TRADES, false, new RaivoRealTimeHandler(contract));
+        m_controller.reqRealTimeBars(contract, Types.WhatToShow.TRADES, false, new RaivoRealTimeHandler(contract, traderService));
     }
 
     @Override
     public void connected() {
         isConnected = true;
         System.out.println("Connected");
+        traderService.getTickerList().forEach(ticker -> {
+
+            Contract contract = new Contract();
+            contract.symbol(ticker.getSymbol());
+            contract.secType(ticker.getSecType());
+            contract.exchange(ticker.getExchange());
+            contract.currency(ticker.getCurrency());
+
+            addTicker(contract);
+        });
+        // korjan tickereid, sma-d käima
+        //tsekkan, kas on OrderDB-s kirje orderi kohta
+        //if yes, käivitan
     }
 
     @Override

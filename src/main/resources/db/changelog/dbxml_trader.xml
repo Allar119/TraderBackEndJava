@@ -19,7 +19,7 @@
             </column>
             <column name="symbol" type="TEXT">
             </column>
-            <column name="timestamp" type="TIMESTAMP">
+            <column name="timestamp" type="BIGINT">
             </column>
             <column name="price_open" type="FLOAT"/>
             <column name="price_close" type="FLOAT"/>
