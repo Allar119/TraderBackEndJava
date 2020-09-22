@@ -1,18 +1,32 @@
-:root{
-    background-color: #f7f7f7;
+:root{ 
     font-size: 62,5%;
+    background-color: #f7f7f7;
+    --text-primary: #333;
+    --text-secondary: #f7f7f7;
+    --back-primery:  #9db6cc;
 }
 
 *{
+    margin: 0;
+    padding: 0;    
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+    list-style: none;
+}
+
+
+body {
     margin: 0;
     padding: 0;
-    color: #333;
+}
+
+
+main {
+    margin-top: 0rem;
 }
 
 h1, h2, h3, h4 {
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
     text-align: center;
     margin: auto;
     color: #333;
@@ -21,15 +35,51 @@ h1, h2, h3, h4 {
 
 h1 {
     font-size: 3.0rem;
-    margin-top: 2.0rem;
-    margin-bottom: 1.0rem;
     max-width: 620px;
     background-color: #3f4246;
-    color: #f7f7f7;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
 }
 
 
 /* UTILITIES */
+
+.navbar{
+    margin-bottom: 1rem;
+    width: 100%;
+    height: 3rem;
+    position: top;
+    background-color: #333;
+}
+
+.logo{
+    color: var(--text-secondary);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height: 3rem;
+    margin-left: 1.0rem;    
+}
+
+nav ul{
+    float: right;
+    margin-right: 20px;
+}
+
+nav ul li{
+    display: inline-block;
+    margin-top: 1.0rem;
+    margin-right: 1.0rem;
+}
+
+nav ul li a{
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-secondary);
+}
+
+
 .container{
     display: flex;
     justify-content: center;
@@ -37,7 +87,7 @@ h1 {
     background-color: #9db6cc;
     max-width: 620px;
     margin: auto;
-    border-radius: 0.0rem;
+    border-radius: 0.0rem;    
 }
 
 .div1{    
@@ -49,10 +99,11 @@ h1 {
 
 
 .label{
-    color: black;
+    color: #000000;
     font-size: 0.6rem;
     margin-left: 0.5rem;
 }
+
 
 input{
     font-size: 1.0rem;
@@ -61,7 +112,7 @@ input{
     text-align: center;    
     height: 1.8rem;
     border: none;
-    border:solid 1px;
+    border: solid 1px;
     border-radius: 0.3rem;
     outline: none;
 }
@@ -96,6 +147,28 @@ input[type=text]:focus{
     transition-duration: 0.1s;
 }
 
+button{
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.75rem;
+    font-weight: bolder;
+    color: seashell;
+    height: 1.0rem;
+    width: 2.0rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    border: none;
+    border-radius: 1.0rem;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: darkred;
+    transition-duration: 0.4s;
+}
+
 #liveOrders {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -107,7 +180,7 @@ input[type=text]:focus{
     padding: 8px;
 }
 
-#liveOrders tr:nth-child(even){background-color: #f2f2f2;}
+#liveOrders tr:nth-child(even){background-color: var(--back-primery);}
 
 #liveOrders tr:hover {background-color: #ddd;}
 
@@ -115,7 +188,7 @@ input[type=text]:focus{
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #4CAF50;
+    background-color: var(--back-primery);
     color: white;
 }
 

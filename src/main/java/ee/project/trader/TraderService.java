@@ -28,6 +28,9 @@ public class TraderService {
         traderRepository.addPrice(price);
     }
 
+    public void deleteTicker(int id) {
+        traderRepository.deleteTicker(id);
+    }
 
     public List<Ticker> getTickerList() {
         return traderRepository.getTickerList();
@@ -85,5 +88,6 @@ public class TraderService {
 
 
     }
+
 
 }

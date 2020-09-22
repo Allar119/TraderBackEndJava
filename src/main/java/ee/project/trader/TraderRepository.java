@@ -3,6 +3,7 @@ package ee.project.trader;
 import ee.project.trader.rowmappers.TickerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -65,7 +66,7 @@ public class TraderRepository {
     }
 
     public List<Ticker> getTickerList() {
-        String sql = "SELECT * FROM ticker ORDER BY symbol";
+        String sql = "SELECT * FROM ticker ORDER BY id";
         return jdbcTemplate.query(sql, new HashMap<>(), new TickerRowMapper());
     }
 
@@ -114,7 +115,12 @@ public class TraderRepository {
     }
 
 
-
+    public void deleteTicker(int id) {
+        String sql = "DELETE FROM ticker WHERE id = :id";
+        Map<String, Integer> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        jdbcTemplate.update(sql, paramMap);
+    }
 }
 
 

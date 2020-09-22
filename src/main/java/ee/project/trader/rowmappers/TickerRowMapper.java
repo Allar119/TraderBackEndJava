@@ -11,6 +11,7 @@ public class TickerRowMapper implements RowMapper<Ticker> {
     @Override
     public Ticker mapRow(ResultSet rs, int rowNum) throws SQLException {
         Ticker ticker = new Ticker();
+        ticker.setId(rs.getInt("id"));
         ticker.setSymbol(rs.getString("symbol"));
         ticker.setSecType(rs.getString("sec_type"));
         ticker.setExchange(rs.getString("exchange"));
