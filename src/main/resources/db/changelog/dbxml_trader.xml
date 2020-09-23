@@ -77,5 +77,23 @@
         </addColumn>
     </changeSet>
 
+    <changeSet author="raivo" id="555">
+        <addColumn tableName="order">
+            <column name="valid" type="TEXT"/>
+            <column name="price_type" type="TEXT"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="raivo" id="444">
+        <addColumn tableName="order">
+            <column name="order_action" type="TEXT"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="raivo" id="333">
+        <dropColumn tableName="order">
+            <column name="price_type"/>
+        </dropColumn>
+    </changeSet>
 
 </databaseChangeLog>
