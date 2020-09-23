@@ -2,6 +2,7 @@ package ee.project.trader;
 
 
 import com.ib.client.Contract;
+import ee.project.trader.dto.PlaceOrderDto;
 import ee.project.trader.handlers.ConnectionHandler;
 import ee.project.trader.dto.ConnectionDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,6 @@ public class TraderController {
 
     @Autowired
     private ConnectionHandler connectionHandler;
-
-    //Start connection
 
     @PostMapping("/connect")
     public boolean startConnection(@RequestBody ConnectionDetails connectionDetails) throws InterruptedException {
@@ -53,8 +52,6 @@ public class TraderController {
         // et need siis connectioni loomise järel automaataelt käivitada
     }
 
-
-
     @PostMapping("addorder/")
     public void addOrder() {
     /* teeme andmebaasis TICKER tabelis uue rea tickeri dataga, a-la AAPL, NVDA jne andes kaasa json-is
@@ -71,5 +68,9 @@ public class TraderController {
         traderService.addTicker(ticker);
     }
 
-
+    @PostMapping("/placeorder")
+    public void placeOrder(@RequestBody PlaceOrderDto order){
+        System.out.println("...placing order");
+        traderService.placeOrder(order);
+    }
 }

@@ -1,5 +1,6 @@
 package ee.project.trader;
 
+import ee.project.trader.dto.PlaceOrderDto;
 import ee.project.trader.rowmappers.TickerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -98,10 +99,6 @@ public class TraderRepository {
         return action;
     }
 
-
-
-
-
     public void insertOrder (Order order) {
         // Order(String symbol, String orderType, int quantity, double limitPrice, double stopLossPrice, double profitTakerPrice)
 
@@ -149,17 +146,9 @@ public class TraderRepository {
                 " price_slow = :price_slow, trend_quick = :trend_quick, trend_slow = :trend_slow," +
                 " quick_slow = :quick_slow where symbol = :symbol";
         jdbcTemplate.update(sql, paramMap);
-
-
-
     }
 
-
-
-
     public void insertStrategyLine (StrategyLine strategyLine) {
-
-
 /*
             <column name="time" type="BIGINT"/>
             <column name="symbol" type="TEXT"/>
@@ -210,6 +199,35 @@ public class TraderRepository {
         Map<String, Integer> paramMap = new HashMap<>();
         paramMap.put("id", id);
         jdbcTemplate.update(sql, paramMap);
+    }
+
+    public void placeOrder(PlaceOrderDto order) {
+        String sql = "INSERT INTO order_table (algo_id, symbol, order_type, quantity, limit_price, stop_loss_price, profit_taker_price, status, valid, order_action) values (" +
+                ":algoId, " +
+                ":symbol, " +
+                ":orderType, " +
+                ":quantity, " +
+                ":limitPrice, " +
+                ":stopLoss, " +
+                ":profitTaker, " +
+                ":status, " +
+                ":valid, " +
+                ":orderAction)";
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("algoId", order.getAlgoId());
+        paramMap.put("symbol", order.getSymbol());
+        paramMap.put("orderType", order.getOrderType());
+        paramMap.put("quantity", order.getQuantity());
+        paramMap.put("limitPrice", order.getLimitPrice());
+        paramMap.put("stopLoss", order.getStopLoss());
+        paramMap.put("profitTaker", order.getProfitTaker());
+        paramMap.put("status", "Submitted");
+        paramMap.put("valid", order.getValid());
+        paramMap.put("orderAction", order.getOrderAction());
+
+        jdbcTemplate.update(sql, paramMap);
+        System.out.println("...Order placed");
     }
 }
 

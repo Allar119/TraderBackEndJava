@@ -5,9 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ScheduledTasks {
-
+/*
     @Scheduled(fixedRate = 1000) // millisekundid. Iga sekundi tagant teeb...
     public void timing () {
         System.out.println("Timing");
     }
+ */
 }

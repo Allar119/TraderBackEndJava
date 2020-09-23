@@ -42,28 +42,61 @@
 
         <div class="container">
             <div class="div1">
-                <input class="input" type="text" id="1" placeholder="" value="">
+                <label class="label" for="stradegy">STRADEGY</label><br>
+                <input class="input" type="text" id="stradegy" placeholder="QUICK" size="15">
             </div>
             <div class="div1">
-                <input class="input" type="text" id="2" placeholder="" value="" size="8">
+                <label class="label" for="orderSymbol">SYMBOL</label><br>
+                <input class="input" type="text" id="orderSymbol" placeholder="AAPL" size="15">
             </div>
             <div class="div1">
-                <input class="input" type="text" id="3" placeholder="" value="0" size="5">
+                <label class="label" for="orderAction">ORDER ACTION</label><br>
+                <input class="input" type="text" id="orderAction" placeholder="BUY/SELL/SHORT" size="15">
+            </div>
+            <div class="div1">
+                <label class="label" for="orderType">ORDER TYPE</label><br>
+                <input class="input" type="text" id="orderType" placeholder="LIMIT/MARKET" size="15">
+            </div>            
+        </div>
+        <div class="container">
+            <div class="div1">
+                <label class="label" for="quantity">QUANTITY</label><br>
+                <input class="input" type="text" id="quantity" placeholder="100" size="15">
+            </div>
+            <div class="div1">
+                <label class="label" for="limitPrice">LIMIT PRICE</label><br>
+                <input class="input" type="text" id="limitPrice" placeholder="$" size="15">
+            </div>
+            <div class="div1">
+                <label class="label" for="stopLoss">STOP LOSS</label><br>
+                <input class="input" type="text" id="stopLoss" placeholder="$" size="15">
+            </div>
+            <div class="div1">
+                <label class="label" for="profitTaker">PROFIT TAKER</label><br>
+                <input class="input" type="text" id="profitTaker" placeholder="$" size="15">
+            </div> 
+        </div>
+        <div class="container">
+            <div class="div1">
+                <label class="label" for="valid">VALID TYPE</label><br>
+                <input class="input" type="text" id="valid" placeholder="DAY/GTC" >
             </div>
         </div>
+        <div class="container" >
+            <input class="button" type="button" id="placeOrder" name="placeOrder" value="Place Order" size="5">            
+        </div>
+        <br>        
 
-        <br>
-
-
+        
     </main>
 
     <script>
         let host = document.getElementById("host");
         let port = document.getElementById("port");
         let clientID = document.getElementById("clientId");
-        let connectButton = document.getElementById("connectionDetails");
-        
-        connectButton.onclick = function ConnectToTWS() {
+        let connectButton = document.getElementById("connectionDetails");    
+
+        connectButton.onclick = function connectToTWS() {
             fetch('/connect', {
                 method: 'POST',
                 cache: 'no-cache',
@@ -88,6 +121,47 @@
                 });
         }
 
+        let algoId = document.getElementById("stradegy");
+        let orderSymbol = document.getElementById("orderSymbol");
+        let orderAction = document.getElementById("orderAction");
+        let orderType = document.getElementById("orderType");
+        let quantity = document.getElementById("quantity");
+        let limitPrice = document.getElementById("limitPrice");
+        let stopLoss = document.getElementById("stopLoss");
+        let profitTaker = document.getElementById("profitTaker");
+        let valid = document.getElementById("valid");
+        let placeOrderButton = document.getElementById("placeOrder");
+
+        placeOrderButton.onclick = function placeOrder() {
+            fetch('/placeorder', {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    algoId: algoId.value,
+                    symbol: orderSymbol.value,
+                    orderType: orderType.value,
+                    orderAction: orderAction.value,
+                    quantity: quantity.value,
+                    limitPrice: limitPrice.value,
+                    stopLoss: stopLoss.value,
+                    profitTaker: profitTaker.value,
+                    valid: valid.value
+                })
+            })/*
+                .then(function(response) {
+                return response.json();
+                })
+                .then(function(jsonData) {
+                    console.log(jsonData);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+                */
+        }
     </script>
 </body>
 </html>

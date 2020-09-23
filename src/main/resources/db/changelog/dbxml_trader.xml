@@ -96,4 +96,9 @@
         </dropColumn>
     </changeSet>
 
+    <changeSet author="allar" id="23-Sep-2020 renamed table">
+        <renameTable  newTableName="order_table"
+                      oldTableName="order"/>
+    </changeSet>
+
 </databaseChangeLog>

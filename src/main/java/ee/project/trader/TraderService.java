@@ -2,6 +2,7 @@ package ee.project.trader;
 
 import com.ib.client.Contract;
 import com.ib.controller.Bar;
+import ee.project.trader.dto.PlaceOrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,8 @@ public class TraderService {
 
     @Autowired
     private TraderRepository traderRepository;
-String actionZero;
-String actionOne;
+    String actionZero;
+    String actionOne;
 
     public void addTicker(Ticker ticker) {
         System.out.println("traderService addTicker:");
@@ -152,8 +153,6 @@ String actionOne;
         traderRepository.insertStrategyLineToTicker(strategyLine);
 
 
-
-
         // Nüüdseks on meil kõikide aktsiate kohta olemas hinnainfo, ja valitud SMA-de alusel
         // genereeritud strateegiate actionid
 
@@ -170,5 +169,7 @@ String actionOne;
 */
     }
 
-
+    public void placeOrder(PlaceOrderDto order) {
+        traderRepository.placeOrder(order);
+    }
 }
