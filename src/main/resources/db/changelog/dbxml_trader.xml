@@ -84,6 +84,16 @@
         </addColumn>
     </changeSet>
 
+    <changeSet author="raivo" id="444">
+        <addColumn tableName="order">
+            <column name="order_action" type="TEXT"/>
+        </addColumn>
+    </changeSet>
 
+    <changeSet author="raivo" id="333">
+        <dropColumn tableName="order">
+            <column name="price_type"/>
+        </dropColumn>
+    </changeSet>
 
 </databaseChangeLog>
