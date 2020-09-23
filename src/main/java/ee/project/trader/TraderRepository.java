@@ -65,9 +65,6 @@ public class TraderRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-
-
-
     public List<Ticker> getTickerList() {
         String sql = "SELECT * FROM ticker ORDER BY id";
         return jdbcTemplate.query(sql, new HashMap<>(), new TickerRowMapper());
@@ -94,8 +91,11 @@ public class TraderRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("symbol", symbol);
         paramMap.put("strategy", strategy);
-        String sql = "SELECT :strategy FROM strategy WHERE symbol = :symbol ORDER BY ID DESC LIMIT 1";
-        return jdbcTemplate.queryForObject(sql, paramMap, String.class);
+        String sql = "SELECT * FROM strategy WHERE symbol = :symbol ORDER BY ID DESC LIMIT 1;";
+
+        String action = jdbcTemplate.queryForObject(sql, paramMap, String.class);
+        System.out.println(action);
+        return action;
     }
 
 
@@ -126,6 +126,36 @@ public class TraderRepository {
                 ":status)";
         jdbcTemplate.update(sql, paramMap);
     }
+
+    public void insertStrategyLineToTicker (StrategyLine strategyLine) {
+
+        Map<String, Object> paramMap = new HashMap<>();
+
+        paramMap.put("symbol", strategyLine.symbol);
+        paramMap.put("marketPrice", strategyLine.marketPrice);
+        paramMap.put("trend", strategyLine.trend);
+        paramMap.put("quick", strategyLine.quick);
+        paramMap.put("slow", strategyLine.slow);
+        paramMap.put("price_trend", strategyLine.price_trend);
+        paramMap.put("price_quick", strategyLine.price_quick);
+        paramMap.put("price_slow", strategyLine.price_slow);
+        paramMap.put("trend_quick", strategyLine.trend_quick);
+        paramMap.put("trend_slow", strategyLine.trend_slow);
+        paramMap.put("quick_slow", strategyLine.quick_slow);
+
+
+        String sql = "UPDATE ticker SET market_price = :marketPrice, trend = :trend, quick = :quick," +
+                " slow = :slow, price_trend = :price_trend, price_quick = :price_quick," +
+                " price_slow = :price_slow, trend_quick = :trend_quick, trend_slow = :trend_slow," +
+                " quick_slow = :quick_slow where symbol = :symbol";
+        jdbcTemplate.update(sql, paramMap);
+
+
+
+    }
+
+
+
 
     public void insertStrategyLine (StrategyLine strategyLine) {
 
