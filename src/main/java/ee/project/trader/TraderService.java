@@ -12,7 +12,8 @@ public class TraderService {
 
     @Autowired
     private TraderRepository traderRepository;
-
+String actionZero;
+String actionOne;
 
     public void addTicker(Ticker ticker) {
         System.out.println("traderService addTicker:");
@@ -113,7 +114,7 @@ public class TraderService {
             quick_slow = "SELL";
         }
 
-
+/*
         System.out.println("******************* " + contract.symbol() + " *********************");
         System.out.println(contract.symbol() + " price " + bar.high());
         System.out.println(contract.symbol() + " SMA5  " + traderRepository.getSMA(sma5));
@@ -138,14 +139,29 @@ public class TraderService {
         System.out.println("______________________________________________");
         System.out.println();
 
+       */
+
         // Kirjutame strateegiad andmebaasi:
         StrategyLine strategyLine = new StrategyLine(bar.time(),
                 contract.symbol(), price, trend,
                 quick, slow, price_trend, price_quick, price_slow, trend_quick, trend_slow, quick_slow);
         traderRepository.insertStrategyLine(strategyLine);
+        traderRepository.insertStrategyLineToTicker(strategyLine);
+
+
+
 
         // Nüüdseks on meil kõikide aktsiate kohta olemas hinnainfo, ja valitud SMA-de alusel
         // genereeritud strateegiate actionid
+
+// Kutsume konkreetse aktsia osas välja actioni valitud strateegiaga
+        actionOne = traderRepository.getAction("SOXL", "trend_slow");
+        if (actionOne.equals(actionZero)){
+            System.out.println();
+        } else {
+            System.out.println("SOXL -> " + actionOne);
+        }
+        actionZero = actionOne;
 
     }
 
