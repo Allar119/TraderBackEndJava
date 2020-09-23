@@ -158,6 +158,8 @@ String actionOne;
         // genereeritud strateegiate actionid
 
 // Kutsume konkreetse aktsia osas välja actioni valitud strateegiaga
+
+        /*
         actionOne = traderRepository.getAction("SOXL", "trend_slow");
         if (actionOne.equals(actionZero)){
             System.out.println();
@@ -165,7 +167,7 @@ String actionOne;
             System.out.println("SOXL -> " + actionOne);
         }
         actionZero = actionOne;
-
+*/
     }
 
 
