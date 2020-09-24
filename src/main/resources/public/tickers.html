@@ -41,9 +41,9 @@
     <br>
 
     <div class="container">
-        <table id="liveOrders">
+        <table class="myTable" id="tickerTable">
             <thead>
-                <tr align="center" valign ="middle">
+                <tr text-align="center" valign="middle">
                     <th>Nr</th>
                     <th>Symbol</th>
                     <th>Sec Type</th>
@@ -63,12 +63,12 @@
         let exchange = document.getElementById("exchange");
         let currency = document.getElementById("currency");
         let addTickerButton = document.getElementById("addTicker");
-        let tableLiveOrders = document.getElementById("liveOrders").getElementsByTagName('tbody')[0];
+        let tableTickerTable = document.getElementById("tickerTable").getElementsByTagName('tbody')[0];
 
         function fillTickerTable(jsonData) {
             for (let i = 0; i < jsonData.length; i++) {
 
-                let row = tableLiveOrders.insertRow();
+                let row = tableTickerTable.insertRow();
                 let cell0 = row.insertCell(0);
                 let cell1 = row.insertCell(1);
                 let cell2 = row.insertCell(2);

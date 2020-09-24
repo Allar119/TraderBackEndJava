@@ -2,6 +2,8 @@ package ee.project.trader;
 
 import com.ib.client.Contract;
 import com.ib.controller.Bar;
+import ee.project.trader.dto.OrderDetails;
+import ee.project.trader.dto.SubmitOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,8 @@ public class TraderService {
 
     @Autowired
     private TraderRepository traderRepository;
-String actionZero;
-String actionOne;
+    String actionZero;
+    String actionOne;
 
     public void addTicker(Ticker ticker) {
         System.out.println("traderService addTicker:");
@@ -32,10 +34,6 @@ String actionOne;
 
     public void deleteTicker(int id) {
         traderRepository.deleteTicker(id);
-    }
-
-    public List<Ticker> getTickerList() {
-        return traderRepository.getTickerList();
     }
 
     public boolean doBuy(double quick, double slow) {
@@ -152,8 +150,6 @@ String actionOne;
         traderRepository.insertStrategyLineToTicker(strategyLine);
 
 
-
-
         // Nüüdseks on meil kõikide aktsiate kohta olemas hinnainfo, ja valitud SMA-de alusel
         // genereeritud strateegiate actionid
 
@@ -170,5 +166,19 @@ String actionOne;
 */
     }
 
+    public void addOrder(SubmitOrder order) {
+        traderRepository.insertOrder(order);
+    }
 
+    public List<Ticker> getTickerList() {
+        return traderRepository.getTickerList();
+    }
+
+    public List<OrderDetails> getOrdersList() {
+        return traderRepository.getOrdersList();
+    }
+
+    public void deleteOrder(int id) {
+        traderRepository.deleteOrder(id);
+    }
 }

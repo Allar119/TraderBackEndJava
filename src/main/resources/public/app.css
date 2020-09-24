@@ -85,7 +85,7 @@ nav ul li a{
     justify-content: center;
     align-items: center;
     background-color: #9db6cc;
-    max-width: 620px;
+    max-width: 700px;
     margin: auto;
     border-radius: 0.0rem;    
 }
@@ -169,22 +169,22 @@ button:hover{
     transition-duration: 0.4s;
 }
 
-#liveOrders {
+.myTable {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
 
-#liveOrders td, #liveOrders th {
+.myTable td, .myTable th {
     border: 1px solid #ddd;
     padding: 8px;
 }
 
-#liveOrders tr:nth-child(even){background-color: var(--back-primery);}
+.myTable tr:nth-child(even){background-color: var(--back-primery);}
 
-#liveOrders tr:hover {background-color: #ddd;}
+.myTable tr:hover {background-color: #ddd;}
 
-#liveOrders th {
+.myTable th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;

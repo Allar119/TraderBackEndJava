@@ -5,7 +5,7 @@
     <title>Trader Application</title>
     <link rel="stylesheet" href="app.css">
 </head>
-<body>
+<body onload="getOrders()">
     <nav class="navbar">        
         <label class="logo">TRAD€R</label>      
         <ul>
@@ -30,7 +30,7 @@
                 <input class="input" type="text" id="port" placeholder="Port" value="7400" size="8">
             </div>
             <div class="div1">
-                <label class="label" for="port">ID</label><br>
+                <label class="label" for="clientId">ID</label><br>
                 <input class="input" type="text" id="clientId" placeholder="Client ID" value="0" size="5">
             </div>
         </div>
@@ -40,16 +40,84 @@
 
         <br>
 
+        <div class="container">
+            <div class="div1">
+                <label class="label" for="stradegy">STRADEGY</label><br>
+                <input class="input" type="text" id="stradegy" placeholder="QUICK" size="15">
+            </div>
+            <div class="div1">
+                <label class="label" for="orderSymbol">SYMBOL</label><br>
+                <input class="input" type="text" id="orderSymbol" placeholder="AAPL" size="15">
+            </div>
+            <div class="div1">
+                <label class="label" for="orderAction">ORDER ACTION</label><br>
+                <input class="input" type="text" id="orderAction" placeholder="BUY/SELL/SHORT" size="15">
+            </div>
+            <div class="div1">
+                <label class="label" for="orderType">ORDER TYPE</label><br>
+                <input class="input" type="text" id="orderType" placeholder="LIMIT/MARKET" size="15">
+            </div>            
+        </div>
+        <div class="container">
+            <div class="div1">
+                <label class="label" for="quantity">QUANTITY</label><br>
+                <input class="input" type="text" id="quantity" placeholder="100" size="15">
+            </div>
+            <div class="div1">
+                <label class="label" for="limitPrice">LIMIT PRICE</label><br>
+                <input class="input" type="text" id="limitPrice" placeholder="$" size="15">
+            </div>
+            <div class="div1">
+                <label class="label" for="stopLoss">STOP LOSS</label><br>
+                <input class="input" type="text" id="stopLoss" placeholder="$" size="15">
+            </div>
+            <div class="div1">
+                <label class="label" for="profitTaker">PROFIT TAKER</label><br>
+                <input class="input" type="text" id="profitTaker" placeholder="$" size="15">
+            </div> 
+        </div>
+        <div class="container">
+            <div class="div1">
+                <label class="label" for="valid">VALID TYPE</label><br>
+                <input class="input" type="text" id="valid" placeholder="DAY/GTC" >
+            </div>
+        </div>
+        <div class="container" >
+            <input class="button" type="button" id="submitOrder" name="submitOrder" value="Submit Order" size="5">            
+        </div>
 
+        <br>
+
+        <div class="container">
+            <table class="myTable" id="ordersTable">
+                <thead>
+                <tr text-align="center" valign="middle">
+                    <th>Nr</th>
+                    <th>Strategy</th>
+                    <th>Symbol</th>
+                    <th>Order Type</th>
+                    <th>Order Action</th>
+                    <th>Limit Price</th>
+                    <th>Stop Loss </th>
+                    <th>Profit Taker </th>
+                    <th>Valid </th>
+                    <th>Status </th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>        
     </main>
 
     <script>
         let host = document.getElementById("host");
         let port = document.getElementById("port");
         let clientID = document.getElementById("clientId");
-        let connectButton = document.getElementById("connectionDetails");
-        
-        connectButton.onclick = function ConnectToTWS() {
+        let connectButton = document.getElementById("connectionDetails");    
+
+        connectButton.onclick = function connectToTWS() {
             fetch('/connect', {
                 method: 'POST',
                 cache: 'no-cache',
@@ -72,6 +140,108 @@
                 .catch(function(err) {
                     console.log(err);
                 });
+        }
+
+        let algoId = document.getElementById("stradegy");
+        let orderSymbol = document.getElementById("orderSymbol");
+        let orderAction = document.getElementById("orderAction");
+        let orderType = document.getElementById("orderType");
+        let quantity = document.getElementById("quantity");
+        let limitPrice = document.getElementById("limitPrice");
+        let stopLoss = document.getElementById("stopLoss");
+        let profitTaker = document.getElementById("profitTaker");
+        let valid = document.getElementById("valid");
+        let submitOrderButton = document.getElementById("submitOrder");
+
+        submitOrderButton.onclick = function submitOrder() {
+            fetch('/submitorder', {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    algoId: algoId.value,
+                    symbol: orderSymbol.value,
+                    orderType: orderType.value,
+                    orderAction: orderAction.value,
+                    quantity: quantity.value,
+                    limitPrice: limitPrice.value,
+                    stopLoss: stopLoss.value,
+                    profitTaker: profitTaker.value,
+                    valid: valid.value
+                })
+            })
+            location.reload();            
+        }
+
+        let orderTable = document.getElementById("ordersTable").getElementsByTagName('tbody')[0];
+
+        function getOrders() {
+            fetch('/getorderlist', {
+                method: 'GET',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(jsonData) {
+                    console.log(jsonData);
+                    fillOrderTable(jsonData);
+                })
+                .catch(function(err) {
+                    console.log("Error:" + err);
+                });
+        }
+        
+        function deleteOrder(id){
+            fetch('/deleteorder/' + id, {
+                method: 'DELETE',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+        }
+
+        function fillOrderTable(jsonData) {
+            for (let i = 0; i < jsonData.length; i++) {
+
+                let row = orderTable.insertRow(0);
+                let cell0 = row.insertCell(0);
+                let cell1 = row.insertCell(1);
+                let cell2 = row.insertCell(2);
+                let cell3 = row.insertCell(3);
+                let cell4 = row.insertCell(4);
+                let cell5 = row.insertCell(5);
+                let cell6 = row.insertCell(6);
+                let cell7 = row.insertCell(7);
+                let cell8 = row.insertCell(8);
+                let cell9 = row.insertCell(9);
+                let cell10 = row.insertCell(10);
+
+                cell0.innerHTML = i + 1;
+                cell1.innerHTML = jsonData[i].algoId;
+                cell2.innerHTML = jsonData[i].symbol;
+                cell3.innerHTML = jsonData[i].orderType;
+                cell4.innerHTML = jsonData[i].orderAction;
+                cell5.innerHTML = jsonData[i].limitPrice;
+                cell6.innerHTML = jsonData[i].stopLoss;
+                cell7.innerHTML = jsonData[i].profitTaker;
+                cell8.innerHTML = jsonData[i].valid;
+                cell9.innerHTML = jsonData[i].status;
+
+                let newButton = document.createElement("button");
+                newButton.innerText="X";
+                newButton.onclick = function (){
+                    deleteOrder(jsonData[i].id)
+                    location.reload();
+                }
+                cell10.append(newButton);
+            }
         }
 
     </script>
