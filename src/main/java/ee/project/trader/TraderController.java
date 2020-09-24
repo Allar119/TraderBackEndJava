@@ -2,7 +2,8 @@ package ee.project.trader;
 
 
 import com.ib.client.Contract;
-import ee.project.trader.dto.PlaceOrderDto;
+import ee.project.trader.dto.OrderDetails;
+import ee.project.trader.dto.SubmitOrder;
 import ee.project.trader.handlers.ConnectionHandler;
 import ee.project.trader.dto.ConnectionDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,25 +53,32 @@ public class TraderController {
         // et need siis connectioni loomise järel automaataelt käivitada
     }
 
-    @PostMapping("addorder/")
-    public void addOrder() {
+    @PostMapping("/submitorder")
+    public void submitOrder(@RequestBody SubmitOrder order) {
+        traderService.addOrder(order);
     /* teeme andmebaasis TICKER tabelis uue rea tickeri dataga, a-la AAPL, NVDA jne andes kaasa json-is
         contract.symbol("AAPL");
         contract.secType("STK");
         contract.exchange("SMART");
         contract.currency("USD");
-     */
+
         Ticker ticker = new Ticker();
         ticker.setSymbol("AAPL");
         ticker.setSecType("STK");
         ticker.setExchange("SMART");
         ticker.setCurrency("USD");
         traderService.addTicker(ticker);
+
+     */
     }
 
-    @PostMapping("/placeorder")
-    public void placeOrder(@RequestBody PlaceOrderDto order){
-        System.out.println("...placing order");
-        traderService.placeOrder(order);
+    @GetMapping("/getorderlist")
+    public List<OrderDetails> getOrderList(){
+        return traderService.getOrdersList();
+    }
+
+    @DeleteMapping("/deleteorder/{id}")
+    public void deleteOrder(@PathVariable("id") int id){
+        traderService.deleteOrder(id);
     }
 }

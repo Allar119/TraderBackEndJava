@@ -1,6 +1,6 @@
 package ee.project.trader.dto;
 
-public class PlaceOrderDto {
+public class SubmitOrder {
 
     private int algoId;             //Strategy
     private String symbol;          //Ticker symbol

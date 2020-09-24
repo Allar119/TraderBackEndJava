@@ -2,7 +2,8 @@ package ee.project.trader;
 
 import com.ib.client.Contract;
 import com.ib.controller.Bar;
-import ee.project.trader.dto.PlaceOrderDto;
+import ee.project.trader.dto.OrderDetails;
+import ee.project.trader.dto.SubmitOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +34,6 @@ public class TraderService {
 
     public void deleteTicker(int id) {
         traderRepository.deleteTicker(id);
-    }
-
-    public List<Ticker> getTickerList() {
-        return traderRepository.getTickerList();
     }
 
     public boolean doBuy(double quick, double slow) {
@@ -169,7 +166,19 @@ public class TraderService {
 */
     }
 
-    public void placeOrder(PlaceOrderDto order) {
-        traderRepository.placeOrder(order);
+    public void addOrder(SubmitOrder order) {
+        traderRepository.insertOrder(order);
+    }
+
+    public List<Ticker> getTickerList() {
+        return traderRepository.getTickerList();
+    }
+
+    public List<OrderDetails> getOrdersList() {
+        return traderRepository.getOrdersList();
+    }
+
+    public void deleteOrder(int id) {
+        traderRepository.deleteOrder(id);
     }
 }
