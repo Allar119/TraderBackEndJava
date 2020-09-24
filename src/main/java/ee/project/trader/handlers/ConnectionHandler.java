@@ -5,6 +5,7 @@ import com.ib.client.Types;
 import com.ib.controller.ApiController;
 import ee.project.trader.Ticker;
 import ee.project.trader.TraderService;
+import ee.project.trader.dto.ConnectionStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
     private TraderService traderService;
 
     private boolean isConnected;
+    private String account;
     ApiController m_controller = new ApiController( this);
 
     public void placeOrModifyOrder(Contract contract, Order o, OrderHandler orderHandler) {
@@ -57,26 +59,23 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
     @Override
     public void disconnected() {
         isConnected = false;
-        System.out.print("Disconnected");
-
+        System.out.println("Disconnected");
     }
 
     @Override
     public void accountList(List<String> list) {
-        System.out.printf("Accounts: %s ", list);
-
+        account = list.get(0);
+        System.out.printf("Accounts: %s\n", list);
     }
 
     @Override
     public void error(Exception e) {
-        System.out.print("Exception: " + e);
-
+        System.out.println("Exception: " + e);
     }
 
     @Override
     public void message(int id, int errorCode, String errorMsg) {
-        System.out.printf("Message: id:%s, Code:%s, %s.\n", id, errorCode, errorMsg);
-    }
+        System.out.printf("Message: id:%s, Code:%s, %s.\n", id, errorCode, errorMsg);    }
 
     @Override
     public void show(String string) {
@@ -84,5 +83,9 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
 
     public boolean isConnected() {
         return isConnected;
+    }
+
+    public String getAccount() {
+        return account;
     }
 }

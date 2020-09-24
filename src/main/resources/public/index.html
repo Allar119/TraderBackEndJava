@@ -6,39 +6,16 @@
     <link rel="stylesheet" href="app.css">
 </head>
 <body onload="getOrders()">
-    <nav class="navbar">        
+    <nav>        
         <label class="logo">TRAD€R</label>      
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="tickers.html">Tickers</a></li>
-<!--            <li><a href="#">Service</a></li>-->
-<!--            <li><a href="#">Contact</a></li>-->
-<!--            <li><a href="#">Feedback</a></li>-->
+            <li><a href="settings.html">Settings </a></li>
         </ul>
-
     </nav>
 
     <main>
-        <div class="container">
-            <div class="div1">
-                <label class="label" for="host" >HOST</label><br>
-                <input class="input" type="text" id="host" placeholder="Host IP" value="127.0.0.1">
-
-            </div>
-            <div class="div1">
-                <label class="label" for="port">PORT</label><br>
-                <input class="input" type="text" id="port" placeholder="Port" value="7400" size="8">
-            </div>
-            <div class="div1">
-                <label class="label" for="clientId">ID</label><br>
-                <input class="input" type="text" id="clientId" placeholder="Client ID" value="0" size="5">
-            </div>
-        </div>
-        <div class="container" >
-            <input class="button" type="button" id="connectionDetails" name="Connect" value="Connect" size="5">            
-        </div>
-
-        <br>
 
         <div class="container">
             <div class="div1">
@@ -112,36 +89,7 @@
     </main>
 
     <script>
-        let host = document.getElementById("host");
-        let port = document.getElementById("port");
-        let clientID = document.getElementById("clientId");
-        let connectButton = document.getElementById("connectionDetails");    
-
-        connectButton.onclick = function connectToTWS() {
-            fetch('/connect', {
-                method: 'POST',
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ip: host.value,
-                    port: port.value,
-                    clientId: clientID.value,
-                    connectionOpt: ""
-                })
-            })
-                .then(function(response) {
-                return response.json();
-                })
-                .then(function(jsonData) {
-                    console.log(jsonData);
-                })
-                .catch(function(err) {
-                    console.log(err);
-                });
-        }
-
+        
         let algoId = document.getElementById("stradegy");
         let orderSymbol = document.getElementById("orderSymbol");
         let orderAction = document.getElementById("orderAction");
@@ -191,6 +139,7 @@
                 .then(function(jsonData) {
                     console.log(jsonData);
                     fillOrderTable(jsonData);
+                    
                 })
                 .catch(function(err) {
                     console.log("Error:" + err);

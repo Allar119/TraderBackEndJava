@@ -2,6 +2,7 @@ package ee.project.trader;
 
 
 import com.ib.client.Contract;
+import ee.project.trader.dto.ConnectionStatus;
 import ee.project.trader.dto.OrderDetails;
 import ee.project.trader.dto.SubmitOrder;
 import ee.project.trader.handlers.ConnectionHandler;
@@ -17,15 +18,12 @@ public class TraderController {
 
     @Autowired
     private TraderService traderService;
-
     @Autowired
     private ConnectionHandler connectionHandler;
 
     @PostMapping("/connect")
-    public boolean startConnection(@RequestBody ConnectionDetails connectionDetails) throws InterruptedException {
-        connectionHandler.run(connectionDetails.getIp(), connectionDetails.getPort(), connectionDetails.getClientId(), "");
-        Thread.sleep(1000); //wait 1s
-        return connectionHandler.isConnected();
+    public ConnectionStatus connectToTws(@RequestBody ConnectionDetails connectionDetails) throws InterruptedException {
+        return traderService.connectToTws(connectionDetails);
     }
 
     @PostMapping("/addticker")

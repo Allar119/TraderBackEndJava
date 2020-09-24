@@ -3,7 +3,7 @@
     background-color: #f7f7f7;
     --text-primary: #333;
     --text-secondary: #f7f7f7;
-    --back-primery:  #9db6cc;
+    --back-primary:  #9db6cc;
 }
 
 *{
@@ -22,7 +22,16 @@ body {
 
 
 main {
-    margin-top: 0rem;
+    padding-top: 3.5rem;
+}
+
+nav {
+    margin-bottom: 0rem;
+    margin-top: 0;
+    width: 100%;
+    height: 2.5rem;
+    position: fixed;
+    background-color: #333;
 }
 
 h1, h2, h3, h4 {
@@ -41,23 +50,12 @@ h1 {
     margin-bottom: 1rem;
 }
 
-
-/* UTILITIES */
-
-.navbar{
-    margin-bottom: 1rem;
-    width: 100%;
-    height: 3rem;
-    position: top;
-    background-color: #333;
-}
-
 .logo{
     color: var(--text-secondary);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
-    font-size: 1.5rem;
-    line-height: 3rem;
+    font-size: 1.0rem;
+    line-height: 2.5rem;
     margin-left: 1.0rem;    
 }
 
@@ -68,7 +66,7 @@ nav ul{
 
 nav ul li{
     display: inline-block;
-    margin-top: 1.0rem;
+    margin-top: 0.6rem;
     margin-right: 1.0rem;
 }
 
@@ -78,7 +76,6 @@ nav ul li a{
     text-decoration: none;
     color: var(--text-secondary);
 }
-
 
 .container{
     display: flex;
@@ -97,13 +94,11 @@ nav ul li a{
     margin-bottom: 5px;    
 }
 
-
 .label{
     color: #000000;
     font-size: 0.6rem;
     margin-left: 0.5rem;
 }
-
 
 input{
     font-size: 1.0rem;
@@ -180,7 +175,7 @@ button:hover{
     padding: 8px;
 }
 
-.myTable tr:nth-child(even){background-color: var(--back-primery);}
+.myTable tr:nth-child(even){background-color: var(--back-primary);}
 
 .myTable tr:hover {background-color: #ddd;}
 
@@ -188,9 +183,6 @@ button:hover{
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: var(--back-primery);
+    background-color: var(--back-primary);
     color: white;
 }
-
-
-
