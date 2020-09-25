@@ -6,13 +6,7 @@
     <link rel="stylesheet" href="app.css">
 </head>
 <body onload="getSavedSettings()"> 
-    <nav>        
-        <label class="logo">TRAD€R</label>      
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="tickers.html">Tickers</a></li>
-            <li><a href="settings.html">Settings </a></li>
-        </ul>
+    <nav id="nav">   
     </nav>
 
     <main>
@@ -32,17 +26,18 @@
             </div>
         </div>
         <div class="container" >
-            <!--<input class="button" type="button" id="saveSettings" name="savesettings" value="Save Settings" size="5"> -->
-            <input class="button" type="button" id="connectionDetails" name="Connect" value="Connect" size="5">            
+            <input class="button" type="button" id="disconnect" name="Disconnect" value="Disconnect" size="5" style="background-color: red;">
+            <input class="button" type="button" id="connect" name="Connect" value="Connect" size="5">            
         </div>
     </main>
 
+    <script type="text/javascript" src="script.js"></script>
     <script>
         let host = document.getElementById("host");
         let port = document.getElementById("port");
         let clientID = document.getElementById("clientId");
-        let connectButton = document.getElementById("connectionDetails");
-        let saveSettingsButton = document.getElementById("saveSettings") 
+        let connectButton = document.getElementById("connect");
+        let disconnectButton = document.getElementById("disconnect") 
 
         function saveSettings(){
             if(host.value == "localhost"){
@@ -58,7 +53,7 @@
             host.value = localStorage.getItem("host");
             port.value = localStorage.getItem("port");
             clientID.value = localStorage.getItem("clientID");
-        }        
+        }
 
         connectButton.onclick = function connectToTWS() {   
             
@@ -87,6 +82,29 @@
                     console.log(err);
                 })
         }        
+
+        disconnectButton.onclick = function disconnectTWS(){
+
+            fetch('/disconnect', {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(function(response) {
+                return response.json();
+                })
+                .then(function(jsonData) {
+                    console.log(jsonData);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                })
+
+        }
+
+
 
     </script>
 </body>

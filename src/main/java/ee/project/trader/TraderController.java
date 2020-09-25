@@ -2,11 +2,8 @@ package ee.project.trader;
 
 
 import com.ib.client.Contract;
-import ee.project.trader.dto.ConnectionStatus;
-import ee.project.trader.dto.OrderDetails;
-import ee.project.trader.dto.SubmitOrder;
+import ee.project.trader.dto.*;
 import ee.project.trader.handlers.ConnectionHandler;
-import ee.project.trader.dto.ConnectionDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +21,11 @@ public class TraderController {
     @PostMapping("/connect")
     public ConnectionStatus connectToTws(@RequestBody ConnectionDetails connectionDetails) throws InterruptedException {
         return traderService.connectToTws(connectionDetails);
+    }
+
+    @PostMapping("/disconnect")
+    public ConnectionStatus disconnectTws() throws InterruptedException {
+        return traderService.disconnectTws();
     }
 
     @PostMapping("/addticker")
@@ -78,5 +80,10 @@ public class TraderController {
     @DeleteMapping("/deleteorder/{id}")
     public void deleteOrder(@PathVariable("id") int id){
         traderService.deleteOrder(id);
+    }
+
+    @GetMapping("/gettickersymbols")
+    public List<TickerSymbol> getSymbolList(){
+        return traderService.getSymbolList();
     }
 }

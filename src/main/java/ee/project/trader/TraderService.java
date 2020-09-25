@@ -2,10 +2,7 @@ package ee.project.trader;
 
 import com.ib.client.Contract;
 import com.ib.controller.Bar;
-import ee.project.trader.dto.ConnectionDetails;
-import ee.project.trader.dto.ConnectionStatus;
-import ee.project.trader.dto.OrderDetails;
-import ee.project.trader.dto.SubmitOrder;
+import ee.project.trader.dto.*;
 import ee.project.trader.handlers.ConnectionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +22,15 @@ public class TraderService {
 
     public ConnectionStatus connectToTws(ConnectionDetails connect) throws InterruptedException {
         connectionHandler.run(connect.getIp(), connect.getPort(), connect.getClientId(), "");
+        Thread.sleep(1000); //wait 1s the continue
+        ConnectionStatus status = new ConnectionStatus();
+        status.setConnected(connectionHandler.isConnected());
+        status.setAccount(connectionHandler.getAccount());
+        return status;
+    }
+
+    public ConnectionStatus disconnectTws() throws InterruptedException {
+        connectionHandler.disconnectTws();
         Thread.sleep(1000); //wait 1s the continue
         ConnectionStatus status = new ConnectionStatus();
         status.setConnected(connectionHandler.isConnected());
@@ -196,4 +202,9 @@ public class TraderService {
     public void deleteOrder(int id) {
         traderRepository.deleteOrder(id);
     }
+
+    public List<TickerSymbol> getSymbolList() {
+            return traderRepository.getSymbolList();
+    }
+
 }

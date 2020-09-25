@@ -59,18 +59,18 @@ h1 {
     margin-left: 1.0rem;    
 }
 
-nav ul{
+ul{
     float: right;
     margin-right: 20px;
 }
 
-nav ul li{
+ul li{
     display: inline-block;
     margin-top: 0.6rem;
     margin-right: 1.0rem;
 }
 
-nav ul li a{
+ul li a{
     font-weight: bold;
     text-transform: uppercase;
     text-decoration: none;
@@ -100,7 +100,7 @@ nav ul li a{
     margin-left: 0.5rem;
 }
 
-input{
+input, select{
     font-size: 1.0rem;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;

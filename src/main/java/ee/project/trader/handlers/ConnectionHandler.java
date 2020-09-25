@@ -29,6 +29,10 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
         m_controller.connect( hostIp, port, clientId, connectionOpts);
     }
 
+    public void disconnectTws(){
+        m_controller.disconnect();
+    }
+
     public void addTicker(Contract contract){
         System.out.println("addTicker käivitus....");
 
@@ -59,6 +63,7 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
     @Override
     public void disconnected() {
         isConnected = false;
+        account = null;
         System.out.println("Disconnected");
     }
 
