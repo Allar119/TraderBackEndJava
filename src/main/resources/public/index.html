@@ -193,6 +193,32 @@
             }
         }
 
+        function ConnectTws(){
+            fetch('/connect', {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ip: localStorage.getItem("host"),
+                    port: localStorage.getItem("post"),
+                    clientId: localStorage.getItem("clientID"),
+                    connectionOpt: ""
+                })
+            })
+                .then(function(response) {
+                return response.json();
+                })
+                .then(function(jsonData) {
+                    console.log(jsonData);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                })
+
+        }
+
     </script>
 </body>
 </html>
