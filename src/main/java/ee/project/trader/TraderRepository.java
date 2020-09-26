@@ -2,7 +2,9 @@ package ee.project.trader;
 
 import ee.project.trader.dto.OrderDetails;
 import ee.project.trader.dto.SubmitOrder;
+import ee.project.trader.dto.TickerSymbol;
 import ee.project.trader.rowmappers.OrderRowMapper;
+import ee.project.trader.rowmappers.SymbolRowMapper;
 import ee.project.trader.rowmappers.TickerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -242,7 +244,10 @@ public class TraderRepository {
         return jdbcTemplate.query(sql, new HashMap<>(), new OrderRowMapper());
     }
 
-
+    public List<TickerSymbol> getSymbolList() {
+        String sql = "SELECT symbol FROM ticker ORDER BY symbol";
+        return jdbcTemplate.query(sql, new HashMap<>(), new SymbolRowMapper());
+    }
 }
 
 

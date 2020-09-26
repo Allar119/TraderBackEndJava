@@ -5,18 +5,11 @@
     <title>Trader Application</title>
     <link rel="stylesheet" href="app.css">
 </head>
-<body onload="getOrders()">
-    <nav>        
-        <label class="logo">TRAD€R</label>      
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="tickers.html">Tickers</a></li>
-            <li><a href="settings.html">Settings </a></li>
-        </ul>
+<body onload="loadPageData()">
+    <nav id=nav>
     </nav>
 
     <main>
-
         <div class="container">
             <div class="div1">
                 <label class="label" for="stradegy">STRADEGY</label><br>
@@ -24,7 +17,9 @@
             </div>
             <div class="div1">
                 <label class="label" for="orderSymbol">SYMBOL</label><br>
-                <input class="input" type="text" id="orderSymbol" placeholder="AAPL" size="15">
+                <select class="input" type="text" id="orderSymbol">
+                    <option disabled selected hidden >-XXXX-</option>
+                </select>
             </div>
             <div class="div1">
                 <label class="label" for="orderAction">ORDER ACTION</label><br>
@@ -62,7 +57,6 @@
         <div class="container" >
             <input class="button" type="button" id="submitOrder" name="submitOrder" value="Submit Order" size="5">            
         </div>
-
         <br>
 
         <div class="container">
@@ -88,8 +82,9 @@
         </div>        
     </main>
 
+    <script type="text/javascript" src="script.js"></script>
     <script>
-        
+               
         let algoId = document.getElementById("stradegy");
         let orderSymbol = document.getElementById("orderSymbol");
         let orderAction = document.getElementById("orderAction");
@@ -101,6 +96,7 @@
         let valid = document.getElementById("valid");
         let submitOrderButton = document.getElementById("submitOrder");
 
+        
         submitOrderButton.onclick = function submitOrder() {
             fetch('/submitorder', {
                 method: 'POST',
@@ -120,10 +116,30 @@
                     valid: valid.value
                 })
             })
-            location.reload();            
+            location.reload();
         }
 
         let orderTable = document.getElementById("ordersTable").getElementsByTagName('tbody')[0];
+        
+        function getSymbolList(){
+            fetch('/gettickersymbols', {
+                method: 'GET',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(jsonData) {
+                    console.log(jsonData);
+                    populateDropDown(jsonData);
+                })
+                .catch(function(err) {
+                    console.log("Error:" + err);
+                });
+        }
 
         function getOrders() {
             fetch('/getorderlist', {
@@ -191,6 +207,49 @@
                 }
                 cell10.append(newButton);
             }
+        }
+
+        function ConnectTws(){
+            fetch('/connect', {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ip: localStorage.getItem("host"),
+                    port: localStorage.getItem("post"),
+                    clientId: localStorage.getItem("clientID"),
+                    connectionOpt: ""
+                })
+            })
+                .then(function(response) {
+                return response.json();
+                })
+                .then(function(jsonData) {
+                    console.log(jsonData);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                })
+
+        }
+        
+        function populateDropDown(jsonData){
+
+            let dropDown = document.getElementById("orderSymbol");
+
+            for(let i = 0; i < jsonData.length; i++){
+                let option = document.createElement("option")
+                option.value = jsonData[i].symbol;
+                option.innerHTML = jsonData[i].symbol;
+                dropDown.append(option);
+            }
+        }
+
+        function loadPageData(){
+            getSymbolList();
+            getOrders();
         }
 
     </script>

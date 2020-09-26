@@ -6,13 +6,7 @@
     <link rel="stylesheet" href="app.css">
 </head>
 <body onload="loadTickers()">
-    <nav>        
-        <label class="logo">TRAD€R</label>      
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="tickers.html">Tickers</a></li>
-            <li><a href="settings.html">Settings </a></li>
-        </ul>
+    <nav id="nav">
     </nav>
 
     <main>
@@ -57,8 +51,9 @@
         </div>
 
     </main>
-    
-    <script>
+
+    <script type="text/javascript" src="script.js"></script>    
+    <script>        
         let symbol = document.getElementById("symbol");
         let secType = document.getElementById("secType");
         let exchange = document.getElementById("exchange");
