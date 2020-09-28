@@ -120,36 +120,12 @@ public class TraderRepository {
         paramMap.put("limitPrice", order.getLimitPrice());
         paramMap.put("stopLoss", order.getStopLoss());
         paramMap.put("profitTaker", order.getProfitTaker());
-        paramMap.put("status", "Submitted");
+        paramMap.put("status", "submitted");
         paramMap.put("valid", order.getValid());
         paramMap.put("orderAction", order.getOrderAction());
 
         jdbcTemplate.update(sql, paramMap);
 
-        /*
-         Order(String symbol, String orderType, int quantity, double limitPrice, double stopLossPrice, double profitTakerPrice)
-
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("algoId", order.algoId);
-        paramMap.put("symbol", order.symbol);
-        paramMap.put("orderType", order.orderType);
-        paramMap.put("quantity", order.quantity);
-        paramMap.put("limitPrice", order.limitPrice);
-        paramMap.put("stopLossPrice", order.stopLossPrice);
-        paramMap.put("profitTakerPrice", order.profitTakerPrice);
-        paramMap.put("status", "pending");
-
-        String sql = "INSERT INTO order_table (algo_id, symbol, order_type, quantity, limit_price, stop_loss_price, profit_taker_price, status) values (" +
-                ":algoId, " +
-                ":symbol, " +
-                ":orderType, " +
-                ":quantity, " +
-                ":limitPrice, " +
-                ":stopLossPrice, " +
-                ":profitTakerPrice, " +
-                ":status)";
-        jdbcTemplate.update(sql, paramMap);
-         */
     }
 
     public void insertStrategyLineToTicker (StrategyLine strategyLine) {
@@ -174,6 +150,15 @@ public class TraderRepository {
                 " price_slow = :price_slow, rapid_quick = :rapid_quick, rapid_slow = :rapid_slow," +
                 " quick_slow = :quick_slow where symbol = :symbol";
         jdbcTemplate.update(sql, paramMap);
+    }
+
+    public void changeOrderStatus(int id, String status) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        paramMap.put("status", status);
+        String sql = "UPDATE order_table SET status = :status where id = :id";
+        jdbcTemplate.update(sql, paramMap);
+        System.out.println("Order Status updated");
     }
 
     public void insertStrategyLine (StrategyLine strategyLine) {
@@ -244,6 +229,17 @@ public class TraderRepository {
     public List<OrderDetails> getOrdersList() {
         String sql = "SELECT * FROM order_table ORDER BY id";
         return jdbcTemplate.query(sql, new HashMap<>(), new OrderRowMapper());
+    }
+
+    public List<OrderDetails> getSubmittedOrdersList() {
+        String sql = "SELECT * FROM order_table WHERE status = 'submitted' ORDER BY id";
+        return jdbcTemplate.query(sql, new HashMap<>(), new OrderRowMapper());
+    }
+
+    public int getSubmittedOrdersFirstId() {
+        String sql = "SELECT id FROM order_table WHERE status = 'submitted' ORDER BY ID ASC LIMIT 1";
+        Integer id = jdbcTemplate.queryForObject(sql, new HashMap<>(), Integer.class);
+        return id;
     }
 
     public List<TickerSymbol> getSymbolList() {

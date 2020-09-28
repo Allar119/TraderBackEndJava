@@ -7,6 +7,7 @@ import ee.project.trader.handlers.ConnectionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -171,8 +172,35 @@ public class TraderService {
         traderRepository.insertStrategyLineToTicker(strategyLine);
 
 
+
+
         // Nüüdseks on meil kõikide aktsiate kohta olemas hinnainfo, ja valitud SMA-de alusel
         // genereeritud strateegiate actionid
+
+
+        // Tsekkame, kas mõni order on sisestatud ja saadame selle TWS-i
+
+        if (!traderRepository.getSubmittedOrdersList().isEmpty()) {
+            System.out.println("Order to be handled");
+            traderRepository.changeOrderStatus(traderRepository.getSubmittedOrdersFirstId(), "T E H T U D" );
+        } else {
+            System.out.println("Orderid teostatud");
+
+        }
+
+        /*
+        if (traderRepository.getSubmittedOrdersFirstId() != 0) {
+            System.out.println("Order to be handled");
+
+            //System.out.println("Symbol: " + traderRepository.getSubmittedOrdersList().get(0).getSymbol() +" Qty: " + traderRepository.getSubmittedOrdersList().get(0).getQuantity() );
+            //System.out.println("Status: " + traderRepository.getSubmittedOrdersList().get(0).getStatus());
+            //System.out.println("Teostame ja muudame statust!");
+            traderRepository.changeOrderStatus(traderRepository.getSubmittedOrdersFirstId(), "T E H T U D" );
+
+        }
+
+*/
+
 
 // Kutsume konkreetse aktsia osas välja actioni valitud strateegiaga
 

@@ -69,5 +69,7 @@ public class OrderService {
         connectionHandler.placeOrModifyOrder(contract, takeProfit, new OrderHandler(ticker, traderService, connectionHandler));
         connectionHandler.placeOrModifyOrder(contract, stopLoss, new OrderHandler(ticker, traderService, connectionHandler));
 
+
+
     }
 }
