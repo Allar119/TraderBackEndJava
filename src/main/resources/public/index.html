@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="NO-CACHE">
     <title>Trader Application</title>
     <link rel="stylesheet" href="app.css">
 </head>
@@ -13,21 +14,45 @@
         <div class="container">
             <div class="div1">
                 <label class="label" for="strategy">STRATEGY</label><br>
-                <input class="input" type="text" id="strategy" placeholder="QUICK" size="15">
+                <select class="input" type="text" id="strategy" style="width: 150px">
+                    <option value="0">No Strategy</option>
+                    <option value="1">Price/Rapid</option>
+                    <option value="2">Price/Quick</option>
+                    <option value="3">Price/Slow</option>
+                    <option value="4">Price/Slow</option>
+                    <option value="5">Rapid/Quick</option>
+                    <option value="6">Rapid/Slow</option>
+                    <option value="7">Quick/Slow</option>
+                    
+                </select>
             </div>
             <div class="div1">
                 <label class="label" for="orderSymbol">SYMBOL</label><br>
-                <select class="input" type="text" id="orderSymbol">
+                <select class="input" type="text" id="orderSymbol" style="width: 100px">
                     <option disabled selected hidden >-XXXX-</option>
                 </select>
             </div>
             <div class="div1">
                 <label class="label" for="orderAction">ORDER ACTION</label><br>
-                <input class="input" type="text" id="orderAction" placeholder="BUY/SELL/SHORT" size="15">
+                <select class="input" type="text" id="orderAction" style="width: 100px">
+                    <option>BUY</option>
+                    <option>SELL</option>
+                    <option>SHORT</option>
+                </select>
             </div>
             <div class="div1">
                 <label class="label" for="orderType">ORDER TYPE</label><br>
-                <input class="input" type="text" id="orderType" placeholder="LIMIT/MARKET" size="15">
+                <select class="input" type="text" id="orderType" style="width: 100px">
+                    <option>LIMIT</option>
+                    <option>MARKET</option>
+                </select>
+            </div>
+            <div class="div1">
+                <label class="label" for="valid">VALID TYPE</label><br>
+                <select class="input" type="text" id="valid" style="width: 100px">
+                    <option>DAY</option>
+                    <option>GTC</option>
+                </select>
             </div>
         </div>
         <div class="container">
@@ -45,15 +70,10 @@
             </div>
             <div class="div1">
                 <label class="label" for="profitTaker">PROFIT TAKER</label><br>
-                <input class="input" type="text" id="profitTaker" placeholder="$" size="15">
+                <input class="input" type="text" id="profitTaker" placeholder="$" "size="15">
             </div> 
         </div>
-        <div class="container">
-            <div class="div1">
-                <label class="label" for="valid">VALID TYPE</label><br>
-                <input class="input" type="text" id="valid" placeholder="DAY/GTC" >
-            </div>
-        </div>
+
         <div class="container" >
             <input class="button" type="button" id="submitOrder" name="submitOrder" value="Submit Order" size="5">            
         </div>
@@ -98,25 +118,31 @@
 
         
         submitOrderButton.onclick = function submitOrder() {
-            fetch('/submitorder', {
-                method: 'POST',
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    algoId: algoId.value,
-                    symbol: orderSymbol.value,
-                    orderType: orderType.value,
-                    orderAction: orderAction.value,
-                    quantity: quantity.value,
-                    limitPrice: limitPrice.value,
-                    stopLoss: stopLoss.value,
-                    profitTaker: profitTaker.value,
-                    valid: valid.value
+
+            if(orderSymbol.value ==="-XXXX-"){
+                alert("Vali Sümbol!");
+            }
+            else {
+                fetch('/submitorder', {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        algoId: algoId.value,
+                        symbol: orderSymbol.value,
+                        orderType: orderType.value,
+                        orderAction: orderAction.value,
+                        quantity: quantity.value,
+                        limitPrice: limitPrice.value,
+                        stopLoss: stopLoss.value,
+                        profitTaker: profitTaker.value,
+                        valid: valid.value
+                    })
                 })
-            })
-            location.reload();
+                location.reload();
+            }
         }
 
         let orderTable = document.getElementById("ordersTable").getElementsByTagName('tbody')[0];
@@ -173,6 +199,8 @@
         }
 
         function fillOrderTable(jsonData) {
+
+            orderTable.innerHTML = "";
             for (let i = 0; i < jsonData.length; i++) {
 
                 let row = orderTable.insertRow(0);
@@ -207,6 +235,7 @@
                 }
                 cell10.append(newButton);
             }
+            setTimeout(getOrders, 5000);
         }
 
         function ConnectTws(){

@@ -91,7 +91,6 @@ ul li a{
     float:left;
     align-self: baseline;
     margin:5px;
-    margin-bottom: 5px;    
 }
 
 .label{
@@ -106,15 +105,19 @@ input, select{
     font-weight: bold;
     text-align: center;    
     height: 1.8rem;
-    border: none;
     border: solid 1px;
     border-radius: 0.3rem;
     outline: none;
+
 }
 
 input[type=text]:focus{
     border: solid 1px dodgerblue;  
     box-shadow: 0px 0px 8px rgb(30, 184, 255);
+}
+
+input[type=text]:focus::placeholder{
+    color: transparent;
 }
 
 .button{
