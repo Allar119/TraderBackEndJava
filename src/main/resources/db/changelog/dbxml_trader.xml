@@ -101,4 +101,36 @@
                       oldTableName="order"/>
     </changeSet>
 
+    <changeSet author="raivo" id="222">
+        <renameColumn  newColumnName="rapid"
+                       oldColumnName="trend"
+                       tableName="ticker"/>
+        <renameColumn  newColumnName="price_rapid"
+                       oldColumnName="price_trend"
+                       tableName="ticker"/>
+        <renameColumn  newColumnName="rapid_quick"
+                       oldColumnName="trend_quick"
+                       tableName="ticker"/>
+        <renameColumn  newColumnName="rapid_slow"
+                       oldColumnName="trend_slow"
+                       tableName="ticker"/>
+        <renameColumn  newColumnName="rapid"
+                       oldColumnName="trend"
+                       tableName="strategy"/>
+        <renameColumn  newColumnName="price_rapid"
+                       oldColumnName="price_trend"
+                       tableName="strategy"/>
+        <renameColumn  newColumnName="rapid_quick"
+                       oldColumnName="trend_quick"
+                       tableName="strategy"/>
+        <renameColumn  newColumnName="rapid_slow"
+                       oldColumnName="trend_slow"
+                       tableName="strategy"/>
+
+
+
+
+
+    </changeSet>
+
 </databaseChangeLog>

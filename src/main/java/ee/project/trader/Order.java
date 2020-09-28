@@ -17,7 +17,6 @@ public class Order {
         this.algoId = id;
     }
 
-
     public String getStatus() {
         return status;
     }
