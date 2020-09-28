@@ -3,11 +3,11 @@ package ee.project.trader.dto;
 public class StrategyDetails {
     private String symbol;
     private double marketPrice;
-    private String priceTrend;
+    private String priceRapid;
     private String priceQuick;
     private String priceSlow;
-    private String trendQuick;
-    private String trendSlow;
+    private String rapidQuick;
+    private String rapidSlow;
     private String quickSlow;
 
     public String getSymbol() {
@@ -26,12 +26,12 @@ public class StrategyDetails {
         this.marketPrice = marketPrice;
     }
 
-    public String getPriceTrend() {
-        return priceTrend;
+    public String getPriceRapid() {
+        return priceRapid;
     }
 
-    public void setPriceTrend(String priceTrend) {
-        this.priceTrend = priceTrend;
+    public void setPriceRapid(String priceRapid) {
+        this.priceRapid = priceRapid;
     }
 
     public String getPriceQuick() {
@@ -50,20 +50,20 @@ public class StrategyDetails {
         this.priceSlow = priceSlow;
     }
 
-    public String getTrendQuick() {
-        return trendQuick;
+    public String getRapidQuick() {
+        return rapidQuick;
     }
 
-    public void setTrendQuick(String trendQuick) {
-        this.trendQuick = trendQuick;
+    public void setRapidQuick(String rapidQuick) {
+        this.rapidQuick = rapidQuick;
     }
 
-    public String getTrendSlow() {
-        return trendSlow;
+    public String getRapidSlow() {
+        return rapidSlow;
     }
 
-    public void setTrendSlow(String trendSlow) {
-        this.trendSlow = trendSlow;
+    public void setRapidSlow(String rapidSlow) {
+        this.rapidSlow = rapidSlow;
     }
 
     public String getQuickSlow() {

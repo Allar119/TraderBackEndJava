@@ -5,7 +5,7 @@
     <title>Trader Application</title>
     <link rel="stylesheet" href="app.css">
 </head>
-<body>
+<body onload="getStrategyInfo()">
     <nav id=nav>
     </nav>
 
@@ -16,11 +16,11 @@
                 <tr text-align="center" valign="middle">
                     <th>Ticker</th>
                     <th>Price</th>
-                    <th>Price/Trend</th>
+                    <th>Price/Rapid</th>
                     <th>Price/Quick</th>
                     <th>Price/Slow</th>
-                    <th>Trend/Quick</th>
-                    <th>Trend/Slow</th>
+                    <th>Rapid/Quick</th>
+                    <th>Rapid/Slow</th>
                     <th>Quick/Slow</th>
                 </tr>
                 </thead>
@@ -47,18 +47,18 @@
                 let cell6 = row.insertCell(6);
                 let cell7 = row.insertCell(7);
 
-                cell0.innerHTML = jsonData[i].x;
-                cell1.innerHTML = jsonData[i].x;
-                cell2.innerHTML = jsonData[i].x;
-                cell3.innerHTML = jsonData[i].x;
-                cell4.innerHTML = jsonData[i].x;
-                cell5.innerHTML = jsonData[i].x;
-                cell6.innerHTML = jsonData[i].x;
-                cell7.innerHTML = jsonData[i].x;
+                cell0.innerHTML = jsonData[i].symbol;
+                cell1.innerHTML = jsonData[i].marketPrice.toFixed(2);
+                cell2.innerHTML = jsonData[i].priceRapid;
+                cell3.innerHTML = jsonData[i].priceQuick;
+                cell4.innerHTML = jsonData[i].priceSlow;
+                cell5.innerHTML = jsonData[i].rapidQuick;
+                cell6.innerHTML = jsonData[i].rapidSlow;
+                cell7.innerHTML = jsonData[i].quickSlow;
             }
         }
 
-        function getStradegyInfo(){
+        function getStrategyInfo(){
             fetch('/getstrategyinfo', {
                 method: 'GET',
                 cache: 'no-cache',
