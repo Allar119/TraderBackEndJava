@@ -24,5 +24,6 @@ public class SMA {
     public SMA(String symbol, int timeFrame) {
         this.symbol = symbol;
         this.timeFrame = timeFrame;
+
     }
 }
