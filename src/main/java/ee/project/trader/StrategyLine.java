@@ -20,10 +20,10 @@ public class StrategyLine {
 
     long time;
     String symbol;
-    double marketPrice;
-    double rapidSMA;
-    double quickSMA;
-    double slowSMA;
+    Double marketPrice;
+    Double rapidSMA;
+    Double quickSMA;
+    Double slowSMA;
     String price_rapidSMA;
     String price_quickSMA;
     String price_slowSMA;
@@ -31,7 +31,7 @@ public class StrategyLine {
     String rapidSMA_slowSMA;
     String quickSMA_slowSMA;
 
-    public StrategyLine(long time, String symbol, double marketPrice, double rapidSMA, double quickSMA, double slowSMA, String price_rapidSMA, String price_quickSMA, String price_slowSMA, String rapidSMA_quickSMA, String rapidSMA_slowSMA, String quickSMA_slowSMA) {
+    public StrategyLine(long time, String symbol, Double marketPrice, Double rapidSMA, Double quickSMA, Double slowSMA, String price_rapidSMA, String price_quickSMA, String price_slowSMA, String rapidSMA_quickSMA, String rapidSMA_slowSMA, String quickSMA_slowSMA) {
         this.time = time;
         this.symbol = symbol;
         this.marketPrice = marketPrice;
@@ -62,35 +62,35 @@ public class StrategyLine {
         this.symbol = symbol;
     }
 
-    public double getMarketPrice() {
+    public Double getMarketPrice() {
         return marketPrice;
     }
 
-    public void setMarketPrice(double marketPrice) {
+    public void setMarketPrice(Double marketPrice) {
         this.marketPrice = marketPrice;
     }
 
-    public double getRapidSMA() {
+    public Double getRapidSMA() {
         return rapidSMA;
     }
 
-    public void setRapidSMA(double rapidSMA) {
+    public void setRapidSMA(Double rapidSMA) {
         this.rapidSMA = rapidSMA;
     }
 
-    public double getQuickSMA() {
+    public Double getQuickSMA() {
         return quickSMA;
     }
 
-    public void setQuickSMA(double quickSMA) {
+    public void setQuickSMA(Double quickSMA) {
         this.quickSMA = quickSMA;
     }
 
-    public double getSlowSMA() {
+    public Double getSlowSMA() {
         return slowSMA;
     }
 
-    public void setSlowSMA(double slowSMA) {
+    public void setSlowSMA(Double slowSMA) {
         this.slowSMA = slowSMA;
     }
 

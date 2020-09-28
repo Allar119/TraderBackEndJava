@@ -9,12 +9,15 @@ import ee.project.trader.rowmappers.StrategyRowMapper;
 import ee.project.trader.rowmappers.SymbolRowMapper;
 import ee.project.trader.rowmappers.TickerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Repository
 public class TraderRepository {
@@ -79,16 +82,15 @@ public class TraderRepository {
 
         String sql = "select avg(price_open) over (rows between :timeFrame preceding and 0 following) from price_history where symbol = :symbol ORDER BY ID DESC LIMIT 1;";
 
-        double simoav =  jdbcTemplate.queryForObject(sql, paramMap, Double.class);
-        return simoav;
+        return jdbcTemplate.queryForObject(sql, paramMap, Double.class);
 
         // select avg(price_open) over (rows between 60 preceding and 0 following) from price_history where symbol = 'SOXL' ORDER BY ID DESC LIMIT 1
-       // return jdbcTemplate.query(sql, paramMap);
+        // return jdbcTemplate.query(sql, paramMap);
 
     }
 
-    public String getAction (String symbol, String strategy ) {
-      //  select price_quick from strategy where symbol='TQQQ' ORDER BY ID DESC LIMIT 1;
+    public String getAction(String symbol, String strategy) {
+        //  select price_quick from strategy where symbol='TQQQ' ORDER BY ID DESC LIMIT 1;
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("symbol", symbol);
         paramMap.put("strategy", strategy);
@@ -99,6 +101,102 @@ public class TraderRepository {
         return action;
     }
 
+
+    public int insertOrder(SubmitOrder order) {
+
+        String sql_parent = "INSERT INTO order_table (algo_id, parent_order, symbol, order_type, quantity, price, status, valid, order_action) values (" +
+                ":algoId, " +
+                ":parent_order, " +
+                ":symbol, " +
+                ":orderType, " +
+                ":quantity, " +
+                ":price, " +
+                ":status, " +
+                ":valid, " +
+                ":orderAction)";
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("algoId", order.getAlgoId());
+        paramMap.put("parent_order", null);
+        paramMap.put("symbol", order.getSymbol());
+        paramMap.put("orderType", order.getOrderType());
+        paramMap.put("quantity", order.getQuantity());
+        paramMap.put("price", order.getLimitPrice());
+        paramMap.put("status", "submitted");
+        paramMap.put("valid", order.getValid());
+        paramMap.put("orderAction", order.getOrderAction());
+
+        GeneratedKeyHolder holder = new GeneratedKeyHolder();
+        jdbcTemplate.update(sql_parent, new MapSqlParameterSource(paramMap), holder, new String[]{"id"});
+        return Objects.requireNonNull(holder.getKey()).intValue();
+
+    }
+
+
+    public int insertProfitTaker(SubmitOrder order, int parentOrderId) {
+
+
+        String sql_profitTaker = "INSERT INTO order_table (algo_id, parent_order, symbol, order_type, quantity, price, status, valid, order_action) values (" +
+                ":algoId, " +
+                ":parent_order, " +
+                ":symbol, " +
+                ":orderType, " +
+                ":quantity, " +
+                ":price, " +
+                ":status, " +
+                ":valid, " +
+                ":orderAction)";
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("algoId", order.getAlgoId());
+        paramMap.put("parent_order", parentOrderId);
+        paramMap.put("symbol", order.getSymbol());
+        paramMap.put("orderType", "LMT");
+        paramMap.put("quantity", order.getQuantity());
+        paramMap.put("price", order.getProfitTaker());
+        paramMap.put("status", "submitted");
+        paramMap.put("valid", order.getValid());
+        paramMap.put("orderAction", order.getOrderAction());
+
+        GeneratedKeyHolder holder = new GeneratedKeyHolder();
+        jdbcTemplate.update(sql_profitTaker, new MapSqlParameterSource(paramMap), holder, new String[]{"id"});
+        return Objects.requireNonNull(holder.getKey()).intValue();
+
+    }
+
+
+    public int insertStopLoss(SubmitOrder order, int parentOrderId) {
+
+        String sql_stopLoss = "INSERT INTO order_table (algo_id, parent_order, symbol, order_type, quantity, price, status, valid, order_action) values (" +
+                ":algoId, " +
+                ":parent_order, " +
+                ":symbol, " +
+                ":orderType, " +
+                ":quantity, " +
+                ":price, " +
+                ":status, " +
+                ":valid, " +
+                ":orderAction)";
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("algoId", order.getAlgoId());
+        paramMap.put("parent_order", parentOrderId);
+        paramMap.put("symbol", order.getSymbol());
+        paramMap.put("orderType", "STP");
+        paramMap.put("quantity", order.getQuantity());
+        paramMap.put("price", order.getStopLoss());
+        paramMap.put("status", "submitted");
+        paramMap.put("valid", order.getValid());
+        paramMap.put("orderAction", order.getOrderAction());
+
+        GeneratedKeyHolder holder = new GeneratedKeyHolder();
+        jdbcTemplate.update(sql_stopLoss, new MapSqlParameterSource(paramMap), holder, new String[]{"id"});
+        return Objects.requireNonNull(holder.getKey()).intValue();
+
+    }
+
+
+    /* OLD INSERT ORDER
     public void insertOrder (SubmitOrder order) {
         String sql = "INSERT INTO order_table (algo_id, symbol, order_type, quantity, limit_price, stop_loss_price, profit_taker_price, status, valid, order_action) values (" +
                 ":algoId, " +
@@ -127,8 +225,8 @@ public class TraderRepository {
         jdbcTemplate.update(sql, paramMap);
 
     }
-
-    public void insertStrategyLineToTicker (StrategyLine strategyLine) {
+*/
+    public void insertStrategyLineToTicker(StrategyLine strategyLine) {
 
         Map<String, Object> paramMap = new HashMap<>();
 
@@ -161,7 +259,7 @@ public class TraderRepository {
         System.out.println("Order Status updated");
     }
 
-    public void insertStrategyLine (StrategyLine strategyLine) {
+    public void insertStrategyLine(StrategyLine strategyLine) {
 /*
             <column name="time" type="BIGINT"/>
             <column name="symbol" type="TEXT"/>
@@ -214,7 +312,7 @@ public class TraderRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-    public void deleteOrder(int id){
+    public void deleteOrder(int id) {
         String sql = "DELETE FROM order_table WHERE id = :id";
         Map<String, Integer> paramMap = new HashMap<>();
         paramMap.put("id", id);
@@ -250,6 +348,23 @@ public class TraderRepository {
     public List<StrategyDetails> getStrategyDetails() {
         String sql = "SELECT * FROM ticker ORDER BY symbol";
         return jdbcTemplate.query(sql, new HashMap<>(), new StrategyRowMapper());
+    }
+
+    public Ticker getTickerBySymbol(String symbol) {
+
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("symbol", symbol);
+
+        String sql = "SELECT * FROM ticker WHERE symbol = :symbol";
+        return jdbcTemplate.queryForObject(sql, paramMap, new TickerRowMapper());
+    }
+
+    public OrderDetails getOrder(int id) {
+        Map<String, Integer> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+
+        String sql = "SELECT * FROM order_table WHERE id = :id";
+        return jdbcTemplate.queryForObject(sql, paramMap, new OrderRowMapper());
     }
 }
 

@@ -2,7 +2,7 @@ package ee.project.trader.dto;
 
 public class StrategyDetails {
     private String symbol;
-    private double marketPrice;
+    private Double marketPrice;
     private String priceRapid;
     private String priceQuick;
     private String priceSlow;
@@ -18,11 +18,11 @@ public class StrategyDetails {
         this.symbol = symbol;
     }
 
-    public double getMarketPrice() {
+    public Double getMarketPrice() {
         return marketPrice;
     }
 
-    public void setMarketPrice(double marketPrice) {
+    public void setMarketPrice(Double marketPrice) {
         this.marketPrice = marketPrice;
     }
 
