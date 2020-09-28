@@ -205,7 +205,10 @@ public class TraderService {
     }
 
     public List<TickerSymbol> getSymbolList() {
-            return traderRepository.getSymbolList();
+        return traderRepository.getSymbolList();
     }
 
+    public List<StrategyDetails> getStrategyDetails() {
+        return traderRepository.getStrategyDetails();
+    }
 }

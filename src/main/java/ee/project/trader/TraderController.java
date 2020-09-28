@@ -86,4 +86,9 @@ public class TraderController {
     public List<TickerSymbol> getSymbolList(){
         return traderService.getSymbolList();
     }
+
+    @GetMapping("/getstrategyinfo")
+    public List<StrategyDetails> getStrategyDetails(){
+        return traderService.getStrategyDetails();
+    }
 }

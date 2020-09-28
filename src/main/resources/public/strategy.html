@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trader Application</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body onload="getStrategyInfo()">
+    <nav id=nav>
+    </nav>
+
+    <main>
+        <div class="container">
+            <table class="myTable" id="strategyTable">
+                <thead>
+                <tr text-align="center" valign="middle">
+                    <th>Ticker</th>
+                    <th>Price</th>
+                    <th>Price/Rapid</th>
+                    <th>Price/Quick</th>
+                    <th>Price/Slow</th>
+                    <th>Rapid/Quick</th>
+                    <th>Rapid/Slow</th>
+                    <th>Quick/Slow</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+    <script type="text/javascript" src="script.js"></script>
+    <script>
+        let  strategyTable= document.getElementById("strategyTable").getElementsByTagName('tbody')[0];
+
+        function fillStrategyTable(jsonData){
+            for (let i = 0; i < jsonData.length; i++) {
+
+                let row = strategyTable.insertRow();
+                let cell0 = row.insertCell(0);
+                let cell1 = row.insertCell(1);
+                let cell2 = row.insertCell(2);
+                let cell3 = row.insertCell(3);
+                let cell4 = row.insertCell(4);
+                let cell5 = row.insertCell(5);
+                let cell6 = row.insertCell(6);
+                let cell7 = row.insertCell(7);
+
+                cell0.innerHTML = jsonData[i].symbol;
+                cell1.innerHTML = jsonData[i].marketPrice.toFixed(2);
+                cell2.innerHTML = jsonData[i].priceRapid;
+                cell3.innerHTML = jsonData[i].priceQuick;
+                cell4.innerHTML = jsonData[i].priceSlow;
+                cell5.innerHTML = jsonData[i].rapidQuick;
+                cell6.innerHTML = jsonData[i].rapidSlow;
+                cell7.innerHTML = jsonData[i].quickSlow;
+            }
+        }
+
+        function getStrategyInfo(){
+            fetch('/getstrategyinfo', {
+                method: 'GET',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(jsonData) {
+                    console.log(jsonData);
+                    fillStrategyTable(jsonData);
+                })
+                .catch(function(err) {
+                    console.log("Error:" + err);
+                });
+        }
+
+    </script>
+
+</body>
+</html>
