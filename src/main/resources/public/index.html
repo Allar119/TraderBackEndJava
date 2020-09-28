@@ -43,8 +43,8 @@
             <div class="div1">
                 <label class="label" for="orderType">ORDER TYPE</label><br>
                 <select class="input" type="text" id="orderType" style="width: 100px">
-                    <option>LIMIT</option>
-                    <option>MARKET</option>
+                    <option>LMT</option>
+                    <option>MKT</option>
                 </select>
             </div>
             <div class="div1">
@@ -141,7 +141,7 @@
                         valid: valid.value
                     })
                 })
-                location.reload();
+                getOrders();
             }
         }
 
@@ -235,7 +235,7 @@
                 }
                 cell10.append(newButton);
             }
-            setTimeout(getOrders, 5000);
+            setTimeout(getOrders, 2000);
         }
 
         function ConnectTws(){
