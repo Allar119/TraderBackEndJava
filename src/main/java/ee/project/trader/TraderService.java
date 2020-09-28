@@ -87,23 +87,23 @@ public class TraderService {
         // Defineerime neli sisendit erinevate strateegiate loomiseks
 
         double price = bar.high();
-        double trend = traderRepository.getSMA(sma1);
+        double rapid = traderRepository.getSMA(sma1);
         double quick = traderRepository.getSMA(sma5);
         double slow = traderRepository.getSMA(sma13);
 
         // Strateegiate actionid:
-        String price_trend;
+        String price_rapid;
         String price_quick;
         String price_slow;
-        String trend_quick;
-        String trend_slow;
+        String rapid_quick;
+        String rapid_slow;
         String quick_slow;
 
 
-        if (price > trend) {
-            price_trend = "BUY";
+        if (price > rapid) {
+            price_rapid = "BUY";
         } else {
-            price_trend = "SELL";
+            price_rapid = "SELL";
         }
 
         if (price > quick) {
@@ -118,16 +118,16 @@ public class TraderService {
             price_slow = "SELL";
         }
 
-        if (trend > quick) {
-            trend_quick = "BUY";
+        if (rapid > quick) {
+            rapid_quick = "BUY";
         } else {
-            trend_quick = "SELL";
+            rapid_quick = "SELL";
         }
 
-        if (trend > slow) {
-            trend_slow = "BUY";
+        if (rapid > slow) {
+            rapid_slow = "BUY";
         } else {
-            trend_slow = "SELL";
+            rapid_slow = "SELL";
         }
 
         if (quick > slow) {
@@ -165,8 +165,8 @@ public class TraderService {
 
         // Kirjutame strateegiad andmebaasi:
         StrategyLine strategyLine = new StrategyLine(bar.time(),
-                contract.symbol(), price, trend,
-                quick, slow, price_trend, price_quick, price_slow, trend_quick, trend_slow, quick_slow);
+                contract.symbol(), price, rapid,
+                quick, slow, price_rapid, price_quick, price_slow, rapid_quick, rapid_slow, quick_slow);
         traderRepository.insertStrategyLine(strategyLine);
         traderRepository.insertStrategyLineToTicker(strategyLine);
 
@@ -189,6 +189,7 @@ public class TraderService {
 
     public void addOrder(SubmitOrder order) {
         traderRepository.insertOrder(order);
+
     }
 
     public List<Ticker> getTickerList() {

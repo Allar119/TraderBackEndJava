@@ -21,29 +21,29 @@ public class StrategyLine {
     long time;
     String symbol;
     double marketPrice;
-    double trend;
-    double quick;
-    double slow;
-    String price_trend;
-    String price_quick;
-    String price_slow;
-    String trend_quick;
-    String trend_slow;
-    String quick_slow;
+    double rapidSMA;
+    double quickSMA;
+    double slowSMA;
+    String price_rapidSMA;
+    String price_quickSMA;
+    String price_slowSMA;
+    String rapidSMA_quickSMA;
+    String rapidSMA_slowSMA;
+    String quickSMA_slowSMA;
 
-    public StrategyLine(long time, String symbol, double marketPrice, double trend, double quick, double slow, String price_trend, String price_quick, String price_slow, String trend_quick, String trend_slow, String quick_slow) {
+    public StrategyLine(long time, String symbol, double marketPrice, double rapidSMA, double quickSMA, double slowSMA, String price_rapidSMA, String price_quickSMA, String price_slowSMA, String rapidSMA_quickSMA, String rapidSMA_slowSMA, String quickSMA_slowSMA) {
         this.time = time;
         this.symbol = symbol;
         this.marketPrice = marketPrice;
-        this.trend = trend;
-        this.quick = quick;
-        this.slow = slow;
-        this.price_trend = price_trend;
-        this.price_quick = price_quick;
-        this.price_slow = price_slow;
-        this.trend_quick = trend_quick;
-        this.trend_slow = trend_slow;
-        this.quick_slow = quick_slow;
+        this.rapidSMA = rapidSMA;
+        this.quickSMA = quickSMA;
+        this.slowSMA = slowSMA;
+        this.price_rapidSMA = price_rapidSMA;
+        this.price_quickSMA = price_quickSMA;
+        this.price_slowSMA = price_slowSMA;
+        this.rapidSMA_quickSMA = rapidSMA_quickSMA;
+        this.rapidSMA_slowSMA = rapidSMA_slowSMA;
+        this.quickSMA_slowSMA = quickSMA_slowSMA;
     }
 
     public long getTime() {
@@ -70,75 +70,75 @@ public class StrategyLine {
         this.marketPrice = marketPrice;
     }
 
-    public double getTrend() {
-        return trend;
+    public double getRapidSMA() {
+        return rapidSMA;
     }
 
-    public void setTrend(double trend) {
-        this.trend = trend;
+    public void setRapidSMA(double rapidSMA) {
+        this.rapidSMA = rapidSMA;
     }
 
-    public double getQuick() {
-        return quick;
+    public double getQuickSMA() {
+        return quickSMA;
     }
 
-    public void setQuick(double quick) {
-        this.quick = quick;
+    public void setQuickSMA(double quickSMA) {
+        this.quickSMA = quickSMA;
     }
 
-    public double getSlow() {
-        return slow;
+    public double getSlowSMA() {
+        return slowSMA;
     }
 
-    public void setSlow(double slow) {
-        this.slow = slow;
+    public void setSlowSMA(double slowSMA) {
+        this.slowSMA = slowSMA;
     }
 
-    public String getPrice_trend() {
-        return price_trend;
+    public String getPrice_rapidSMA() {
+        return price_rapidSMA;
     }
 
-    public void setPrice_trend(String price_trend) {
-        this.price_trend = price_trend;
+    public void setPrice_rapidSMA(String price_rapidSMA) {
+        this.price_rapidSMA = price_rapidSMA;
     }
 
-    public String getPrice_quick() {
-        return price_quick;
+    public String getPrice_quickSMA() {
+        return price_quickSMA;
     }
 
-    public void setPrice_quick(String price_quick) {
-        this.price_quick = price_quick;
+    public void setPrice_quickSMA(String price_quickSMA) {
+        this.price_quickSMA = price_quickSMA;
     }
 
-    public String getPrice_slow() {
-        return price_slow;
+    public String getPrice_slowSMA() {
+        return price_slowSMA;
     }
 
-    public void setPrice_slow(String price_slow) {
-        this.price_slow = price_slow;
+    public void setPrice_slowSMA(String price_slowSMA) {
+        this.price_slowSMA = price_slowSMA;
     }
 
-    public String getTrend_quick() {
-        return trend_quick;
+    public String getRapidSMA_quickSMA() {
+        return rapidSMA_quickSMA;
     }
 
-    public void setTrend_quick(String trend_quick) {
-        this.trend_quick = trend_quick;
+    public void setRapidSMA_quickSMA(String rapidSMA_quickSMA) {
+        this.rapidSMA_quickSMA = rapidSMA_quickSMA;
     }
 
-    public String getTrend_slow() {
-        return trend_slow;
+    public String getRapidSMA_slowSMA() {
+        return rapidSMA_slowSMA;
     }
 
-    public void setTrend_slow(String trend_slow) {
-        this.trend_slow = trend_slow;
+    public void setRapidSMA_slowSMA(String rapidSMA_slowSMA) {
+        this.rapidSMA_slowSMA = rapidSMA_slowSMA;
     }
 
-    public String getQuick_slow() {
-        return quick_slow;
+    public String getQuickSMA_slowSMA() {
+        return quickSMA_slowSMA;
     }
 
-    public void setQuick_slow(String quick_slow) {
-        this.quick_slow = quick_slow;
+    public void setQuickSMA_slowSMA(String quickSMA_slowSMA) {
+        this.quickSMA_slowSMA = quickSMA_slowSMA;
     }
 }

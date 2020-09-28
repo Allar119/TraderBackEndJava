@@ -156,20 +156,20 @@ public class TraderRepository {
 
         paramMap.put("symbol", strategyLine.symbol);
         paramMap.put("marketPrice", strategyLine.marketPrice);
-        paramMap.put("trend", strategyLine.trend);
-        paramMap.put("quick", strategyLine.quick);
-        paramMap.put("slow", strategyLine.slow);
-        paramMap.put("price_trend", strategyLine.price_trend);
-        paramMap.put("price_quick", strategyLine.price_quick);
-        paramMap.put("price_slow", strategyLine.price_slow);
-        paramMap.put("trend_quick", strategyLine.trend_quick);
-        paramMap.put("trend_slow", strategyLine.trend_slow);
-        paramMap.put("quick_slow", strategyLine.quick_slow);
+        paramMap.put("rapid", strategyLine.rapidSMA);
+        paramMap.put("quick", strategyLine.quickSMA);
+        paramMap.put("slow", strategyLine.slowSMA);
+        paramMap.put("price_rapid", strategyLine.price_rapidSMA);
+        paramMap.put("price_quick", strategyLine.price_quickSMA);
+        paramMap.put("price_slow", strategyLine.price_slowSMA);
+        paramMap.put("rapid_quick", strategyLine.rapidSMA_quickSMA);
+        paramMap.put("rapid_slow", strategyLine.rapidSMA_slowSMA);
+        paramMap.put("quick_slow", strategyLine.quickSMA_slowSMA);
 
 
-        String sql = "UPDATE ticker SET market_price = :marketPrice, trend = :trend, quick = :quick," +
-                " slow = :slow, price_trend = :price_trend, price_quick = :price_quick," +
-                " price_slow = :price_slow, trend_quick = :trend_quick, trend_slow = :trend_slow," +
+        String sql = "UPDATE ticker SET market_price = :marketPrice, rapid = :rapid, quick = :quick," +
+                " slow = :slow, price_rapid = :price_rapid, price_quick = :price_quick," +
+                " price_slow = :price_slow, rapid_quick = :rapid_quick, rapid_slow = :rapid_slow," +
                 " quick_slow = :quick_slow where symbol = :symbol";
         jdbcTemplate.update(sql, paramMap);
     }
@@ -194,28 +194,28 @@ public class TraderRepository {
         paramMap.put("time", strategyLine.time);
         paramMap.put("symbol", strategyLine.symbol);
         paramMap.put("marketPrice", strategyLine.marketPrice);
-        paramMap.put("trend", strategyLine.trend);
-        paramMap.put("quick", strategyLine.quick);
-        paramMap.put("slow", strategyLine.slow);
-        paramMap.put("price_trend", strategyLine.price_trend);
-        paramMap.put("price_quick", strategyLine.price_quick);
-        paramMap.put("price_slow", strategyLine.price_slow);
-        paramMap.put("trend_quick", strategyLine.trend_quick);
-        paramMap.put("trend_slow", strategyLine.trend_slow);
-        paramMap.put("quick_slow", strategyLine.quick_slow);
+        paramMap.put("rapid", strategyLine.rapidSMA);
+        paramMap.put("quick", strategyLine.quickSMA);
+        paramMap.put("slow", strategyLine.slowSMA);
+        paramMap.put("price_rapid", strategyLine.price_rapidSMA);
+        paramMap.put("price_quick", strategyLine.price_quickSMA);
+        paramMap.put("price_slow", strategyLine.price_slowSMA);
+        paramMap.put("rapid_quick", strategyLine.rapidSMA_quickSMA);
+        paramMap.put("rapid_slow", strategyLine.rapidSMA_slowSMA);
+        paramMap.put("quick_slow", strategyLine.quickSMA_slowSMA);
 
-        String sql = "INSERT INTO strategy (time, symbol, market_price, trend, quick, slow, price_trend, price_quick, price_slow, trend_quick, trend_slow, quick_slow) values (" +
+        String sql = "INSERT INTO strategy (time, symbol, market_price, rapid, quick, slow, price_rapid, price_quick, price_slow, rapid_quick, rapid_slow, quick_slow) values (" +
                 ":time, " +
                 ":symbol, " +
                 ":marketPrice, " +
-                ":trend, " +
+                ":rapid, " +
                 ":quick, " +
                 ":slow, " +
-                ":price_trend, " +
+                ":price_rapid, " +
                 ":price_quick, " +
                 ":price_slow, " +
-                ":trend_quick, " +
-                ":trend_slow, " +
+                ":rapid_quick, " +
+                ":rapid_slow, " +
                 ":quick_slow)";
         jdbcTemplate.update(sql, paramMap);
     }
