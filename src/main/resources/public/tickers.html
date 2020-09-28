@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="NO-CACHE">
     <title>Trader Application</title>
     <link rel="stylesheet" href="app.css">
 </head>
@@ -62,6 +63,7 @@
         let tableTickerTable = document.getElementById("tickerTable").getElementsByTagName('tbody')[0];
 
         function fillTickerTable(jsonData) {
+
             for (let i = 0; i < jsonData.length; i++) {
 
                 let row = tableTickerTable.insertRow();
