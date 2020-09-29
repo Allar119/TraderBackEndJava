@@ -15,6 +15,7 @@ public class OrderRowMapper implements RowMapper<OrderDetails> {
 
         order.setId(rs.getInt("id"));
         order.setAlgoId(rs.getInt("algo_id"));
+        order.setParentOrderId(rs.getInt("parent_order"));
         order.setSymbol(rs.getString("symbol"));
         order.setOrderType(rs.getString("order_type"));
         order.setQuantity(rs.getInt("quantity"));
