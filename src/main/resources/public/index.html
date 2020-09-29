@@ -5,6 +5,7 @@
     <meta http-equiv="Cache-Control" content="NO-CACHE">
     <title>Trader Application</title>
     <link rel="stylesheet" href="app.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body onload="loadPageData()">
     <nav id=nav>
@@ -20,7 +21,7 @@
             <div class="div1">
                 <label class="label" for="orderSymbol">SYMBOL</label><br>
                 <select class="input" type="text" id="orderSymbol" style="width: 100px">
-                    <option disabled selected hidden >-XXXX-</option>
+                    <option disabled selected hidden >AAAA</option>
                 </select>
             </div>
             <div class="div1">
@@ -187,11 +188,7 @@
                 let cell10 = row.insertCell(10);
 
 
-
-
-
                 if (jsonData[i].parentOrderId === 0){
-
                     cell0.innerHTML = jsonData[i].id;
                 }
                 else{
@@ -224,7 +221,9 @@
             for(let i = 0; i < jsonData.length; i++){
                 let option = document.createElement("option")
                 option.value = jsonData[i].value;
-                option.innerHTML = jsonData[i].option;
+                let txt = jsonData[i].option;
+                txt.replace("_", " ");
+                option.innerHTML = txt;
                 dropDown.append(option);
             }
         }

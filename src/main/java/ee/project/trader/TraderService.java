@@ -266,7 +266,7 @@ public class TraderService {
     }
 
     public ConnectionStatus checkConnectionStatus() throws InterruptedException {
-        Thread.sleep(1000); //wait 1s the continue
+        Thread.sleep(1); //wait 1s the continue
 
         ConnectionStatus status = new ConnectionStatus();
         status.setConnected(connectionHandler.isConnected());

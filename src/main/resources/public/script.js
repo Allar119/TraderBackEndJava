@@ -1,33 +1,25 @@
-var navBar = document.getElementById("nav");
+let navBar = document.getElementById("nav");
 
-
-var logo = document.createElement("label");
+let logo = document.createElement("label");
 logo.innerHTML = "TRAD€R";
 logo.className ="logo";
 
-var items =[];
+let status = document.createElement("a");
 
-var orderPage = document.createElement("a");
-orderPage.innerHTML = "ORDERS";
-orderPage.href = "index.html";
-items.push(orderPage);
 
-var tickerPage = document.createElement("a");
-tickerPage.innerHTML = "TICKERS";
-tickerPage.href = "tickers.html";
-items.push(tickerPage);
+let items =[];
+addLinkToNav("ORDERS", "index.html");
+addLinkToNav("TICKERS", "tickers.html");
+addLinkToNav("STRATEGY", "strategy.html");
+addLinkToNav("SETTING", "settings.html");
 
-var strategyPage = document.createElement("a");
-strategyPage.innerHTML = "STRATEGY";
-strategyPage.href = "strategy.html";
-items.push(strategyPage);
-
-var settingsPage = document.createElement("a");
-settingsPage.innerHTML = "SETTINGS";
-settingsPage.href = "settings.html";
-items.push(settingsPage);
-
-//var items = new Array(homePage, tickerPage, settingsPage);
+function addLinkToNav (name, url) {
+    let link = document.createElement("a");
+    link.innerHTML = name;
+    link.href = url;
+    link.className = "links";
+    items.push(link);
+}
 
 function checkConnectionStatus(){
     fetch('/getconnectionstatus', {
@@ -42,22 +34,38 @@ function checkConnectionStatus(){
         })
         .then(function(jsonData) {
             console.log(jsonData);
+            if (jsonData.connected === false){
+                status.innerHTML = "TWS: DISCONNECTED"
+                status.className = "status_d"
+            }
+            else{
+                status.innerHTML = "TWS: CONNECTED"
+                status.className = "status_c"
+            }            
+            //account: null
+            //connected: false
+
         })
         .catch(function(err) {
             console.log(err);
         })
 }
 
+function displayConnectionStatus(){
+
+}
+
 function createNavBar(){
-    var list = document.createElement("ul");
-    for(i = 0; i < items.length; i++){
-        var listItem = document.createElement("li");
+    let list = document.createElement("ul");
+    for(let i = 0; i < items.length; i++){
+        let listItem = document.createElement("li");
         listItem.append(items[i]);
         list.append(listItem);
     }
     navBar.append(logo);
+    navBar.append(status);
     navBar.append(list);
+    checkConnectionStatus();
 }
 
 createNavBar();
-checkConnectionStatus();
