@@ -146,18 +146,18 @@
     <changeSet author="raivo" id="9999">
         <addUniqueConstraint columnNames="symbol"
                              constraintName="uq_ticker_symbol"
-                tableName="ticker">
+                             tableName="ticker">
 
         </addUniqueConstraint>
     </changeSet>
 
     <changeSet author="raivo" id="8888">
-    <createTable tableName="strategy_selection">
-        <column name="id" autoIncrement="true" type="INTEGER">
-        </column>
-        <column name="strategy_id" type="INTEGER"/>
-        <column name="remarks" type="TEXT"/>
-    </createTable>
+        <createTable tableName="strategy_selection">
+            <column name="id" autoIncrement="true" type="INTEGER">
+            </column>
+            <column name="strategy_id" type="INTEGER"/>
+            <column name="remarks" type="TEXT"/>
+        </createTable>
     </changeSet>
 
     <changeSet author="raivo" id="7777">
@@ -165,6 +165,25 @@
             <column name="strategy_name" type="TEXT"/>
 
         </addColumn>
+    </changeSet>
+
+    <changeSet author="raivo" id="6666">
+        <sql>
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(0, 'no_strategy');
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(1, 'price_rapid');
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(2, 'price_quick');
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(3, 'price_slow');
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(4, 'rapid_quick');
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(5, 'rapid_slow');
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(6, 'quick_slow');
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(11, 'option_1');
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(12, 'option_2');
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(13, 'option_3');
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(14, 'option_4');
+            INSERT INTO strategy_selection (strategy_id, strategy_name) VALUES(15, 'option_5');
+        </sql>
+
+
     </changeSet>
 
 </databaseChangeLog>
