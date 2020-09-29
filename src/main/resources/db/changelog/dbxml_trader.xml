@@ -97,40 +97,68 @@
     </changeSet>
 
     <changeSet author="allar" id="23-Sep-2020 renamed table">
-        <renameTable  newTableName="order_table"
-                      oldTableName="order"/>
+        <renameTable newTableName="order_table"
+                     oldTableName="order"/>
     </changeSet>
 
     <changeSet author="raivo" id="222">
-        <renameColumn  newColumnName="rapid"
-                       oldColumnName="trend"
-                       tableName="ticker"/>
-        <renameColumn  newColumnName="price_rapid"
-                       oldColumnName="price_trend"
-                       tableName="ticker"/>
-        <renameColumn  newColumnName="rapid_quick"
-                       oldColumnName="trend_quick"
-                       tableName="ticker"/>
-        <renameColumn  newColumnName="rapid_slow"
-                       oldColumnName="trend_slow"
-                       tableName="ticker"/>
-        <renameColumn  newColumnName="rapid"
-                       oldColumnName="trend"
-                       tableName="strategy"/>
-        <renameColumn  newColumnName="price_rapid"
-                       oldColumnName="price_trend"
-                       tableName="strategy"/>
-        <renameColumn  newColumnName="rapid_quick"
-                       oldColumnName="trend_quick"
-                       tableName="strategy"/>
-        <renameColumn  newColumnName="rapid_slow"
-                       oldColumnName="trend_slow"
-                       tableName="strategy"/>
-
-
-
-
+        <renameColumn newColumnName="rapid"
+                      oldColumnName="trend"
+                      tableName="ticker"/>
+        <renameColumn newColumnName="price_rapid"
+                      oldColumnName="price_trend"
+                      tableName="ticker"/>
+        <renameColumn newColumnName="rapid_quick"
+                      oldColumnName="trend_quick"
+                      tableName="ticker"/>
+        <renameColumn newColumnName="rapid_slow"
+                      oldColumnName="trend_slow"
+                      tableName="ticker"/>
+        <renameColumn newColumnName="rapid"
+                      oldColumnName="trend"
+                      tableName="strategy"/>
+        <renameColumn newColumnName="price_rapid"
+                      oldColumnName="price_trend"
+                      tableName="strategy"/>
+        <renameColumn newColumnName="rapid_quick"
+                      oldColumnName="trend_quick"
+                      tableName="strategy"/>
+        <renameColumn newColumnName="rapid_slow"
+                      oldColumnName="trend_slow"
+                      tableName="strategy"/>
 
     </changeSet>
+
+    <changeSet author="raivo" id="111">
+        <renameColumn newColumnName="price"
+                      oldColumnName="limit_price"
+                      tableName="order_table"/>
+        <dropColumn columnName="stop_loss_price"
+                    tableName="order_table"/>
+        <dropColumn columnName="profit_taker_price"
+                    tableName="order_table"/>
+        <addColumn tableName="order_table">
+            <column name="parent_order" type="INTEGER"/>
+
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="raivo" id="9999">
+        <addUniqueConstraint columnNames="symbol"
+                             constraintName="uq_ticker_symbol"
+                tableName="ticker">
+
+        </addUniqueConstraint>
+    </changeSet>
+
+    <changeSet author="raivo" id="8888">
+        <createTable tableName="strategy_selection">
+            <column name="id" autoIncrement="true" type="INTEGER">
+            </column>
+            <column name="strategy_id" type="INTEGER"/>
+            <column name="remarks" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
 
 </databaseChangeLog>

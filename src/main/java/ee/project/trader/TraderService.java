@@ -4,8 +4,10 @@ import com.ib.client.Contract;
 import com.ib.controller.Bar;
 import ee.project.trader.dto.*;
 import ee.project.trader.handlers.ConnectionHandler;
+import ee.project.trader.handlers.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +18,9 @@ public class TraderService {
     @Autowired
     private TraderRepository traderRepository;
     @Autowired
+    private OrderService orderService;
+    @Autowired
     private ConnectionHandler connectionHandler;
-
-    String actionZero;
-    String actionOne;
 
     public ConnectionStatus connectToTws(ConnectionDetails connect) throws InterruptedException {
         connectionHandler.run(connect.getIp(), connect.getPort(), connect.getClientId(), "");
@@ -172,8 +173,6 @@ public class TraderService {
         traderRepository.insertStrategyLineToTicker(strategyLine);
 
 
-
-
         // Nüüdseks on meil kõikide aktsiate kohta olemas hinnainfo, ja valitud SMA-de alusel
         // genereeritud strateegiate actionid
 
@@ -182,7 +181,7 @@ public class TraderService {
 
         if (!traderRepository.getSubmittedOrdersList().isEmpty()) {
             System.out.println("Order to be handled");
-            traderRepository.changeOrderStatus(traderRepository.getSubmittedOrdersFirstId(), "T E H T U D" );
+            traderRepository.changeOrderStatus(traderRepository.getSubmittedOrdersFirstId(), "T E H T U D");
         } else {
             System.out.println("Orderid teostatud");
 
@@ -215,9 +214,20 @@ public class TraderService {
 */
     }
 
-    public void addOrder(SubmitOrder order) {
-        traderRepository.insertOrder(order);
 
+// @Transactional : Et kui TWS annab tala, siis ei toimu orderi lisamist dB-sse Submitted
+    @Transactional
+    public void addOrder(SubmitOrder order) {
+        List<Integer> orderIdList = new ArrayList<>();
+        int parentOrderId = traderRepository.insertOrder(order);
+        orderIdList.add(parentOrderId);
+        if (order.getProfitTaker() != null) {
+            orderIdList.add(traderRepository.insertProfitTaker(order, parentOrderId));
+        }
+        if (order.getStopLoss() != null) {
+            orderIdList.add(traderRepository.insertStopLoss(order, parentOrderId));
+        }
+        orderService.addOrders(orderIdList);
     }
 
     public List<Ticker> getTickerList() {
@@ -238,5 +248,13 @@ public class TraderService {
 
     public List<StrategyDetails> getStrategyDetails() {
         return traderRepository.getStrategyDetails();
+    }
+
+    public OrderDetails getOrder(int orderId) {
+        return traderRepository.getOrder(orderId);
+    }
+
+    public Ticker getTickerBySymbol(String symbol) {
+        return traderRepository.getTickerBySymbol(symbol);
     }
 }

@@ -7,9 +7,9 @@ public class SubmitOrder {
     private String orderType;       //Limit/Market
     private String orderAction;     //Buy, Sell, Short
     private int quantity;           //Amount of stocks
-    private double limitPrice;      //Limit price
-    private double stopLoss;        //Stop loss price
-    private double profitTaker;     //Profit taker price
+    private Double stopLoss;        //Stop loss price
+    private Double limitPrice;      //Limit price
+    private Double profitTaker;     //Profit taker price
     private String valid;           //Duration of the order
 
     public int getAlgoId() {
@@ -52,23 +52,23 @@ public class SubmitOrder {
         this.quantity = quantity;
     }
 
-    public double getLimitPrice() {
+    public Double getLimitPrice() {
         return limitPrice;
     }
 
-    public void setLimitPrice(double limitPrice) {
+    public void setLimitPrice(Double limitPrice) {
         this.limitPrice = limitPrice;
     }
 
-    public double getStopLoss() {
+    public Double getStopLoss() {
         return stopLoss;
     }
 
-    public void setStopLoss(double stopLoss) {
+    public void setStopLoss(Double stopLoss) {
         this.stopLoss = stopLoss;
     }
 
-    public double getProfitTaker() {
+    public Double getProfitTaker() {
         return profitTaker;
     }
 

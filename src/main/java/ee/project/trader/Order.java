@@ -1,43 +1,32 @@
 package ee.project.trader;
 
 public class Order {
-    int algoId;
-    String symbol;
-    String orderType;
-    int quantity;
-    double limitPrice;
-    double stopLossPrice;
-    String status;
+    private int algoId;
+    private String symbol;
+    private String orderType;
+    private int quantity;
+    private Double limitPrice;
+    private Double stopLossPrice;
+    private Double profitTakerPrice;
+    private String status;
+    private String orderAction;
+    private Integer parentOrderId;
 
-    public int getId() {
+    public String getOrderAction() {
+        return orderAction;
+    }
+
+    public void setOrderAction(String orderAction) {
+        this.orderAction = orderAction;
+    }
+
+    public int getAlgoId() {
         return algoId;
     }
 
-    public void setId(int id) {
-        this.algoId = id;
+    public void setAlgoId(int algoId) {
+        this.algoId = algoId;
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-
-    public Order(int id, String symbol, String orderType, int quantity, double limitPrice, double stopLossPrice, String status, double profitTakerPrice) {
-        this.algoId = id;
-        this.symbol = symbol;
-        this.orderType = orderType;
-        this.quantity = quantity;
-        this.limitPrice = limitPrice;
-        this.stopLossPrice = stopLossPrice;
-        this.status = status;
-        this.profitTakerPrice = profitTakerPrice;
-    }
-
-    double profitTakerPrice;
 
     public String getSymbol() {
         return symbol;
@@ -63,28 +52,43 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public double getLimitPrice() {
+    public Double getLimitPrice() {
         return limitPrice;
     }
 
-    public void setLimitPrice(double limitPrice) {
+    public void setLimitPrice(Double limitPrice) {
         this.limitPrice = limitPrice;
     }
 
-    public double getStopLossPrice() {
+    public Double getStopLossPrice() {
         return stopLossPrice;
     }
 
-    public void setStopLossPrice(double stopLossPrice) {
+    public void setStopLossPrice(Double stopLossPrice) {
         this.stopLossPrice = stopLossPrice;
     }
 
-    public double getProfitTakerPrice() {
+    public Double getProfitTakerPrice() {
         return profitTakerPrice;
     }
 
-    public void setProfitTakerPrice(double profitTakerPrice) {
+    public void setProfitTakerPrice(Double profitTakerPrice) {
         this.profitTakerPrice = profitTakerPrice;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getParentOrderId() {
+        return parentOrderId;
+    }
+
+    public void setParentOrderId(Integer parentOrderId) {
+        this.parentOrderId = parentOrderId;
+    }
 }

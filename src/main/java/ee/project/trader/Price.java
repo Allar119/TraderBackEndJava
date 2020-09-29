@@ -6,18 +6,18 @@ public class Price {
 
     String symbol;
     long timestamp;
-    double priceOpen;
-    double priceClose;
-    double priceMax;
-    double priceMin;
+    Double priceOpen;
+    Double priceClose;
+    Double priceMax;
+    Double priceMin;
 
-    public Price(String symbol, long timestamp, double priceOpen, double priceClose, double priceMax, double priceMin) {
+
+    public Price(String symbol, long timestamp, Double priceOpen, Double priceClose, Double priceMax, Double priceMin) {
         this.symbol = symbol;
         this.timestamp = timestamp;
         this.priceOpen = priceOpen;
         this.priceClose = priceClose;
         this.priceMax = priceMax;
         this.priceMin = priceMin;
-        //priceBarTimeFrame?
     }
 }
