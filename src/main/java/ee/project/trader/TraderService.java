@@ -214,7 +214,6 @@ public class TraderService {
 */
     }
 
-
 // @Transactional : Et kui TWS annab tala, siis ei toimu orderi lisamist dB-sse Submitted
     @Transactional
     public void addOrder(SubmitOrder order) {
@@ -256,5 +255,15 @@ public class TraderService {
 
     public Ticker getTickerBySymbol(String symbol) {
         return traderRepository.getTickerBySymbol(symbol);
+    }
+
+    public ConnectionStatus checkConnectionStatus() throws InterruptedException {
+        Thread.sleep(1000); //wait 1s the continue
+
+        ConnectionStatus status = new ConnectionStatus();
+        status.setConnected(connectionHandler.isConnected());
+        status.setAccount(connectionHandler.getAccount());
+
+        return status;
     }
 }

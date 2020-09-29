@@ -91,4 +91,13 @@ public class TraderController {
     public List<StrategyDetails> getStrategyDetails(){
         return traderService.getStrategyDetails();
     }
+
+    @GetMapping("/getstrategies")
+    public void getStrategies(){
+    }
+
+    @GetMapping("/getconnectionstatus")
+    public ConnectionStatus checkConnectionStatusc() throws InterruptedException {
+        return traderService.checkConnectionStatus();
+    }
 }

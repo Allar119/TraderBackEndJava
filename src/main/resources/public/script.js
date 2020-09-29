@@ -29,7 +29,24 @@ items.push(settingsPage);
 
 //var items = new Array(homePage, tickerPage, settingsPage);
 
-
+function checkConnectionStatus(){
+    fetch('/getconnectionstatus', {
+        method: 'GET',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(jsonData) {
+            console.log(jsonData);
+        })
+        .catch(function(err) {
+            console.log(err);
+        })
+}
 
 function createNavBar(){
     var list = document.createElement("ul");
@@ -43,3 +60,4 @@ function createNavBar(){
 }
 
 createNavBar();
+checkConnectionStatus();
