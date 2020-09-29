@@ -83,7 +83,7 @@ public class TraderController {
     }
 
     @GetMapping("/gettickersymbols")
-    public List<TickerSymbol> getSymbolList(){
+    public List<DropDownOption> getSymbolList(){
         return traderService.getSymbolList();
     }
 
@@ -93,7 +93,8 @@ public class TraderController {
     }
 
     @GetMapping("/getstrategies")
-    public void getStrategies(){
+    public List<DropDownOption> getStrategies(){
+        return traderService.getStrategies();
     }
 
     @GetMapping("/getconnectionstatus")

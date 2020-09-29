@@ -15,15 +15,6 @@
             <div class="div1">
                 <label class="label" for="strategy">STRATEGY</label><br>
                 <select class="input" type="text" id="strategy" style="width: 150px">
-                    <option value="0">No Strategy</option>
-                    <option value="1">Price/Rapid</option>
-                    <option value="2">Price/Quick</option>
-                    <option value="3">Price/Slow</option>
-                    <option value="4">Price/Slow</option>
-                    <option value="5">Rapid/Quick</option>
-                    <option value="6">Rapid/Slow</option>
-                    <option value="7">Quick/Slow</option>
-                    
                 </select>
             </div>
             <div class="div1">
@@ -58,7 +49,7 @@
         <div class="container">
             <div class="div1">
                 <label class="label" for="quantity">QUANTITY</label><br>
-                <input class="input" type="text" id="quantity" placeholder="100" size="15">
+                <input class="input" type="text" id="quantity" value="100" size="15">
             </div>
             <div class="div1">
                 <label class="label" for="limitPrice">LIMIT PRICE</label><br>
@@ -83,14 +74,14 @@
             <table class="myTable" id="ordersTable">
                 <thead>
                 <tr text-align="center" valign="middle">
-                    <th>Nr</th>
+                    <th>ID</th>
+                    <th>P.ID</th>
                     <th>Strategy</th>
                     <th>Symbol</th>
                     <th>Order Type</th>
                     <th>Order Action</th>
-                    <th>Limit Price</th>
-                    <th>Stop Loss </th>
-                    <th>Profit Taker </th>
+                    <th>Price</th>
+                    <th>Quantity</th>
                     <th>Valid </th>
                     <th>Status </th>
                     <th></th>
@@ -116,7 +107,6 @@
         let valid = document.getElementById("valid");
         let submitOrderButton = document.getElementById("submitOrder");
 
-        
         submitOrderButton.onclick = function submitOrder() {
 
             if(orderSymbol.value ==="-XXXX-"){
@@ -183,7 +173,7 @@
             orderTable.innerHTML = "";
             for (let i = 0; i < jsonData.length; i++) {
 
-                let row = orderTable.insertRow(0);
+                let row = orderTable.insertRow();
                 let cell0 = row.insertCell(0);
                 let cell1 = row.insertCell(1);
                 let cell2 = row.insertCell(2);
@@ -196,14 +186,25 @@
                 let cell9 = row.insertCell(9);
                 let cell10 = row.insertCell(10);
 
-                cell0.innerHTML = i + 1;
-                cell1.innerHTML = jsonData[i].algoId;
-                cell2.innerHTML = jsonData[i].symbol;
-                cell3.innerHTML = jsonData[i].orderType;
-                cell4.innerHTML = jsonData[i].orderAction;
-                cell5.innerHTML = jsonData[i].limitPrice;
-                cell6.innerHTML = jsonData[i].stopLoss;
-                cell7.innerHTML = jsonData[i].profitTaker;
+
+
+
+
+                if (jsonData[i].parentOrderId === 0){
+
+                    cell0.innerHTML = jsonData[i].id;
+                }
+                else{
+                    cell0.innerHTML = "&#8627";
+                }
+                //cell0.innerHTML = jsonData[i].id;
+                cell1.innerHTML = jsonData[i].parentOrderId;
+                cell2.innerHTML = jsonData[i].algoId;
+                cell3.innerHTML = jsonData[i].symbol;
+                cell4.innerHTML = jsonData[i].orderType;
+                cell5.innerHTML = jsonData[i].orderAction;
+                cell6.innerHTML = jsonData[i].price;
+                cell7.innerHTML = jsonData[i].quantity;
                 cell8.innerHTML = jsonData[i].valid;
                 cell9.innerHTML = jsonData[i].status;
 
@@ -222,8 +223,8 @@
             let dropDown = document.getElementById(dropDownId);
             for(let i = 0; i < jsonData.length; i++){
                 let option = document.createElement("option")
-                option.value = jsonData[i].symbol;
-                option.innerHTML = jsonData[i].symbol;
+                option.value = jsonData[i].value;
+                option.innerHTML = jsonData[i].option;
                 dropDown.append(option);
             }
         }
@@ -250,6 +251,7 @@
 
         function loadPageData(){
             fetchDropDownList("/gettickersymbols", "GET", "orderSymbol")
+            fetchDropDownList("/getstrategies", "GET", "strategy");
             getOrders();
         }
 

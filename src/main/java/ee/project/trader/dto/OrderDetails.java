@@ -4,11 +4,11 @@ public class OrderDetails {
 
     private int id;                 //Database unique id
     private int algoId;             //Strategy
-    private int parentOrderId;      // See, millega Stop ja Profit taker seotud
+    private int parentOrderId;      //See, millega Stop ja Profit taker seotud
     private String symbol;          //Ticker symbol
     private String orderType;       //Limit/Market/Stop
     private int quantity;           //Amount of stocks
-    private Double price;           //Limit price
+    private Double price;           //price
     private String status;          //Order status
     private String valid;           //Duration of the order
     private String orderAction;     //Buy, Sell, Short

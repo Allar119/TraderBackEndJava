@@ -7,10 +7,10 @@ logo.className ="logo";
 
 var items =[];
 
-var homePage = document.createElement("a");
-homePage.innerHTML = "HOME";
-homePage.href = "index.html";
-items.push(homePage);
+var orderPage = document.createElement("a");
+orderPage.innerHTML = "ORDERS";
+orderPage.href = "index.html";
+items.push(orderPage);
 
 var tickerPage = document.createElement("a");
 tickerPage.innerHTML = "TICKERS";

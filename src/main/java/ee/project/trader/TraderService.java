@@ -241,8 +241,16 @@ public class TraderService {
         traderRepository.deleteOrder(id);
     }
 
-    public List<TickerSymbol> getSymbolList() {
-        return traderRepository.getSymbolList();
+    public List<DropDownOption> getSymbolList() {
+        List<DropDownOption> dropDownList = new ArrayList<>();
+
+        for (TickerSymbol symbol : traderRepository.getSymbolList()){
+            DropDownOption option = new DropDownOption();
+            option.setOption(symbol.getSymbol());
+            option.setValue(symbol.getSymbol());
+            dropDownList.add(option);
+        }
+        return dropDownList;
     }
 
     public List<StrategyDetails> getStrategyDetails() {
@@ -265,5 +273,18 @@ public class TraderService {
         status.setAccount(connectionHandler.getAccount());
 
         return status;
+    }
+
+    public List<DropDownOption> getStrategies() {
+
+        List<DropDownOption> dropDownList = new ArrayList<>();
+
+        for (StrategyType str : traderRepository.getStrategies()){
+            DropDownOption option = new DropDownOption();
+            option.setOption(str.getStrategyName());
+            option.setValue(String.valueOf((str.getStrategyId())));
+            dropDownList.add(option);
+        }
+        return dropDownList;
     }
 }
