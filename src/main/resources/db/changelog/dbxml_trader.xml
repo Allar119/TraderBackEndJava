@@ -152,13 +152,19 @@
     </changeSet>
 
     <changeSet author="raivo" id="8888">
-        <createTable tableName="strategy_selection">
-            <column name="id" autoIncrement="true" type="INTEGER">
-            </column>
-            <column name="strategy_id" type="INTEGER"/>
-            <column name="remarks" type="TEXT"/>
-        </createTable>
+    <createTable tableName="strategy_selection">
+        <column name="id" autoIncrement="true" type="INTEGER">
+        </column>
+        <column name="strategy_id" type="INTEGER"/>
+        <column name="remarks" type="TEXT"/>
+    </createTable>
     </changeSet>
 
+    <changeSet author="raivo" id="7777">
+        <addColumn tableName="strategy_selection">
+            <column name="strategy_name" type="TEXT"/>
+
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
