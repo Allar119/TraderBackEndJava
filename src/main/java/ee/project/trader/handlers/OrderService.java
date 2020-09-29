@@ -23,6 +23,7 @@ public class OrderService {
     //This is taken straight from the API Documentation, with some minor modifications
     public void createOrder(String symbol, int parentOrderId, Types.Action action, int quantity, double limitPrice, double takeProfitLimitPrice, double stopLossPrice) {
 
+
         Contract contract = new Contract();
         contract.symbol(symbol);
         contract.secType("STK");
@@ -62,8 +63,6 @@ public class OrderService {
 
         Ticker ticker = new Ticker();
         ticker.setSymbol(symbol);
-        //TODO muuda ära
-
         connectionHandler.placeOrModifyOrder(contract, parent, new OrderHandler(ticker, traderService, connectionHandler));
         connectionHandler.placeOrModifyOrder(contract, takeProfit, new OrderHandler(ticker, traderService, connectionHandler));
         connectionHandler.placeOrModifyOrder(contract, stopLoss, new OrderHandler(ticker, traderService, connectionHandler));

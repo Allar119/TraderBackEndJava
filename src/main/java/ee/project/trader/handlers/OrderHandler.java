@@ -5,11 +5,14 @@ import com.ib.controller.ApiController;
 import ee.project.trader.Ticker;
 import ee.project.trader.TraderService;
 
+
+
 public class OrderHandler implements ApiController.ILiveOrderHandler, ApiController.IOrderHandler  {
 
     private final Ticker ticker;
     private final TraderService traderService;
     private final ConnectionHandler connectionHandler;
+
 
     public OrderHandler(Ticker ticker, TraderService traderService, ConnectionHandler connectionHandler) {
         this.ticker = ticker;
@@ -45,6 +48,8 @@ public class OrderHandler implements ApiController.ILiveOrderHandler, ApiControl
     @Override
     public void orderStatus(int orderId, OrderStatus status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
         // TODO siin tuleb kasutada traderService-it ja seda ei saa Autowire-ita, seega see on initsialiseeritud constructoris, kuna antud klass pole spring fw kontekstis.
+        System.out.println("OrderHandler orderStatus()");
+
         System.out.println("Order status " + orderId + " " + parentId + " " + status.name());
         traderService.changeStatus();
     }

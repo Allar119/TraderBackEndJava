@@ -177,6 +177,7 @@ public class TraderService {
         // genereeritud strateegiate actionid
 
 
+        /*
         // Tsekkame, kas mõni order on sisestatud ja saadame selle TWS-i
 
         if (!traderRepository.getSubmittedOrdersList().isEmpty()) {
@@ -187,7 +188,6 @@ public class TraderService {
 
         }
 
-        /*
         if (traderRepository.getSubmittedOrdersFirstId() != 0) {
             System.out.println("Order to be handled");
 
@@ -215,16 +215,37 @@ public class TraderService {
     }
 
 
-// @Transactional : Et kui TWS annab tala, siis ei toimu orderi lisamist dB-sse Submitted
+    // @Transactional : Et kui TWS annab tala, siis ei toimu orderi lisamist dB-sse Submitted
     @Transactional
     public void addOrder(SubmitOrder order) {
         List<Integer> orderIdList = new ArrayList<>();
         int parentOrderId = traderRepository.insertOrder(order);
         orderIdList.add(parentOrderId);
         if (order.getProfitTaker() != null) {
+            System.out.println("ProfitTaker");
+            if (order.getOrderAction().equals("BUY")) {
+                System.out.println("Parent orderAction: " + order.getOrderAction());
+                order.setOrderAction("SELL");
+                System.out.println("ProfitTaker orderAction: " + order.getOrderAction());
+            } else if (order.getOrderType().equals("SELL")) {
+                System.out.println("Parent orderAction: " + order.getOrderAction());
+                order.setOrderAction("BUY");
+                System.out.println("ProfitTaker orderAction: " + order.getOrderAction());
+            }
             orderIdList.add(traderRepository.insertProfitTaker(order, parentOrderId));
+
         }
         if (order.getStopLoss() != null) {
+            System.out.println("StopLoss");
+            if (order.getOrderType().equals("BUY")) {
+                System.out.println("Parent orderType: " + order.getOrderType());
+                order.setOrderType("SELL");
+                System.out.println("StopLoss orderType: " + order.getOrderType());
+            } else if (order.getOrderType().equals("SELL")) {
+                System.out.println("Parent orderType: " + order.getOrderType());
+                order.setOrderType("BUY");
+                System.out.println("StopLoss orderType: " + order.getOrderType());
+            }
             orderIdList.add(traderRepository.insertStopLoss(order, parentOrderId));
         }
         orderService.addOrders(orderIdList);
@@ -259,6 +280,7 @@ public class TraderService {
     }
 
     public void changeStatus() {
+        System.out.println("TraderService changeStatus()");
         // Muudame orderi statuse databaasis, kui täidetud
     }
 }
