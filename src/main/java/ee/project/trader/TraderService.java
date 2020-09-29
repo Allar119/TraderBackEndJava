@@ -165,7 +165,7 @@ public class TraderService {
 
        */
 
-        // Kirjutame strateegiad andmebaasi:
+        // Kirjutame SMA põhised strateegiad andmebaasi:
         StrategyLine strategyLine = new StrategyLine(bar.time(),
                 contract.symbol(), price, rapid,
                 quick, slow, price_rapid, price_quick, price_slow, rapid_quick, rapid_slow, quick_slow);
@@ -180,10 +180,10 @@ public class TraderService {
         // Tsekkame, kas mõni order on sisestatud ja saadame selle TWS-i
 
         if (!traderRepository.getSubmittedOrdersList().isEmpty()) {
-            System.out.println("Order to be handled");
+        //    System.out.println("Order to be handled");
             traderRepository.changeOrderStatus(traderRepository.getSubmittedOrdersFirstId(), "T E H T U D");
         } else {
-            System.out.println("Orderid teostatud");
+          //  System.out.println("Orderid teostatud");
 
         }
 
@@ -256,5 +256,9 @@ public class TraderService {
 
     public Ticker getTickerBySymbol(String symbol) {
         return traderRepository.getTickerBySymbol(symbol);
+    }
+
+    public void changeStatus() {
+        // Muudame orderi statuse databaasis, kui täidetud
     }
 }

@@ -46,6 +46,7 @@ public class OrderHandler implements ApiController.ILiveOrderHandler, ApiControl
     public void orderStatus(int orderId, OrderStatus status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
         // TODO siin tuleb kasutada traderService-it ja seda ei saa Autowire-ita, seega see on initsialiseeritud constructoris, kuna antud klass pole spring fw kontekstis.
         System.out.println("Order status " + orderId + " " + parentId + " " + status.name());
+        traderService.changeStatus();
     }
 
     @Override
