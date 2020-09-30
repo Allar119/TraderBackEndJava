@@ -25,6 +25,7 @@ import com.ib.client.Types.FundamentalType;
 import com.ib.client.Types.NewsType;
 import com.ib.client.Types.WhatToShow;
 import com.ib.controller.ApiConnection.ILogger;
+import ee.project.trader.handlers.OrderHandler;
 
 public class ApiController implements EWrapper {
 	private ApiConnection m_client;
@@ -77,6 +78,10 @@ public class ApiController implements EWrapper {
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
+
+	public boolean hasReqLiveOrders() {
+		return m_liveOrderHandlers.size() > 0;
+	}
 
 	// ---------------------------------------- Constructor and Connection handling ----------------------------------------
 	public interface IConnectionHandler {
@@ -916,7 +921,6 @@ public class ApiController implements EWrapper {
 		if (handler != null) {
 			handler.orderState(orderState);
 		}
-
 		if (!order.whatIf() ) {
 			for (ILiveOrderHandler liveHandler : m_liveOrderHandlers) {
 				liveHandler.openOrder( contract, order, orderState );

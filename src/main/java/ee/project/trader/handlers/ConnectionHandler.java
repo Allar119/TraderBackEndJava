@@ -9,6 +9,7 @@ import ee.project.trader.dto.ConnectionStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -21,8 +22,15 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
     private String account;
     ApiController m_controller = new ApiController( this);
 
-    public void placeOrModifyOrder(Contract contract, Order o, OrderHandler orderHandler) {
-        m_controller.placeOrModifyOrder(contract, o, orderHandler);
+    public void init(){
+        if(!m_controller.hasReqLiveOrders()){
+            ApiController.ILiveOrderHandler liveOrderHandler = new OrderHandler(traderService);
+            m_controller.reqLiveOrders(liveOrderHandler);
+        }
+    }
+
+    public void placeOrModifyOrder(Contract contract, Order o) {
+        m_controller.placeOrModifyOrder(contract, o, new OrderHandler(traderService));
     }
 
     public void run(String hostIp, int port, int clientId, String connectionOpts) {
