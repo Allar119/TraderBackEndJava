@@ -10,7 +10,8 @@
     margin: 0;
     padding: 0;    
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Cairo', sans-serif;
+    font-weight: lighter;
     list-style: none;
 }
 
@@ -26,28 +27,10 @@ main {
 }
 
 nav {
-    margin-bottom: 0rem;
-    margin-top: 0;
     width: 100%;
     height: 2.5rem;
     position: fixed;
     background-color: #333;
-}
-
-h1, h2, h3, h4 {
-    margin-bottom: 0rem;
-    text-align: center;
-    margin: auto;
-    color: #333;
-
-}
-
-h1 {
-    font-size: 3.0rem;
-    max-width: 620px;
-    background-color: #3f4246;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
 }
 
 .logo{
@@ -59,22 +42,49 @@ h1 {
     margin-left: 1.0rem;    
 }
 
+.status_d {
+    color: red;
+    font-style: italic;
+    font-size: 0.7rem;
+    margin-left: 1.0rem;
+    vertical-align: middle;
+}
+
+.status_c {
+    color: greenyellow;
+    font-style: italic;
+    font-size: 0.7rem;
+    margin-left: 1.0rem;
+    vertical-align: middle;
+}
+
 ul{
     float: right;
-    margin-right: 20px;
+    margin: 0;
+    height: 100%;
+    padding: 0;
 }
 
 ul li{
+    height: 100%;
     display: inline-block;
-    margin-top: 0.6rem;
-    margin-right: 1.0rem;
 }
 
 ul li a{
-    font-weight: bold;
+    line-height: 100%; 
+    margin-left: 5px;
+    margin-right: 5px;
     text-transform: uppercase;
     text-decoration: none;
     color: var(--text-secondary);
+}
+
+ul li:hover{
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-secondary);
+    background-color: rgb(34, 34, 34)
 }
 
 .container{
@@ -103,7 +113,7 @@ input, select{
     font-size: 1.0rem;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    text-align: center;    
+    text-align: center;
     height: 1.8rem;
     border: solid 1px;
     border-radius: 0.3rem;
@@ -175,16 +185,15 @@ button:hover{
 
 .myTable td, .myTable th {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding-left : 0.5rem;
+    padding-right : 0.5rem;
 }
-
-.myTable tr:nth-child(even){background-color: var(--back-primary);}
 
 .myTable tr:hover {background-color: #ddd;}
 
 .myTable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     text-align: left;
     background-color: var(--back-primary);
     color: white;

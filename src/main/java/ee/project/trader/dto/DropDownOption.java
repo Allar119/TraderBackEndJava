@@ -9,7 +9,7 @@ public class DropDownOption {
     }
 
     public void setOption(String option) {
-        this.option = option;
+        this.option = option.replace("_", " ").toUpperCase();
     }
 
     public String getValue() {
