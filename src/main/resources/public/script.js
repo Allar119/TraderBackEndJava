@@ -38,10 +38,14 @@ function checkConnectionStatus(){
                 status.innerHTML = "TWS: DISCONNECTED"
                 status.className = "status_d"
             }
-            else{
+            else if (jsonData.connected === true){
                 status.innerHTML = "TWS: CONNECTED"
                 status.className = "status_c"
-            }            
+            }
+            else {
+                status.innerHTML = "SERVER ERROR"
+                status.className = "status_c"
+            }
             //account: null
             //connected: false
 
