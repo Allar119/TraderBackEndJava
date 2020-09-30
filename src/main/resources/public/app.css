@@ -1,5 +1,5 @@
 :root{ 
-    font-size: 62,5%;
+    font-size: 62.5%;
     background-color: #f7f7f7;
     --text-primary: #333;
     --text-secondary: #f7f7f7;
@@ -46,7 +46,7 @@ nav {
     color: red;
     font-style: italic;
     font-size: 0.7rem;
-    padding-top: 0.rem;
+    padding-top: 0.5rem;
 }
 
 .status_c {
@@ -112,7 +112,6 @@ input, select{
     border: solid 1px;
     border-radius: 0.3rem;
     outline: none;
-
 }
 
 input[type=text]:focus{
