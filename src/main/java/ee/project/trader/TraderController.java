@@ -83,12 +83,22 @@ public class TraderController {
     }
 
     @GetMapping("/gettickersymbols")
-    public List<TickerSymbol> getSymbolList(){
+    public List<DropDownOption> getSymbolList(){
         return traderService.getSymbolList();
     }
 
     @GetMapping("/getstrategyinfo")
     public List<StrategyDetails> getStrategyDetails(){
         return traderService.getStrategyDetails();
+    }
+
+    @GetMapping("/getstrategies")
+    public List<DropDownOption> getStrategies(){
+        return traderService.getStrategies();
+    }
+
+    @GetMapping("/getconnectionstatus")
+    public ConnectionStatus checkConnectionStatusc() throws InterruptedException {
+        return traderService.checkConnectionStatus();
     }
 }

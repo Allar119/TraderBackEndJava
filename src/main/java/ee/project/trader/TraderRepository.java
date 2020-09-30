@@ -1,13 +1,7 @@
 package ee.project.trader;
 
-import ee.project.trader.dto.OrderDetails;
-import ee.project.trader.dto.StrategyDetails;
-import ee.project.trader.dto.SubmitOrder;
-import ee.project.trader.dto.TickerSymbol;
-import ee.project.trader.rowmappers.OrderRowMapper;
-import ee.project.trader.rowmappers.StrategyRowMapper;
-import ee.project.trader.rowmappers.SymbolRowMapper;
-import ee.project.trader.rowmappers.TickerRowMapper;
+import ee.project.trader.dto.*;
+import ee.project.trader.rowmappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -351,7 +345,6 @@ public class TraderRepository {
     }
 
     public Ticker getTickerBySymbol(String symbol) {
-
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("symbol", symbol);
 
@@ -365,6 +358,11 @@ public class TraderRepository {
 
         String sql = "SELECT * FROM order_table WHERE id = :id";
         return jdbcTemplate.queryForObject(sql, paramMap, new OrderRowMapper());
+    }
+
+    public List<StrategyType> getStrategies() {
+        String sql = "SELECT strategy_name, strategy_id FROM strategy_selection";
+        return jdbcTemplate.query(sql, new HashMap<>(), new StrategiesRowMapper());
     }
 }
 
