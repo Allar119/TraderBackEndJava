@@ -1,5 +1,5 @@
 :root{ 
-    font-size: 62.5%;
+    font-size: 62,5%;
     background-color: #f7f7f7;
     --text-primary: #333;
     --text-secondary: #f7f7f7;
@@ -13,7 +13,7 @@
     padding: 0;    
     box-sizing: border-box;
     font-family: 'Cairo', sans-serif;
-    font-weight: lighter;
+    font-weight: 400;
     list-style: none;
 }
 
@@ -32,25 +32,27 @@ nav {
     background-color: #333;
 }
 
-.leftList{
-    float: left;
-}
-
 .logo{
     font-weight: 800;
     font-style: italic;
     letter-spacing: 0.5rem;
 }
 
-.status_d {
+.status {
     color: red;
     font-style: italic;
-    font-size: 0.7rem;
-    padding-top: 0.5rem;
+    font-weight: 200;
+    font-size: 0.8rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0;
 }
 
-.status_c {
-    color: greenyellow;
+.account{
+    letter-spacing: 0.1rem;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0;
 }
 
 ul{    
@@ -71,6 +73,11 @@ ul li a, p{
   color: white;  
   padding: 0.4rem 0.5rem;
   text-decoration: none;
+}
+
+p{
+    display: block;
+    float: left;
 }
 
 ul li:hover{

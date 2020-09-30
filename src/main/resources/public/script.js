@@ -1,78 +1,85 @@
 let navBar = document.getElementById("nav");
 
-let rightList = document.createElement("ul");
-addToRightList("ORDERS", "index.html");
-addToRightList("TICKERS", "tickers.html");
-addToRightList("STRATEGY", "strategy.html");
-addToRightList("SETTING", "settings.html", );
+let pagesList = document.createElement("ul");
+pagesList.className = "pages"
 
-function addToRightList (name, url) {
+addTxt("TRAD€R", "logo", "logo")
+addTxt("" , "status_d", "status")
+addPages("ORDERS", "index.html");
+addPages("TICKERS", "tickers.html");
+addPages("STRATEGY", "strategy.html");
+addPages("SETTING", "settings.html", );
+
+function addPages (name, url) {
     let listItem = document.createElement("li")
-    let link = document.createElement("a");
-    
+
+    let link = document.createElement("a");    
     link.innerHTML = name;
     link.href = url;
-    link.className = "links";
     
     listItem.append(link);
-    rightList.append(listItem);
+    pagesList.append(listItem);
 }
 
-let leftList = document.createElement("ul");
-leftList.className = "leftList"
-addToLeftList("TRAD€R", "logo")
-addToLeftList("xx" , "status_d", "status")
-
-function addToLeftList(txt, className, id){
-    let listItem = document.createElement("li")
-    let link = document.createElement("p");
-    
+function addTxt(txt, className, id){
+    let link = document.createElement("p");    
     link.innerHTML = txt;
     link.className = className;
     link.id = id;
+    return link;
+}
 
-    listItem.append(link);
-    leftList.append(listItem);
+function displayConnectionStatus(jsonData){
+    status = document.getElementById("status");
+    account = document.getElementById("account");
+
+
+    
 }
 
 
-function checkConnectionStatus(){
+async function checkConnectionStatus(){ 
+    
     s = document.getElementById("status");
-    fetch('/getconnectionstatus', {
-        method: 'GET',
-        cache: 'no-cache',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    })
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(jsonData) {
-            console.log(jsonData);
-            if (jsonData.connected === false){                
-                s.innerHTML = "TWS: DISCONNECTED"
-                s.className = "status_d"
-            }
-            else if (jsonData.connected === true){
-                s.innerHTML = "TWS: CONNECTED"
-                s.className = "status_c"
-            }            
-        })
-        .catch(function(err) {
-            console.log(err);
-            s.innerHTML = "SERVER ERROR"
-            s.className = "status_d"
-        })
+    a = document.getElementById("account");
+
+    let response = await fetch('/getconnectionstatus');
+    
+    if (response.status != 200) {
+        console.log(response.statusText);        
+        
+        s.innerHTML = "SERVER ERROR";
+        a.innerHTML = "";
+
+        //Recconect in 5 second
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        await checkConnectionStatus();
+
+    } else {
+        let message = await response.json();
+        console.log(message);
+
+        if (message.connected === true){
+            s.innerHTML = "TWS: CONNECTED";
+            s.style.color = "greenyellow"
+            a.innerHTML = message.account;
+        } else {
+            s.innerHTML = "TWS: DISCONNECTED";
+            s.style.color = "red"
+            a.innerHTML ="";
+        }
+        //Recconect in 10 second
+        await new Promise(resolve => setTimeout(resolve, 10000));
+        await checkConnectionStatus();
+    }    
 }
 
-function displayConnectionStatus(){
-}
 
-function createNavBar(){
-
-    navBar.append(leftList);
-    navBar.append(rightList);
+function createNavBar(){        
+    navBar.append(addTxt("TRAD€R", "logo", "logo"));
+    navBar.append(addTxt("", "status", "status"));
+    navBar.append(addTxt("", "account", "account"));
+    navBar.append(pagesList);
     checkConnectionStatus();
 }
 
