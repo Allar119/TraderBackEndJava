@@ -148,46 +148,6 @@ public class TraderService {
         traderRepository.insertStrategyLine(strategyLine);
         traderRepository.insertStrategyLineToTicker(strategyLine);
 
-
-        // Nüüdseks on meil kõikide aktsiate kohta olemas hinnainfo, ja valitud SMA-de alusel
-        // genereeritud strateegiate actionid
-
-
-        /*
-        // Tsekkame, kas mõni order on sisestatud ja saadame selle TWS-i
-
-        if (!traderRepository.getSubmittedOrdersList().isEmpty()) {
-        //    System.out.println("Order to be handled");
-            traderRepository.changeOrderStatus(traderRepository.getSubmittedOrdersFirstId(), "T E H T U D");
-        } else {
-          //  System.out.println("Orderid teostatud");
-
-        }
-
-        if (traderRepository.getSubmittedOrdersFirstId() != 0) {
-            System.out.println("Order to be handled");
-
-            //System.out.println("Symbol: " + traderRepository.getSubmittedOrdersList().get(0).getSymbol() +" Qty: " + traderRepository.getSubmittedOrdersList().get(0).getQuantity() );
-            //System.out.println("Status: " + traderRepository.getSubmittedOrdersList().get(0).getStatus());
-            //System.out.println("Teostame ja muudame statust!");
-            traderRepository.changeOrderStatus(traderRepository.getSubmittedOrdersFirstId(), "T E H T U D" );
-
-        }
-
-*/
-
-
-// Kutsume konkreetse aktsia osas välja actioni valitud strateegiaga
-
-        /*
-        actionOne = traderRepository.getAction("SOXL", "trend_slow");
-        if (actionOne.equals(actionZero)){
-            System.out.println();
-        } else {
-            System.out.println("SOXL -> " + actionOne);
-        }
-        actionZero = actionOne;
-*/
     }
 
 
@@ -197,13 +157,7 @@ public class TraderService {
         List<Integer> orderIdList = new ArrayList<>();
         int parentOrderId = traderRepository.insertOrder(order);
         orderIdList.add(parentOrderId);
-        if (order.getProfitTaker().equals(null)){
-            System.out.println("ProfitTaker puudub");
-        }
 
-        if (order.getStopLoss().equals(null)){
-            System.out.println("StopLoss puudub");
-        }
 
         if (order.getProfitTaker() != null) {
             System.out.println("ProfitTaker");
@@ -215,7 +169,10 @@ public class TraderService {
              //   System.out.println("Parent orderAction: " + order.getOrderAction());
                 order.setOrderAction("BUY");
                // System.out.println("ProfitTaker orderAction: " + order.getOrderAction());
+            } else {
+                System.out.println("ProfitTaker puudub");
             }
+
             orderIdList.add(traderRepository.insertProfitTaker(order, parentOrderId));
 
         }
@@ -229,6 +186,8 @@ public class TraderService {
              //   System.out.println("Parent orderType: " + order.getOrderType());
                 order.setOrderType("BUY");
              //   System.out.println("StopLoss orderType: " + order.getOrderType());
+            } else {
+                System.out.println("StopLoss puudub");
             }
             orderIdList.add(traderRepository.insertStopLoss(order, parentOrderId));
         }
