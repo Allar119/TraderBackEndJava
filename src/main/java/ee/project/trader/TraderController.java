@@ -82,6 +82,7 @@ public class TraderController {
         traderService.deleteOrder(id);
     }
 
+    /*
     @GetMapping("/gettickersymbols")
     public List<DropDownOption> getSymbolList(){
         return traderService.getSymbolList();
@@ -101,4 +102,6 @@ public class TraderController {
     public ConnectionStatus checkConnectionStatusc() throws InterruptedException {
         return traderService.checkConnectionStatus();
     }
+
+     */
 }

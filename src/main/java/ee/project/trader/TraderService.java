@@ -28,6 +28,7 @@ public class TraderService {
         ConnectionStatus status = new ConnectionStatus();
         status.setConnected(connectionHandler.isConnected());
         status.setAccount(connectionHandler.getAccount());
+        connectionHandler.init();
         return status;
     }
 
@@ -138,92 +139,56 @@ public class TraderService {
             quick_slow = "SELL";
         }
 
-/*
-        System.out.println("******************* " + contract.symbol() + " *********************");
-        System.out.println(contract.symbol() + " price " + bar.high());
-        System.out.println(contract.symbol() + " SMA5  " + traderRepository.getSMA(sma5));
-        System.out.println(contract.symbol() + " SMA13 " + traderRepository.getSMA(sma13));
-
-        if (doBuy(bar.high(), traderRepository.getSMA(sma5))) {
-            System.out.println(contract.symbol() + " Strategy Price/SMA5  BUY: " + contract.symbol());
-
-        } else {
-            System.out.println(contract.symbol() + " Strategy Price/SMA5 SELL: " + contract.symbol());
-        }
 
 
-        if (traderRepository.getSMA(sma5) > traderRepository.getSMA(sma13)) {
-            System.out.println(contract.symbol() + " Strategy SMA5/SMA13  BUY: " + contract.symbol());
-
-
-        } else {
-            System.out.println(contract.symbol() + " Strategy SMA5/SMA13 SELL: " + contract.symbol());
-        }
-
-        System.out.println("______________________________________________");
-        System.out.println();
-
-       */
-
-        // Kirjutame strateegiad andmebaasi:
+        // Kirjutame SMA põhised strateegiad andmebaasi:
         StrategyLine strategyLine = new StrategyLine(bar.time(),
                 contract.symbol(), price, rapid,
                 quick, slow, price_rapid, price_quick, price_slow, rapid_quick, rapid_slow, quick_slow);
         traderRepository.insertStrategyLine(strategyLine);
         traderRepository.insertStrategyLineToTicker(strategyLine);
 
-
-        // Nüüdseks on meil kõikide aktsiate kohta olemas hinnainfo, ja valitud SMA-de alusel
-        // genereeritud strateegiate actionid
-
-
-        // Tsekkame, kas mõni order on sisestatud ja saadame selle TWS-i
-
-        if (!traderRepository.getSubmittedOrdersList().isEmpty()) {
-            System.out.println("Order to be handled");
-            traderRepository.changeOrderStatus(traderRepository.getSubmittedOrdersFirstId(), "T E H T U D");
-        } else {
-            System.out.println("Orderid teostatud");
-
-        }
-
-        /*
-        if (traderRepository.getSubmittedOrdersFirstId() != 0) {
-            System.out.println("Order to be handled");
-
-            //System.out.println("Symbol: " + traderRepository.getSubmittedOrdersList().get(0).getSymbol() +" Qty: " + traderRepository.getSubmittedOrdersList().get(0).getQuantity() );
-            //System.out.println("Status: " + traderRepository.getSubmittedOrdersList().get(0).getStatus());
-            //System.out.println("Teostame ja muudame statust!");
-            traderRepository.changeOrderStatus(traderRepository.getSubmittedOrdersFirstId(), "T E H T U D" );
-
-        }
-
-*/
-
-
-// Kutsume konkreetse aktsia osas välja actioni valitud strateegiaga
-
-        /*
-        actionOne = traderRepository.getAction("SOXL", "trend_slow");
-        if (actionOne.equals(actionZero)){
-            System.out.println();
-        } else {
-            System.out.println("SOXL -> " + actionOne);
-        }
-        actionZero = actionOne;
-*/
     }
 
-// @Transactional : Et kui TWS annab tala, siis ei toimu orderi lisamist dB-sse Submitted
+
+    // @Transactional : Et kui TWS annab tala, siis ei toimu orderi lisamist dB-sse Submitted
     @Transactional
     public void addOrder(SubmitOrder order) {
         List<Integer> orderIdList = new ArrayList<>();
         int parentOrderId = traderRepository.insertOrder(order);
         orderIdList.add(parentOrderId);
+
+
         if (order.getProfitTaker() != null) {
+            System.out.println("ProfitTaker");
+            if (order.getOrderAction().equals("BUY")) {
+              //  System.out.println("Parent orderAction: " + order.getOrderAction());
+                order.setOrderAction("SELL");
+             //   System.out.println("ProfitTaker orderAction: " + order.getOrderAction());
+            } else if (order.getOrderType().equals("SELL")) {
+             //   System.out.println("Parent orderAction: " + order.getOrderAction());
+                order.setOrderAction("BUY");
+               // System.out.println("ProfitTaker orderAction: " + order.getOrderAction());
+            } else {
+                System.out.println("ProfitTaker puudub");
+            }
+
             orderIdList.add(traderRepository.insertProfitTaker(order, parentOrderId));
+
         }
         if (order.getStopLoss() != null) {
+            System.out.println("StopLoss");
+            if (order.getOrderType().equals("BUY")) {
+           //     System.out.println("Parent orderType: " + order.getOrderType());
+                order.setOrderType("SELL");
+             //   System.out.println("StopLoss orderType: " + order.getOrderType());
+            } else if (order.getOrderType().equals("SELL")) {
+             //   System.out.println("Parent orderType: " + order.getOrderType());
+                order.setOrderType("BUY");
+             //   System.out.println("StopLoss orderType: " + order.getOrderType());
+            } else {
+                System.out.println("StopLoss puudub");
+            }
             orderIdList.add(traderRepository.insertStopLoss(order, parentOrderId));
         }
         orderService.addOrders(orderIdList);
@@ -279,12 +244,17 @@ public class TraderService {
 
         List<DropDownOption> dropDownList = new ArrayList<>();
 
-        for (StrategyType str : traderRepository.getStrategies()){
+        for (StrategyType str : traderRepository.getStrategies()) {
             DropDownOption option = new DropDownOption();
             option.setOption(str.getStrategyName());
             option.setValue(String.valueOf((str.getStrategyId())));
             dropDownList.add(option);
         }
         return dropDownList;
+    }
+
+    public void changeStatus() {
+        System.out.println("TraderService changeStatus()");
+        // Muudame orderi statuse databaasis, kui täidetud
     }
 }
