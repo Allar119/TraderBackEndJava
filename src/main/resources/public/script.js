@@ -1,27 +1,43 @@
 let navBar = document.getElementById("nav");
 
-let logo = document.createElement("label");
-logo.innerHTML = "TRAD€R";
-logo.className ="logo";
+let rightList = document.createElement("ul");
+addToRightList("ORDERS", "index.html");
+addToRightList("TICKERS", "tickers.html");
+addToRightList("STRATEGY", "strategy.html");
+addToRightList("SETTING", "settings.html", );
 
-let status = document.createElement("a");
-
-
-let items =[];
-addLinkToNav("ORDERS", "index.html");
-addLinkToNav("TICKERS", "tickers.html");
-addLinkToNav("STRATEGY", "strategy.html");
-addLinkToNav("SETTING", "settings.html");
-
-function addLinkToNav (name, url) {
+function addToRightList (name, url) {
+    let listItem = document.createElement("li")
     let link = document.createElement("a");
+    
     link.innerHTML = name;
     link.href = url;
     link.className = "links";
-    items.push(link);
+    
+    listItem.append(link);
+    rightList.append(listItem);
 }
 
+let leftList = document.createElement("ul");
+leftList.className = "leftList"
+addToLeftList("TRAD€R", "logo")
+addToLeftList("xx" , "status_d", "status")
+
+function addToLeftList(txt, className, id){
+    let listItem = document.createElement("li")
+    let link = document.createElement("p");
+    
+    link.innerHTML = txt;
+    link.className = className;
+    link.id = id;
+
+    listItem.append(link);
+    leftList.append(listItem);
+}
+
+
 function checkConnectionStatus(){
+    s = document.getElementById("status");
     fetch('/getconnectionstatus', {
         method: 'GET',
         cache: 'no-cache',
@@ -34,41 +50,29 @@ function checkConnectionStatus(){
         })
         .then(function(jsonData) {
             console.log(jsonData);
-            if (jsonData.connected === false){
-                status.innerHTML = "TWS: DISCONNECTED"
-                status.className = "status_d"
+            if (jsonData.connected === false){                
+                s.innerHTML = "TWS: DISCONNECTED"
+                s.className = "status_d"
             }
             else if (jsonData.connected === true){
-                status.innerHTML = "TWS: CONNECTED"
-                status.className = "status_c"
-            }
-            else {
-                status.innerHTML = "SERVER ERROR"
-                status.className = "status_c"
-            }
-            //account: null
-            //connected: false
-
+                s.innerHTML = "TWS: CONNECTED"
+                s.className = "status_c"
+            }            
         })
         .catch(function(err) {
             console.log(err);
+            s.innerHTML = "SERVER ERROR"
+            s.className = "status_d"
         })
 }
 
 function displayConnectionStatus(){
-
 }
 
 function createNavBar(){
-    let list = document.createElement("ul");
-    for(let i = 0; i < items.length; i++){
-        let listItem = document.createElement("li");
-        listItem.append(items[i]);
-        list.append(listItem);
-    }
-    navBar.append(logo);
-    navBar.append(status);
-    navBar.append(list);
+
+    navBar.append(leftList);
+    navBar.append(rightList);
     checkConnectionStatus();
 }
 
