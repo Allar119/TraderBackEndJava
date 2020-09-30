@@ -28,6 +28,7 @@ public class TraderService {
         ConnectionStatus status = new ConnectionStatus();
         status.setConnected(connectionHandler.isConnected());
         status.setAccount(connectionHandler.getAccount());
+        connectionHandler.init();
         return status;
     }
 
@@ -138,32 +139,7 @@ public class TraderService {
             quick_slow = "SELL";
         }
 
-/*
-        System.out.println("******************* " + contract.symbol() + " *********************");
-        System.out.println(contract.symbol() + " price " + bar.high());
-        System.out.println(contract.symbol() + " SMA5  " + traderRepository.getSMA(sma5));
-        System.out.println(contract.symbol() + " SMA13 " + traderRepository.getSMA(sma13));
 
-        if (doBuy(bar.high(), traderRepository.getSMA(sma5))) {
-            System.out.println(contract.symbol() + " Strategy Price/SMA5  BUY: " + contract.symbol());
-
-        } else {
-            System.out.println(contract.symbol() + " Strategy Price/SMA5 SELL: " + contract.symbol());
-        }
-
-
-        if (traderRepository.getSMA(sma5) > traderRepository.getSMA(sma13)) {
-            System.out.println(contract.symbol() + " Strategy SMA5/SMA13  BUY: " + contract.symbol());
-
-
-        } else {
-            System.out.println(contract.symbol() + " Strategy SMA5/SMA13 SELL: " + contract.symbol());
-        }
-
-        System.out.println("______________________________________________");
-        System.out.println();
-
-       */
 
         // Kirjutame SMA põhised strateegiad andmebaasi:
         StrategyLine strategyLine = new StrategyLine(bar.time(),
@@ -221,16 +197,24 @@ public class TraderService {
         List<Integer> orderIdList = new ArrayList<>();
         int parentOrderId = traderRepository.insertOrder(order);
         orderIdList.add(parentOrderId);
+        if (order.getProfitTaker().equals(null)){
+            System.out.println("ProfitTaker puudub");
+        }
+
+        if (order.getStopLoss().equals(null)){
+            System.out.println("StopLoss puudub");
+        }
+
         if (order.getProfitTaker() != null) {
             System.out.println("ProfitTaker");
             if (order.getOrderAction().equals("BUY")) {
-                System.out.println("Parent orderAction: " + order.getOrderAction());
+              //  System.out.println("Parent orderAction: " + order.getOrderAction());
                 order.setOrderAction("SELL");
-                System.out.println("ProfitTaker orderAction: " + order.getOrderAction());
+             //   System.out.println("ProfitTaker orderAction: " + order.getOrderAction());
             } else if (order.getOrderType().equals("SELL")) {
-                System.out.println("Parent orderAction: " + order.getOrderAction());
+             //   System.out.println("Parent orderAction: " + order.getOrderAction());
                 order.setOrderAction("BUY");
-                System.out.println("ProfitTaker orderAction: " + order.getOrderAction());
+               // System.out.println("ProfitTaker orderAction: " + order.getOrderAction());
             }
             orderIdList.add(traderRepository.insertProfitTaker(order, parentOrderId));
 
@@ -238,13 +222,13 @@ public class TraderService {
         if (order.getStopLoss() != null) {
             System.out.println("StopLoss");
             if (order.getOrderType().equals("BUY")) {
-                System.out.println("Parent orderType: " + order.getOrderType());
+           //     System.out.println("Parent orderType: " + order.getOrderType());
                 order.setOrderType("SELL");
-                System.out.println("StopLoss orderType: " + order.getOrderType());
+             //   System.out.println("StopLoss orderType: " + order.getOrderType());
             } else if (order.getOrderType().equals("SELL")) {
-                System.out.println("Parent orderType: " + order.getOrderType());
+             //   System.out.println("Parent orderType: " + order.getOrderType());
                 order.setOrderType("BUY");
-                System.out.println("StopLoss orderType: " + order.getOrderType());
+             //   System.out.println("StopLoss orderType: " + order.getOrderType());
             }
             orderIdList.add(traderRepository.insertStopLoss(order, parentOrderId));
         }

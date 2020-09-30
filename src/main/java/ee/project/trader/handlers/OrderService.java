@@ -19,8 +19,6 @@ public class OrderService {
     private ConnectionHandler connectionHandler;
     @Autowired
     private TraderService traderService;
-    @Autowired
-    private OrderHandler orderHandler;
 
     public void addOrders(List<Integer> orderIdList) {
         int lastOrderId = orderIdList.get(orderIdList.size() - 1);
@@ -31,7 +29,7 @@ public class OrderService {
 
             Order twsOrder = toTwsOrder(order, orderId == lastOrderId);
             Contract contract = toTwsContract(ticker);
-            connectionHandler.placeOrModifyOrder(contract, twsOrder, orderHandler);
+            connectionHandler.placeOrModifyOrder(contract, twsOrder);
         }
     }
 
