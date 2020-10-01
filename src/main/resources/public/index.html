@@ -303,9 +303,6 @@
         async function getTickerInfo(symbol){
             let response = await fetch('/gettickerstrategy/' + symbol)
 
-            //if (response.status === 404){
-            //    await getTickerInfo(orderSymbol.value);
-            //}
 
            if (symbol === orderSymbol.value) {
 

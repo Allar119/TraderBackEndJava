@@ -246,7 +246,7 @@ public class TraderService {
 
         for (StrategyType str : traderRepository.getStrategies()) {
             DropDownOption option = new DropDownOption();
-            option.setOption(str.getStrategyName());
+            option.setOption(str.getStrategyNameWithId());
             option.setValue(String.valueOf((str.getStrategyId())));
             dropDownList.add(option);
         }

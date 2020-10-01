@@ -53,7 +53,6 @@ async function checkConnectionStatus(){
 
         //Recconect in 5 second
         await new Promise(resolve => setTimeout(resolve, 5000));
-        await checkConnectionStatus();
 
     } else {
         let message = await response.json();
@@ -63,15 +62,15 @@ async function checkConnectionStatus(){
             s.innerHTML = "TWS: CONNECTED";
             s.style.color = "greenyellow"
             a.innerHTML = message.account;
+            await new Promise(resolve => setTimeout(resolve, 10000));
         } else {
             s.innerHTML = "TWS: DISCONNECTED";
             s.style.color = "red"
             a.innerHTML ="";
+            await new Promise(resolve => setTimeout(resolve, 1000));
         }
-        //Recconect in 10 second
-        await new Promise(resolve => setTimeout(resolve, 10000));
-        await checkConnectionStatus();
-    }    
+    }
+    await checkConnectionStatus();
 }
 
 
