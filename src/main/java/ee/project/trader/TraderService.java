@@ -159,7 +159,7 @@ public class TraderService {
         orderIdList.add(parentOrderId);
 
 
-        if (order.getProfitTaker() != null) {
+        if (order.getProfitTaker() != null && order.getProfitTaker() > 0) {
             System.out.println("ProfitTaker");
             if (order.getOrderAction().equals("BUY")) {
               //  System.out.println("Parent orderAction: " + order.getOrderAction());

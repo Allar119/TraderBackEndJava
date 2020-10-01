@@ -10,6 +10,7 @@
 	</parent>
 	<groupId>ee.project</groupId>
 	<artifactId>trader</artifactId>
+
 	<version>0.0.1-SNAPSHOT</version>
 	<name>trader</name>
 	<description>IB Auto Trader Application</description>
@@ -58,6 +59,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
