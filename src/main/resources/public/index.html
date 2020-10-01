@@ -20,7 +20,7 @@
             </div>
             <div class="div1">
                 <label class="label" for="orderSymbol" >SYMBOL</label><br>
-                <select class="input" type="text" id="orderSymbol" style="width: 100px" onchange="changeTicker()">
+                <select class="input" type="text" id="orderSymbol" style="width: 100px" onchange="changeTicker()" onload="changeTicker()">
                     <!--<option disabled selected hidden >AAAA</option>-->
                 </select>
             </div>
@@ -216,8 +216,6 @@
 
         function fillTickerStrategyTable(jsonData){
 
-            console.log(jsonData.symbol);
-
             tsTable.innerHTML = "";
 
                 let row = tsTable.insertRow();
@@ -255,7 +253,7 @@
         }
 
         function populateDropDown(dropDownId, jsonData){
-            let dropDown = document.getElementById(dropDownId);
+            let dropDown = document.getElementById(dropDownId)
             for(let i = 0; i < jsonData.length; i++){
                 let option = document.createElement("option")
                 option.value = jsonData[i].value;
@@ -305,7 +303,12 @@
         async function getTickerInfo(symbol){
             let response = await fetch('/gettickerstrategy/' + symbol)
 
-            if (symbol == orderSymbol.value) {
+            //if (response.status === 404){
+            //    await getTickerInfo(orderSymbol.value);
+            //}
+
+           if (symbol === orderSymbol.value) {
+
                 if (response.status !== 200) {
                     console.log(response.statusText);
 
@@ -317,6 +320,28 @@
 
                 await new Promise(resolve => setTimeout(resolve, 2500));
                 await getTickerInfo(symbol);
+           }
+        }
+
+        async function getTickerValue(){
+
+            if (orderSymbol.value < 2){
+                await new Promise(resolve => setTimeout(resolve, 50));
+                await getTickerValue()
+            }
+            else{
+                return orderSymbol.value;
+            }
+        }
+
+        async function initTickerInfo() {
+            let response = await getTickerValue();
+
+            if (response !== null){
+                await getTickerInfo(orderSymbol.value);
+            } else {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                await initTickerInfo();
             }
         }
 
@@ -324,6 +349,10 @@
             fetchDropDownList("/gettickersymbols", "GET", "orderSymbol")
             fetchDropDownList("/getstrategies", "GET", "strategy");
             getOrders();
+            initTickerInfo();
+            //getTickerInfo(orderSymbol.value);
+            //getTickerInfo(getTickerValue());
+            //getTickerValue();
         }
 
     </script>
