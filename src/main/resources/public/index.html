@@ -323,25 +323,17 @@
            }
         }
 
-        async function getTickerValue(){
-
-            if (orderSymbol.value < 2){
-                await new Promise(resolve => setTimeout(resolve, 50));
-                await getTickerValue()
-            }
-            else{
-                return orderSymbol.value;
-            }
-        }
-
-        async function initTickerInfo() {
-            let response = await getTickerValue();
-
-            if (response !== null){
+        async function initTickerInfo(counter){
+            if (orderSymbol.value.length > 2){
+                console.log("true: " + orderSymbol.value);
                 await getTickerInfo(orderSymbol.value);
-            } else {
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                await initTickerInfo();
+            }
+            else if (counter > 100){
+                console.log("ERROR: No Ticker Symbol Found!");
+            }
+            else {
+                await new Promise(resolve => setTimeout(resolve, 50));
+                await initTickerInfo(++counter)
             }
         }
 
@@ -349,10 +341,7 @@
             fetchDropDownList("/gettickersymbols", "GET", "orderSymbol")
             fetchDropDownList("/getstrategies", "GET", "strategy");
             getOrders();
-            initTickerInfo();
-            //getTickerInfo(orderSymbol.value);
-            //getTickerInfo(getTickerValue());
-            //getTickerValue();
+            initTickerInfo(0);
         }
 
     </script>
