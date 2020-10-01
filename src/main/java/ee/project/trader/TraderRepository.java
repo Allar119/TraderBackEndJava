@@ -364,6 +364,13 @@ public class TraderRepository {
         String sql = "SELECT strategy_name, strategy_id FROM strategy_selection";
         return jdbcTemplate.query(sql, new HashMap<>(), new StrategiesRowMapper());
     }
+
+    public StrategyDetails getTickerStrategy(String symbol) {
+        String sql = "SELECT * FROM ticker WHERE symbol = :symbol";
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("symbol", symbol);
+        return jdbcTemplate.queryForObject(sql, paramMap, new StrategyRowMapper());
+    }
 }
 
 

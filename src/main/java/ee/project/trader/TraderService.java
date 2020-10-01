@@ -257,4 +257,8 @@ public class TraderService {
         System.out.println("TraderService changeStatus()");
         // Muudame orderi statuse databaasis, kui täidetud
     }
+
+    public StrategyDetails getTickerStrategy(String symbol) {
+        return traderRepository.getTickerStrategy(symbol);
+    }
 }

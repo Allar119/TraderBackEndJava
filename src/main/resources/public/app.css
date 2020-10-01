@@ -6,6 +6,7 @@
     --back-primary:#9db6cc;
     --back-secondary: #333;
     --color-option1: rgb(22, 22, 22);
+    --color-oprion2: #507392;
 }
 
 *{
@@ -85,9 +86,6 @@ ul li:hover{
     background-color: var(--color-option1);    
 }
 
-
-
-
 .container{
     display: flex;
     justify-content: center;
@@ -95,7 +93,7 @@ ul li:hover{
     background-color: #9db6cc;
     max-width: 80%;
     margin: auto;
-    border-radius: 0.0rem;    
+    border-radius: .0rem;    
 }
 
 .div1{    
@@ -111,10 +109,9 @@ ul li:hover{
 }
 
 input, select{
-    font-size: 1.0rem;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
+    font-weight: 800;
     text-align: center;
+    letter-spacing: 1px;
     height: 1.8rem;
     border: solid 1px;
     border-radius: 0.3rem;
@@ -131,9 +128,9 @@ input[type=text]:focus::placeholder{
 }
 
 .button{
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.0rem;
-    font-weight: bolder;
+    font-weight: 600;
+    letter-spacing: 1px;
     color: seashell;
     height: 2.0rem;
     width: 10.0rem;
@@ -178,24 +175,24 @@ button:hover{
 }
 
 .myTable {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
 
 .myTable td, .myTable th {
-    border: 1px solid #ddd;
     padding-left : 0.5rem;
     padding-right : 0.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--text-secondary);
     background-color: var(--back-primary);
 }
 
 .myTable th {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    text-align: left;
-    background-color: var(--back-primary);
-    color: white;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background-color: var(--color-oprion2);
+    color: var(--text-secondary);
 }
 
 .myTable tr:hover {background-color: #ddd;}

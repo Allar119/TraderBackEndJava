@@ -101,4 +101,9 @@ public class TraderController {
     public ConnectionStatus checkConnectionStatusc() throws InterruptedException {
         return traderService.checkConnectionStatus();
     }
+
+    @GetMapping("/gettickerstrategy/{symbol}")
+    public StrategyDetails getTickerStrategy (@PathVariable String symbol) {
+        return traderService.getTickerStrategy(symbol);
+    }
 }

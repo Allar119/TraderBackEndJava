@@ -47,8 +47,6 @@
                     cells.push(row.insertCell(i));
                 }
 
-                cells[1].style.transitionDuration = "0.5s";
-
                 cells[0].innerHTML = jsonData[i].symbol;
                 cells[1].innerHTML = jsonData[i].marketPrice.toFixed(2); //ümarda 2 koma kohani
                 cells[2].innerHTML = jsonData[i].priceRapid;
@@ -64,10 +62,8 @@
 
                     if (cells[i].innerHTML == "BUY"){
                         cells[i].style.color = "green";
-                        cells[i].style.transitionDuration = "0.5s";
                     } else {
                         cells[i].style.color = "red";
-                        cells[i].style.transitionDuration = "0.5s";
                     }
                 }
             }
