@@ -187,9 +187,8 @@ button:hover{
     border: 1px solid #ddd;
     padding-left : 0.5rem;
     padding-right : 0.5rem;
+    background-color: var(--back-primary);
 }
-
-.myTable tr:hover {background-color: #ddd;}
 
 .myTable th {
     padding-top: 0.5rem;
@@ -198,3 +197,5 @@ button:hover{
     background-color: var(--back-primary);
     color: white;
 }
+
+.myTable tr:hover {background-color: #ddd;}
