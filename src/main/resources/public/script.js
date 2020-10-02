@@ -8,7 +8,7 @@ addTxt("" , "status_d", "status")
 addPages("ORDERS", "index.html");
 addPages("TICKERS", "tickers.html");
 addPages("STRATEGY", "strategy.html");
-addPages("SETTING", "settings.html", );
+addPages("SETTINGS", "settings.html", );
 
 function addPages (name, url) {
     let listItem = document.createElement("li")
