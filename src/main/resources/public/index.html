@@ -19,9 +19,9 @@
                 </select>
             </div>
             <div class="div1">
-                <label class="label" for="orderSymbol">SYMBOL</label><br>
-                <select class="input" type="text" id="orderSymbol" style="width: 100px">
-                    <option disabled selected hidden >AAAA</option>
+                <label class="label" for="orderSymbol" >SYMBOL</label><br>
+                <select class="input" type="text" id="orderSymbol" style="width: 100px" onchange="changeTicker()" onload="changeTicker()">
+                    <!--<option disabled selected hidden >AAAA</option>-->
                 </select>
             </div>
             <div class="div1">
@@ -72,6 +72,26 @@
         <br>
 
         <div class="container">
+            <table class="myTable" id="tickerStrategyTable">
+                <thead>
+                <tr text-align="center" valign="middle">
+                    <th>Ticker</th>
+                    <th>Price</th>
+                    <th>Price/Rapid</th>
+                    <th>Price/Quick</th>
+                    <th>Price/Slow</th>
+                    <th>Rapid/Quick</th>
+                    <th>Rapid/Slow</th>
+                    <th>Quick/Slow</th>
+                </tr>
+                </thead>
+                <tbody id="tstBody">
+                </tbody>
+            </table>
+        </div>
+        <br>
+
+        <div class="container">
             <table class="myTable" id="ordersTable">
                 <thead>
                 <tr text-align="center" valign="middle">
@@ -88,10 +108,10 @@
                     <th></th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="otBody">
                 </tbody>
             </table>
-        </div>        
+        </div>
     </main>
 
     <script type="text/javascript" src="script.js"></script>
@@ -107,6 +127,9 @@
         let profitTaker = document.getElementById("profitTaker");
         let valid = document.getElementById("valid");
         let submitOrderButton = document.getElementById("submitOrder");
+
+        let orderTable = document.getElementById("ordersTable").getElementsByTagName('tbody')[0];
+        let tsTable = document.getElementById("tickerStrategyTable").getElementsByTagName('tbody')[0];
 
         submitOrderButton.onclick = function submitOrder() {
 
@@ -136,29 +159,6 @@
             }
         }
 
-        let orderTable = document.getElementById("ordersTable").getElementsByTagName('tbody')[0];
-
-        function getOrders() {
-            fetch('/getorderlist', {
-                method: 'GET',
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-                .then(function(response) {
-                    return response.json();
-                })
-                .then(function(jsonData) {
-                    console.log(jsonData);
-                    fillOrderTable(jsonData);
-                    
-                })
-                .catch(function(err) {
-                    console.log("Error:" + err);
-                });
-        }
-        
         function deleteOrder(id){
             fetch('/deleteorder/' + id, {
                 method: 'DELETE',
@@ -194,7 +194,6 @@
                 else{
                     cell0.innerHTML = "&#8627";
                 }
-                //cell0.innerHTML = jsonData[i].id;
                 cell1.innerHTML = jsonData[i].parentOrderId;
                 cell2.innerHTML = jsonData[i].algoId;
                 cell3.innerHTML = jsonData[i].symbol;
@@ -213,11 +212,48 @@
                 }
                 cell10.append(newButton);
             }
-            setTimeout(getOrders, 2000);
+        }
+
+        function fillTickerStrategyTable(jsonData){
+
+            tsTable.innerHTML = "";
+
+                let row = tsTable.insertRow();
+                let cells =[];
+
+                for (let i = 0; i < 8; i++){
+                    cells.push(row.insertCell(i));
+                }
+
+                cells[0].innerHTML = jsonData.symbol;
+                cells[1].innerHTML = jsonData.marketPrice.toFixed(2); //ümarda 2 koma kohani
+                cells[2].innerHTML = jsonData.priceRapid;
+                cells[3].innerHTML = jsonData.priceQuick;
+                cells[4].innerHTML = jsonData.priceSlow;
+                cells[5].innerHTML = jsonData.rapidQuick;
+                cells[6].innerHTML = jsonData.rapidSlow;
+                cells[7].innerHTML = jsonData.quickSlow;
+
+
+                for (let i = 2; i < cells.length; i++){
+
+                    cells[i].style.fontWeight = "600";
+
+                    if (cells[i].innerHTML == "BUY"){
+                        cells[i].style.color = "green";
+                    } else {
+                        cells[i].style.color = "red";
+                    }
+                }
+
+        }
+
+        function changeTicker(){
+            getTickerInfo(orderSymbol.value)
         }
 
         function populateDropDown(dropDownId, jsonData){
-            let dropDown = document.getElementById(dropDownId);
+            let dropDown = document.getElementById(dropDownId)
             for(let i = 0; i < jsonData.length; i++){
                 let option = document.createElement("option")
                 option.value = jsonData[i].value;
@@ -248,10 +284,61 @@
                 });
         }
 
+        async function getOrders() {
+            let response = await fetch('/getorderlist')
+
+            if (response.status !== 200) {
+                console.log(response.statusText);
+
+            } else {
+                let jsonData = await response.json();
+                console.log(jsonData);
+                fillOrderTable(jsonData);
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 2500));
+            await getOrders();
+        }
+
+        async function getTickerInfo(symbol){
+            let response = await fetch('/gettickerstrategy/' + symbol)
+
+
+           if (symbol === orderSymbol.value) {
+
+                if (response.status !== 200) {
+                    console.log(response.statusText);
+
+                } else {
+                    let jsonData = await response.json();
+                    console.log(jsonData);
+                    fillTickerStrategyTable(jsonData);
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 2500));
+                await getTickerInfo(symbol);
+           }
+        }
+
+        async function initTickerInfo(counter){
+            if (orderSymbol.value.length > 2){
+                console.log("true: " + orderSymbol.value);
+                await getTickerInfo(orderSymbol.value);
+            }
+            else if (counter > 100){
+                console.log("ERROR: No Ticker Symbol Found!");
+            }
+            else {
+                await new Promise(resolve => setTimeout(resolve, 50));
+                await initTickerInfo(++counter)
+            }
+        }
+
         function loadPageData(){
             fetchDropDownList("/gettickersymbols", "GET", "orderSymbol")
             fetchDropDownList("/getstrategies", "GET", "strategy");
             getOrders();
+            initTickerInfo(0);
         }
 
     </script>

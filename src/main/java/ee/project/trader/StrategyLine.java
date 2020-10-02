@@ -2,7 +2,6 @@ package ee.project.trader;
 
 public class StrategyLine {
 
-
 /*
             <column name="time" type="BIGINT"/>
             <column name="symbol" type="TEXT"/>

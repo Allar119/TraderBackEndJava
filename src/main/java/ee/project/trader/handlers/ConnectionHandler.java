@@ -88,7 +88,12 @@ public class ConnectionHandler implements ApiController.IConnectionHandler {
 
     @Override
     public void message(int id, int errorCode, String errorMsg) {
-        System.out.printf("Message: id:%s, Code:%s, %s.\n", id, errorCode, errorMsg);    }
+        System.out.printf("Message: id:%s, Code:%s, %s.\n", id, errorCode, errorMsg);
+        if (errorCode == 507){
+            isConnected = false;
+            account = null;
+        }
+    }
 
     @Override
     public void show(String string) {

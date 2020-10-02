@@ -4,6 +4,13 @@ public class StrategyType {
     private String strategyName;
     private int strategyId;
 
+    public String getStrategyNameWithId() {
+        return strategyId + "-" + strategyName;
+    }
+
+    public void setStrategyNameWithId(String strategyNameWithId) {
+    }
+
     public String getStrategyName() {
         return strategyName;
     }

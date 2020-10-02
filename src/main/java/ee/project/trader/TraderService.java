@@ -246,7 +246,7 @@ public class TraderService {
 
         for (StrategyType str : traderRepository.getStrategies()) {
             DropDownOption option = new DropDownOption();
-            option.setOption(str.getStrategyName());
+            option.setOption(str.getStrategyNameWithId());
             option.setValue(String.valueOf((str.getStrategyId())));
             dropDownList.add(option);
         }
@@ -256,5 +256,9 @@ public class TraderService {
     public void changeStatus() {
         System.out.println("TraderService changeStatus()");
         // Muudame orderi statuse databaasis, kui täidetud
+    }
+
+    public StrategyDetails getTickerStrategy(String symbol) {
+        return traderRepository.getTickerStrategy(symbol);
     }
 }

@@ -3,7 +3,10 @@
     background-color: #f7f7f7;
     --text-primary: #333;
     --text-secondary: #f7f7f7;
-    --back-primary:  #9db6cc;
+    --back-primary:#9db6cc;
+    --back-secondary: #333;
+    --color-option1: rgb(22, 22, 22);
+    --color-oprion2: #507392;
 }
 
 *{
@@ -11,16 +14,14 @@
     padding: 0;    
     box-sizing: border-box;
     font-family: 'Cairo', sans-serif;
-    font-weight: lighter;
+    font-weight: 400;
     list-style: none;
 }
-
 
 body {
     margin: 0;
     padding: 0;
 }
-
 
 main {
     padding-top: 3.5rem;
@@ -28,63 +29,61 @@ main {
 
 nav {
     width: 100%;
-    height: 2.5rem;
     position: fixed;
     background-color: #333;
 }
 
 .logo{
-    color: var(--text-secondary);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 800;
     font-style: italic;
-    font-size: 1.0rem;
-    line-height: 2.5rem;
-    margin-left: 1.0rem;    
+    letter-spacing: 0.5rem;
 }
 
-.status_d {
+.status {
     color: red;
     font-style: italic;
-    font-size: 0.7rem;
-    margin-left: 1.0rem;
-    vertical-align: middle;
+    font-weight: 200;
+    font-size: 0.8rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0;
 }
 
-.status_c {
-    color: greenyellow;
-    font-style: italic;
-    font-size: 0.7rem;
-    margin-left: 1.0rem;
-    vertical-align: middle;
+.account{
+    letter-spacing: 0.1rem;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0;
 }
 
-ul{
-    float: right;
-    margin: 0;
-    height: 100%;
-    padding: 0;
+ul{    
+  list-style-type: none;
+  float: right;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
 }
 
-ul li{
-    height: 100%;
-    display: inline-block;
+li{ 
+    float: left;
 }
 
-ul li a{
-    line-height: 100%; 
-    margin-left: 5px;
-    margin-right: 5px;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--text-secondary);
+ul li a, p{
+  display: block;
+  color: white;  
+  padding: 0.4rem 0.5rem;
+  text-decoration: none;
+}
+
+p{
+    display: block;
+    float: left;
 }
 
 ul li:hover{
     font-weight: 600;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--text-secondary);
-    background-color: rgb(34, 34, 34)
+    background-color: var(--color-option1);    
 }
 
 .container{
@@ -94,7 +93,7 @@ ul li:hover{
     background-color: #9db6cc;
     max-width: 80%;
     margin: auto;
-    border-radius: 0.0rem;    
+    border-radius: .0rem;    
 }
 
 .div1{    
@@ -110,15 +109,13 @@ ul li:hover{
 }
 
 input, select{
-    font-size: 1.0rem;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
+    font-weight: 800;
     text-align: center;
+    letter-spacing: 1px;
     height: 1.8rem;
     border: solid 1px;
     border-radius: 0.3rem;
     outline: none;
-
 }
 
 input[type=text]:focus{
@@ -131,9 +128,9 @@ input[type=text]:focus::placeholder{
 }
 
 .button{
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.0rem;
-    font-weight: bolder;
+    font-weight: 600;
+    letter-spacing: 1px;
     color: seashell;
     height: 2.0rem;
     width: 10.0rem;
@@ -178,23 +175,24 @@ button:hover{
 }
 
 .myTable {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
 
 .myTable td, .myTable th {
-    border: 1px solid #ddd;
     padding-left : 0.5rem;
     padding-right : 0.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--text-secondary);
+    background-color: var(--back-primary);
+}
+
+.myTable th {
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background-color: var(--color-oprion2);
+    color: var(--text-secondary);
 }
 
 .myTable tr:hover {background-color: #ddd;}
-
-.myTable th {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    text-align: left;
-    background-color: var(--back-primary);
-    color: white;
-}
